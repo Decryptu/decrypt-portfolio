@@ -54,7 +54,7 @@ export default function Home() {
 					>
 						l'ADAN
 					</Link>{" "}
-					. Je suis le fondateur de
+					. Je suis le fondateur de 
 					<Link
 						target="_blank"
 						href="https://pandia.pro"
