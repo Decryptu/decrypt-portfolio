@@ -6,19 +6,19 @@ import { Analytics } from "./components/analytics";
 
 export const metadata: Metadata = {
 	title: {
-		default: "chronark.com",
-		template: "%s | chronark.com",
+		default: "decrypt.im",
+		template: "%s | decrypt.im",
 	},
 	description: "Graphiste et webdesigner freelance, fondateur de pandia.pro",
 	openGraph: {
-		title: "chronark.com",
+		title: "Decrypt",
 		description:
 			"Graphiste et webdesigner freelance, fondateur de pandia.pro",
-		url: "https://chronark.com",
-		siteName: "chronark.com",
+		url: "decrypt.im",
+		siteName: "Decrypt",
 		images: [
 			{
-				url: "https://chronark.com/og.png",
+				url: "https://decrypt.im/og.png",
 				width: 1920,
 				height: 1080,
 			},
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 		},
 	},
 	twitter: {
-		title: "Chronark",
+		title: "Decrypt",
 		card: "summary_large_image",
 	},
 	icons: {
