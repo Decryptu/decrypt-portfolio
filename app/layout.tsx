@@ -9,16 +9,16 @@ export const metadata: Metadata = {
 		default: "chronark.com",
 		template: "%s | chronark.com",
 	},
-	description: "Software engineer at upstash.com and founder of planetfall.io",
+	description: "Graphiste et webdesigner freelance, fondateur de pandia.pro",
 	openGraph: {
 		title: "chronark.com",
 		description:
-			"Software engineer at upstash.com and founder of planetfall.io",
+			"Graphiste et webdesigner freelance, fondateur de pandia.pro",
 		url: "https://chronark.com",
 		siteName: "chronark.com",
 		images: [
 			{
-				url: "https://chronark.com/og.png",
+				url: "https://decrypt.im/og.png",
 				width: 1920,
 				height: 1080,
 			},
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 		},
 	},
 	twitter: {
-		title: "Chronark",
+		title: "DecryptTV",
 		card: "summary_large_image",
 	},
 	icons: {
