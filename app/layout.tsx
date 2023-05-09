@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 	},
 	description: "Graphiste et webdesigner freelance, fondateur de pandia.pro",
 	openGraph: {
-		title: "chronark.com",
+		title: "Decrypt",
 		description:
 			"Graphiste et webdesigner freelance, fondateur de pandia.pro",
 		url: "https://chronark.com",
