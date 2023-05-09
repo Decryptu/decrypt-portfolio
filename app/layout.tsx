@@ -6,24 +6,24 @@ import { Analytics } from "./components/analytics";
 
 export const metadata: Metadata = {
 	title: {
-		default: "upstach.com",
-		template: "%s | upstach.com",
+		default: "chronark.com",
+		template: "%s | chronark.com",
 	},
-	description: "Graphiste et webdesigner freelance, fondateur de pandia.pro",
+	description: "Software engineer at upstash.com and founder of planetfall.io",
 	openGraph: {
-		title: "Decrypt",
+		title: "chronark.com",
 		description:
-			"Graphiste et webdesigner freelance, fondateur de pandia.pro",
-		url: "decrypt.im",
-		siteName: "Decrypt",
+			"Software engineer at upstash.com and founder of planetfall.io",
+		url: "https://chronark.com",
+		siteName: "chronark.com",
 		images: [
 			{
-				url: "https://decrypt.im/og.png",
+				url: "https://chronark.com/og.png",
 				width: 1920,
 				height: 1080,
 			},
 		],
-		locale: "fr-FR",
+		locale: "en-US",
 		type: "website",
 	},
 	robots: {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 		},
 	},
 	twitter: {
-		title: "Decrypt",
+		title: "Chronark",
 		card: "summary_large_image",
 	},
 	icons: {
