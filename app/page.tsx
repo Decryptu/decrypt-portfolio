@@ -54,14 +54,14 @@ export default function Home() {
 					>
 						l'ADAN
 					</Link>{" "}
-					. Je suis le fondateur de 
+					. Je suis le fondateur de{" "}
 					<Link
 						target="_blank"
 						href="https://pandia.pro"
 						className="underline duration-500 hover:text-zinc-300"
 					>
 						PandIA
-					</Link>{" "}
+					</Link>
 					.
 				</h2>
 			</div>
