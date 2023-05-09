@@ -63,11 +63,11 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 							} `}
 						>
 							<Eye className="w-5 h-5" />{" "}
-							{Intl.NumberFormat("en-US", { notation: "compact" }).format(
+							{Intl.NumberFormat("fr-FR", { notation: "compact" }).format(
 								views,
 							)}
 						</span>
-						<Link target="_blank" href="https://twitter/chronark_">
+						<Link target="_blank" href="https://twitter/decrypttv">
 							<Twitter
 								className={`w-6 h-6 duration-200 hover:font-medium ${
 									isIntersecting
@@ -76,7 +76,7 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 								} `}
 							/>
 						</Link>
-						<Link target="_blank" href="https://github.com/chronark">
+						<Link target="_blank" href="https://github.com/decryptu">
 							<Github
 								className={`w-6 h-6 duration-200 hover:font-medium ${
 									isIntersecting

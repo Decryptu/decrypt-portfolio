@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 		default: "chronark.com",
 		template: "%s | chronark.com",
 	},
-	description: "Software engineer at upstash.com and founder of planetfall.io",
+	description: "Graphiste et webdesigner freelance, fondateur de pandia.pro",
 	openGraph: {
 		title: "chronark.com",
 		description:
-			"Software engineer at upstash.com and founder of planetfall.io",
+			"Graphiste et webdesigner freelance, fondateur de pandia.pro",
 		url: "https://chronark.com",
 		siteName: "chronark.com",
 		images: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 				height: 1080,
 			},
 		],
-		locale: "en-US",
+		locale: "fr-FR",
 		type: "website",
 	},
 	robots: {
