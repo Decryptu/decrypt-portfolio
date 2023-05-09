@@ -6,8 +6,8 @@ import { Analytics } from "./components/analytics";
 
 export const metadata: Metadata = {
 	title: {
-		default: "chronark.com",
-		template: "%s | chronark.com",
+		default: "Decrypt",
+		template: "%s | Decrypt",
 	},
 	description: "Graphiste et webdesigner freelance, fondateur de pandia.pro",
 	openGraph: {
