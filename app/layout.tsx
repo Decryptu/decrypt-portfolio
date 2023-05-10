@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 		},
 	},
 	twitter: {
-		title: "DecryptTV",
+		title: "Decrypt",
 		card: "summary_large_image",
 	},
 	icons: {
