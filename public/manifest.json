@@ -22,7 +22,7 @@
     "id": "/?source=pwa",
     "start_url": "/?source=pwa",
     "background_color": "#050506",
-    "display": "fullscreen",
+    "display" : "standalone",
     "scope": "/",
     "theme_color": "#050506",
     "shortcuts": [
