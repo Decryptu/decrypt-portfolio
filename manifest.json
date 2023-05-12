@@ -1,0 +1,59 @@
+{
+    "short_name": "Decrypt",
+    "name": "Decrypt's Portfolio",
+    "icons": [
+        {
+        "src": "/maskable_icon_x512.png",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "maskable"
+        },
+        {
+        "src": "/icons-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+        },
+        {
+        "src": "/icons-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+        }
+    ],
+    "id": "/?source=pwa",
+    "start_url": "/?source=pwa",
+    "background_color": "#050506",
+    "display": "fullscreen",
+    "scope": "/",
+    "theme_color": "#050506",
+    "shortcuts": [
+      {
+        "name": "Mes projets",
+        "short_name": "Projets",
+        "description": "Voir les projets auxquels j'ai participé",
+        "url": "/projects/?source=pwa",
+        "icons": [{ "src": "/icons-192.png", "sizes": "192x192" }]
+      },
+      {
+        "name": "Me contacter",
+        "short_name": "Contact",
+        "description": "Mes réseaux sociaux et mon mail",
+        "url": "/contact/?source=pwa",
+        "icons": [{ "src": "/icons-192.png", "sizes": "192x192" }]
+      }
+    ],
+    "description": "Graphiste et Web Designer Freelance",
+    "screenshots": [
+      {
+        "src": "/screenshot1.png",
+        "type": "image/png",
+        "sizes": "540x720",
+        "form_factor": "narrow"
+      },
+      {
+        "src": "/screenshot2.png",
+        "type": "image/png",
+        "sizes": "720x540",
+        "form_factor": "wide"
+      }
+    ]
+  }
