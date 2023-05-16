@@ -20,6 +20,7 @@ const generateSitemap = async () => {
 
   sitemap({
     baseUrl: 'https://decrypt.im',
+    pagesDirectory: join(__dirname, 'app'),
     pages,
     targetDirectory: 'public',
   });
