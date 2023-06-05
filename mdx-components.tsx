@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
-import ImageWithModal from './app/components/ImageWithModal';
 
+// This file is required to use MDX in `app` directory.
 export function useMDXComponents(components: any): any {
 	return {
 		// Allows customizing built-in components, e.g. to add styling.
@@ -12,7 +12,6 @@ export function useMDXComponents(components: any): any {
 		h2: ({ children }: PropsWithChildren) => (
 			<h2 className="text-zinc-50">{children}</h2>
 		),
-    ImageWithModal, // Adds ImageWithModal to the available components in MDX
 		...components,
 	};
 }
