@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ClickableImageProps {
   src: string;
@@ -9,6 +9,10 @@ interface ClickableImageProps {
 
 const ClickableImage = ({ src, alt }: ClickableImageProps) => {
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = show ? "hidden" : "auto";
+  }, [show]);
 
   const handleClick = () => {
     setShow(true);
@@ -31,7 +35,7 @@ const ClickableImage = ({ src, alt }: ClickableImageProps) => {
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50"
           onClick={handleClose}
         >
-          <img src={src} alt={alt} className="max-w-full h-[90vh] object-contain" />
+          <img src={src} alt={alt} className="max-w-full h-[95vh] object-contain" />
         </div>
       )}
     </>
