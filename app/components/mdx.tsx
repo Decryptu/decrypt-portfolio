@@ -3,6 +3,8 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMDXComponent } from "next-contentlayer/hooks";
+import EnlargeableImage from './EnlargeableImage';
+import Modal from "react-modal";
 
 function clsx(...args: any) {
 	return args.filter(Boolean).join(" ");
@@ -95,18 +97,9 @@ const components = {
 			{...props}
 		/>
 	),
-	img: ({
-		className,
-		alt,
-		...props
-	}: React.ImgHTMLAttributes<HTMLImageElement>) => (
-		// eslint-disable-next-line @next/next/no-img-element
-		<img
-			className={clsx("rounded-md border border-zinc-200", className)}
-			alt={alt}
-			{...props}
-		/>
-	),
+	img: ({ className, alt, ...props }) => (
+		<EnlargeableImage className={clsx("rounded-md border border-zinc-200", className)} alt={alt} {...props} />
+	),	  
 	hr: ({ ...props }) => (
 		<hr className="my-4 border-zinc-200 md:my-8" {...props} />
 	),
