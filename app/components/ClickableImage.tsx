@@ -35,9 +35,7 @@ const ClickableImage = ({ src, alt }: ClickableImageProps) => {
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-x-auto"
           onClick={handleClose}
         >
-          <div className="relative h-[95vh]">
-            <img src={src} alt={alt} className="absolute inset-0 h-full object-cover" />
-          </div>
+          <img src={src} alt={alt} className="max-h-[95vh] w-auto" />
         </div>
       )}
     </>
