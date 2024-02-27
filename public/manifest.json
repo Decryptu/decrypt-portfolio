@@ -27,21 +27,21 @@
     "theme_color": "#050506",
     "shortcuts": [
       {
-        "name": "Mes projets",
-        "short_name": "Projets",
-        "description": "Voir les projets auxquels j'ai participé",
+        "name": "My Projects",
+        "short_name": "Projects",
+        "description": "View the projects I have been involved in",
         "url": "/projects/?source=pwa",
         "icons": [{ "src": "/icons-192.png", "sizes": "192x192" }]
       },
       {
-        "name": "Me contacter",
+        "name": "Contact Me",
         "short_name": "Contact",
-        "description": "Mes réseaux sociaux et mon mail",
+        "description": "My social networks and email",
         "url": "/contact/?source=pwa",
         "icons": [{ "src": "/icons-192.png", "sizes": "192x192" }]
       }
     ],
-    "description": "Graphiste et Web Designer Freelance",
+    "description": "Freelance Graphic and Web Designer",
     "screenshots": [
       {
         "src": "/screenshot1.png",
