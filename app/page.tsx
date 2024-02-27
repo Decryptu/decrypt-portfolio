@@ -35,7 +35,7 @@ export default function Home() {
 			<div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
 			<div className="my-16 text-center animate-fade-in">
 				<h2 className="text-sm text-zinc-500 ">
-				Bonjour, je suis Decrypt, un graphiste et web designer freelance ayant travaillé entre autre pour {" "}
+				Hello, I am Decrypt, a freelance graphic designer and web designer who has worked, among others, for {" "}
 					<Link
 						target="_blank"
 						href="https://cryptoast.fr"
@@ -45,15 +45,15 @@ export default function Home() {
 					</Link>
 
 					<br />
-					et {" "}
+					& {" "}
 					<Link
 						target="_blank"
 						href="https://adan.eu"
 						className="underline duration-500 hover:text-zinc-300"
 					>
-						l'ADAN
+						ADAN
 					</Link>
-					. Je suis également le fondateur de{" "}
+					. I am also the founder of{" "}
 					<Link
 						target="_blank"
 						href="https://pandia.pro"
@@ -61,7 +61,7 @@ export default function Home() {
 					>
 						PandIA
 					</Link>
-					, un média spécialisé sur l'intelligence artificielle.
+					, a media outlet specializing in artificial intelligence.
 				</h2>
 			</div>
 		</div>
