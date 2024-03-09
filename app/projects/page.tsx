@@ -7,36 +7,37 @@ import { Article } from "./article";
 import { Redis } from "@upstash/redis";
 import { Eye } from "lucide-react";
 
-// Check if Redis configuration is available
-const isRedisConfigured = process.env.UPSTASH_REDIS_REST_URL;
+// Determine if we're in a production environment
+const isProduction = process.env.NODE_ENV === 'production';
 
-// Mock function to simulate fetching page views for local development
-async function getMockPageViews(slugs: string[]): Promise<Record<string, number>> {
-  return slugs.reduce((acc, slug) => {
-    acc[slug] = Math.floor(Math.random() * 100); // Generate random views count
-    return acc;
-  }, {} as Record<string, number>);
-}
-
-const redis = isRedisConfigured ? Redis.fromEnv() : null;
+// Initialize Redis only if in a production environment
+const redis = isProduction ? Redis.fromEnv() : null;
 
 export const revalidate = 60;
 
+// Define a type for the views object
+type ViewsType = {
+  [key: string]: number;
+};
+
 export default async function ProjectsPage() {
-  let views: Record<string, number>;
+  let views: ViewsType; // Use the ViewsType for the views object
 
   if (redis) {
     views = (
       await redis.mget<number[]>(
         ...allProjects.map((p) => ["pageviews", "projects", p.slug].join(":")),
       )
-    ).reduce((acc, v, i) => {
+    ).reduce((acc: ViewsType, v, i) => { // Explicitly type the accumulator as ViewsType
       acc[allProjects[i].slug] = v ?? 0;
       return acc;
-    }, {} as Record<string, number>);
+    }, {});
   } else {
-    // Use mock function for local development
-    views = await getMockPageViews(allProjects.map((p) => p.slug));
+    // In local development, mock the page views or set them to 0
+    views = allProjects.reduce((acc: ViewsType, project) => { // Explicitly type the accumulator as ViewsType
+      acc[project.slug] = 0; // Or use a mock value as needed
+      return acc;
+    }, {});
   }
 
   const featured = allProjects.find((project) => project.slug === "pandia")!;
