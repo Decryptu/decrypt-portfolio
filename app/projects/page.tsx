@@ -20,9 +20,7 @@ export default async function ProjectsPage() {
 		return acc;
 	}, {} as Record<string, number>);
 
-	const featured = allProjects.find(
-		(project) => project.slug === "pandia",
-	)!;
+	const featured = allProjects.find((project) => project.slug === "pandia")!;
 	const top2 = allProjects.find((project) => project.slug === "cryptoast")!;
 	const top3 = allProjects.find((project) => project.slug === "crafted")!;
 	const sorted = allProjects
@@ -48,7 +46,7 @@ export default async function ProjectsPage() {
 						Projects
 					</h2>
 					<p className="mt-4 text-zinc-400">
-					Here is a list of projects I have contributed to.
+						Here is a list of projects I have contributed to.
 					</p>
 				</div>
 				<div className="w-full h-px bg-zinc-800" />
@@ -87,7 +85,7 @@ export default async function ProjectsPage() {
 									{featured.description}
 								</p>
 								<div className="absolute bottom-4 md:bottom-8">
-								<p className="text-zinc-200 hover:text-zinc-50 hidden lg:block">
+									<p className="text-zinc-200 hover:text-zinc-50 hidden lg:block">
 										Read more <span aria-hidden="true">&rarr;</span>
 									</p>
 								</div>

@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 		default: "Decrypt",
 		template: "%s | Decrypt",
 	},
-	description: "Freelance graphic designer and web designer, founder of pandia.pro",
+	description:
+		"Freelance graphic designer and web designer, founder of pandia.pro",
 	openGraph: {
 		title: "Decrypt",
 		description:

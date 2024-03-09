@@ -13,11 +13,11 @@ module.exports = {
 			typography: {
 				DEFAULT: {
 					css: {
-						'code::before': {
-							content: '""'
+						"code::before": {
+							content: '""',
 						},
-						'code::after': {
-							content: '""'
+						"code::after": {
+							content: '""',
 						},
 					},
 				},
@@ -102,7 +102,7 @@ module.exports = {
 					},
 				},
 			},
-		}
+		},
 	},
 	plugins: [
 		require("@tailwindcss/typography"),
