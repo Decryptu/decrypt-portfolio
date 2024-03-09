@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 		title: "Decrypt",
 		description:
 			"Freelance graphic designer and web designer, founder of pandia.pro",
-		url: "https://chronark.com",
+		url: "https://decrypt.im/",
 		siteName: "decrypt.im",
 		images: [
 			{
