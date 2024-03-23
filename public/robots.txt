@@ -1,0 +1,7 @@
+# robots.txt generated for https://decrypt.im
+User-agent: *
+Disallow: /_next/static/
+Disallow: /pages/api/
+
+# Sitemap location
+Sitemap: https://decrypt.im/sitemap.xml
