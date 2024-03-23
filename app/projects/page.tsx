@@ -8,7 +8,7 @@ import { Redis } from "@upstash/redis";
 import { Eye } from "lucide-react";
 
 // Determine if we're in a production environment
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === "production";
 
 // Initialize Redis only if in a production environment
 const redis = isProduction ? Redis.fromEnv() : null;
@@ -26,15 +26,17 @@ export default async function ProjectsPage() {
   if (redis) {
     views = (
       await redis.mget<number[]>(
-        ...allProjects.map((p) => ["pageviews", "projects", p.slug].join(":")),
+        ...allProjects.map((p) => ["pageviews", "projects", p.slug].join(":"))
       )
-    ).reduce((acc: ViewsType, v, i) => { // Explicitly type the accumulator as ViewsType
+    ).reduce((acc: ViewsType, v, i) => {
+      // Explicitly type the accumulator as ViewsType
       acc[allProjects[i].slug] = v ?? 0;
       return acc;
     }, {});
   } else {
     // In local development, mock the page views or set them to 0
-    views = allProjects.reduce((acc: ViewsType, project) => { // Explicitly type the accumulator as ViewsType
+    views = allProjects.reduce((acc: ViewsType, project) => {
+      // Explicitly type the accumulator as ViewsType
       acc[project.slug] = 0; // Or use a mock value as needed
       return acc;
     }, {});
@@ -49,12 +51,12 @@ export default async function ProjectsPage() {
       (project) =>
         project.slug !== featured.slug &&
         project.slug !== top2.slug &&
-        project.slug !== top3.slug,
+        project.slug !== top3.slug
     )
     .sort(
       (a, b) =>
         new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -
-        new Date(a.date ?? Number.POSITIVE_INFINITY).getTime(),
+        new Date(a.date ?? Number.POSITIVE_INFINITY).getTime()
     );
 
   return (
@@ -102,6 +104,16 @@ export default async function ProjectsPage() {
                 <p className="mt-4 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300">
                   {featured.description}
                 </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {featured.tags?.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 text-xs font-medium text-zinc-200 bg-zinc-800 border border-zinc-700 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
                 <div className="absolute bottom-4 md:bottom-8">
                   <p className="text-zinc-200 hover:text-zinc-50 hidden lg:block">
                     Read more <span aria-hidden="true">&rarr;</span>
