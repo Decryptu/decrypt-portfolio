@@ -1,5 +1,5 @@
 "use client";
-import { Dribbble, Mail, Twitter } from "lucide-react";
+import { Github, Mail, Twitter } from "lucide-react";
 import Link from "next/link";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
@@ -18,10 +18,10 @@ const socials = [
 		handle: "louis.vicomte@proton.me",
 	},
 	{
-		icon: <Dribbble size={20} />,
-		href: "https://dribbble.com/Decrypt",
-		label: "Dribbble",
-		handle: "Decrypt",
+		icon: <Github size={20} />,
+		href: "https://github.com/Decryptu",
+		label: "Github",
+		handle: "Decryptu",
 	},
 ];
 

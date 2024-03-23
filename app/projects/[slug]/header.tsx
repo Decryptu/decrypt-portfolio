@@ -1,5 +1,5 @@
 "use client";
-import { ArrowLeft, Eye, Dribbble, Twitter } from "lucide-react";
+import { ArrowLeft, Eye, Github, Twitter } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -20,8 +20,8 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 	const links: { label: string; href: string }[] = [];
 	if (project.repository) {
 		links.push({
-			label: "Dribbble",
-			href: `https://dribbble.com/${project.repository}`,
+			label: "Github",
+			href: `https://github.com/Decryptu`,
 		});
 	}
 	if (project.url) {
@@ -76,8 +76,8 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 								} `}
 							/>
 						</Link>
-						<Link target="_blank" href="https://dribbble.com/decrypt">
-							<Dribbble
+						<Link target="_blank" href="https://github.com/Decryptu">
+							<Github
 								className={`w-6 h-6 duration-200 hover:font-medium ${
 									isIntersecting
 										? " text-zinc-400 hover:text-zinc-100"
