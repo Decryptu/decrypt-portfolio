@@ -44,7 +44,6 @@ export default function Home() {
 					>
 						Cryptoast
 					</Link>
-
 					<br />&{" "}
 					<Link
 						target="_blank"
