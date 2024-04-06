@@ -9,6 +9,11 @@ interface ComponentProps extends React.HTMLAttributes<HTMLElement> {
     className?: string;
 }
 
+// Define a new interface for Link props that includes the href property
+interface LinkProps extends ComponentProps {
+    href: string; // Making href a required property
+}
+
 function clsx(...args: any) {
 	return args.filter(Boolean).join(" ");
 }
@@ -67,15 +72,17 @@ const components = {
 			{...props}
 		/>
 	),
-	a: ({ className, ...props }: ComponentProps) => (
-		<Link
-			className={clsx(
-				"font-medium text-zinc-900 underline underline-offset-4",
-				className,
-			)}
-			{...props}
-		/>
-	),
+    a: ({ className, href, ...props }: LinkProps) => (
+        <Link href={href} passHref>
+            <a
+                className={clsx(
+                    "font-medium text-zinc-900 underline underline-offset-4",
+                    className,
+                )}
+                {...props}
+            />
+        </Link>
+    ),
 	p: ({ className, ...props }: ComponentProps) => (
 		<p
 			className={clsx("leading-7 [&:not(:first-child)]:mt-6", className)}
