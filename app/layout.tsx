@@ -1,7 +1,7 @@
-import "../global.css";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
-import { Metadata } from "next";
+import "../global.css";
 import { Analytics } from "./components/analytics";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
-import { withContentlayer } from "next-contentlayer";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
 import { promises as fs } from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+import { withContentlayer } from "next-contentlayer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -34,7 +34,6 @@ generateSitemap();
 const nextConfig = {
 	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 	experimental: {
-		appDir: true,
 		mdxRs: true,
 	},
 };
