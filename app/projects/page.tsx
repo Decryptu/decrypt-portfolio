@@ -6,6 +6,7 @@ import { Card } from "../components/card";
 import { Article } from "./article";
 import { Redis } from "@upstash/redis";
 import { Eye } from "lucide-react";
+import IconMapper from "../icons/iconMapper";
 
 // Determine if we're in a production environment
 const isProduction = process.env.NODE_ENV === "production";
@@ -95,12 +96,20 @@ export default async function ProjectsPage() {
                     }).format(views[featured.slug] ?? 0)}
                   </span>
                 </div>
-                <h2
-                  id="featured-post"
-                  className="mt-4 text-3xl font-bold text-zinc-100 group-hover:text-white sm:text-4xl font-display"
-                >
-                  {featured.title}
-                </h2>
+                <div className="flex items-center gap-2">
+                  {featured.icon && (
+                    <IconMapper
+                      name={featured.icon}
+                      className="w-4 h-4 sm:w-6 sm:h-6 mt-5 text-zinc-200"
+                    />
+                  )}
+                  <h2
+                    id="featured-post"
+                    className="mt-4 text-3xl font-bold text-zinc-100 group-hover:text-white sm:text-4xl font-display"
+                  >
+                    {featured.title}
+                  </h2>
+                </div>
                 <p className="mt-4 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300">
                   {featured.description}
                 </p>
