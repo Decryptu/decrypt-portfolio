@@ -1,5 +1,5 @@
-import React from "react";
 import * as LucideIcons from "lucide-react";
+import type React from "react";
 
 // Adjust the type to ensure it's recognized as a component
 const IconMapper: React.FC<{ name: string; className?: string }> = ({

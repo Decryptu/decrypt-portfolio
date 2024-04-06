@@ -1,7 +1,7 @@
 import type { Project as GeneratedProject } from "@/.contentlayer/generated";
-import IconMapper from "../icons/iconMapper";
-import Link from "next/link";
 import { Eye } from "lucide-react";
+import Link from "next/link";
+import IconMapper from "../icons/iconMapper";
 
 type Props = {
 	project: Project;

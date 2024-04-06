@@ -1,8 +1,8 @@
-// @ts-nocheck
-import * as React from "react";
+import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import Link from "next/link";
-import { useMDXComponent } from "next-contentlayer/hooks";
+// @ts-nocheck
+import type * as React from "react";
 import ClickableImage from "./ClickableImage";
 
 function clsx(...args: any) {

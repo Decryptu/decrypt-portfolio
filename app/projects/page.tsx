@@ -1,12 +1,12 @@
+import { Redis } from "@upstash/redis";
+import { allProjects } from "contentlayer/generated";
+import { Eye } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { allProjects } from "contentlayer/generated";
-import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
-import { Article } from "./article";
-import { Redis } from "@upstash/redis";
-import { Eye } from "lucide-react";
+import { Navigation } from "../components/nav";
 import IconMapper from "../icons/iconMapper";
+import { Article } from "./article";
 
 // Determine if we're in a production environment
 const isProduction = process.env.NODE_ENV === "production";
