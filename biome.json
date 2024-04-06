@@ -4,17 +4,17 @@
 		"enabled": true
 	},
 	"linter": {
-		"ignore": ["node_modules", ".next", "dist", "**/*.mdx"],
+		"ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"],
 		"enabled": true,
 		"rules": {
 			"recommended": true
 		}
 	},
 	"formatter": {
-		"ignore": ["node_modules", ".next", "dist", "**/*.mdx"],
+		"ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"],
 		"enabled": true
 	},
 	"files": {
-		"ignore": ["node_modules", ".next", "dist", "**/*.mdx"]
+		"ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"]
 	}
 }
