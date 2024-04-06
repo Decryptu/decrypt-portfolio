@@ -46,6 +46,9 @@ export const Project = defineDocumentType(() => ({
       type: "list",
       of: { type: "string" },
     },
+    icon: {
+      type: "string",
+    },
   },
   computedFields,
 }));
