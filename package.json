@@ -12,7 +12,7 @@
     "reinstall": "pnpm cleanup && pnpm install && pnpm recursive install"
   },
   "dependencies": {
-    "@next/font": "^14.1.4",
+    "@emotion/is-prop-valid": "^1.2.2",
     "@next/mdx": "^14.1.4",
     "@types/node": "20.12.5",
     "@types/react": "18.2.74",
