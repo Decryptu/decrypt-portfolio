@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 interface ClickableImageProps {
   src: string;
@@ -12,22 +12,22 @@ const ClickableImage: React.FC<ClickableImageProps> = ({ src, alt }) => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setShow(false);
       }
     };
 
     // Effect to handle the Escape key
-    document.body.style.overflow = show ? 'hidden' : 'auto';
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = show ? "hidden" : "auto";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [show]);
 
   return (
     <>
       <img
         src={src}
-        alt={alt || 'image'}
+        alt={alt || "image"}
         onClick={() => setShow(true)}
         className="cursor-pointer rounded-md border border-zinc-200"
       />
@@ -38,7 +38,7 @@ const ClickableImage: React.FC<ClickableImageProps> = ({ src, alt }) => {
         >
           <img
             src={src}
-            alt={alt || 'image'}
+            alt={alt || "image"}
             className="max-w-full h-[95vh] object-contain"
           />
         </div>
