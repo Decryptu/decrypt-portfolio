@@ -73,7 +73,7 @@ const components = {
     />
   ),
   a: ({ className, href, ...props }: LinkProps) => (
-    <Link href={href} passHref>
+    <Link href={href} passHref legacyBehavior>
       <a
         className={clsx(
           "font-medium text-zinc-900 underline underline-offset-4",
