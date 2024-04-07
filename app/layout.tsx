@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import LocalFont from "next/font/local";
 import "../global.css";
 import { Analytics } from "./components/analytics";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
 	title: {
@@ -69,6 +70,7 @@ export default function RootLayout({
 				}`}
 			>
 				<Analytics />
+				<SpeedInsights />
 				{children}
 			</body>
 		</html>
