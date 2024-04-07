@@ -1,7 +1,6 @@
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import Link from "next/link";
-// @ts-nocheck
 import type * as React from "react";
 import ClickableImage from "./ClickableImage";
 
@@ -14,7 +13,7 @@ interface LinkProps extends ComponentProps {
   href: string; // Making href a required property
 }
 
-function clsx(...args: any) {
+function clsx(...args: (string | undefined | null)[]) {
   return args.filter(Boolean).join(" ");
 }
 const components = {
