@@ -39,7 +39,7 @@ export default function Home() {
 					has worked, among others, for{" "}
 					<Link
 						target="_blank"
-						href="https://cryptoast.fr"
+						href="https://decrypt.im/projects/cryptoast"
 						className="underline duration-500 hover:text-zinc-300"
 					>
 						Cryptoast
@@ -47,7 +47,7 @@ export default function Home() {
 					<br />&{" "}
 					<Link
 						target="_blank"
-						href="https://adan.eu"
+						href="https://decrypt.im/projects/adan"
 						className="underline duration-500 hover:text-zinc-300"
 					>
 						ADAN
@@ -55,7 +55,7 @@ export default function Home() {
 					. I am also the founder of{" "}
 					<Link
 						target="_blank"
-						href="https://pandia.pro"
+						href="https://decrypt.im/projects/pandia"
 						className="underline duration-500 hover:text-zinc-300"
 					>
 						PandIA
