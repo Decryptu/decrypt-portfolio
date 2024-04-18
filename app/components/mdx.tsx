@@ -13,6 +13,34 @@ interface LinkProps extends ComponentProps {
   href: string; // Making href a required property
 }
 
+// Define the Callout component
+interface CalloutProps {
+  emoji: string;
+  children: React.ReactNode;
+  variant?: 'default' | 'danger'; // Define allowable variants
+}
+
+const Callout: React.FC<CalloutProps> = ({ emoji, children, variant = 'default' }) => {
+  // Define base styles
+  const baseStyles = "px-4 rounded p-1 text-sm flex items-center mb-8";
+
+  // Conditional styling based on the variant
+  const variantStyles = {
+    default: "border border-neutral-200 bg-neutral-50 text-neutral-900",
+    danger: "border border-red-500 bg-red-100 text-red-800",
+  };
+
+  // Select the correct variant style, defaulting to 'default'
+  const style = `${baseStyles} ${variantStyles[variant]}`;
+
+  return (
+    <div className={style}>
+      <div className="flex items-center w-4 mr-4">{emoji}</div>
+      <div className="w-full callout">{children}</div>
+    </div>
+  );
+};
+
 function clsx(...args: (string | undefined | null)[]) {
   return args.filter(Boolean).join(" ");
 }
@@ -166,6 +194,7 @@ const components = {
     />
   ),
   Image,
+  Callout,
 };
 
 interface MdxProps {
