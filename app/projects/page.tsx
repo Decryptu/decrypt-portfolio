@@ -25,23 +25,29 @@ export default async function ProjectsPage() {
 	let views: ViewsType; // Use the ViewsType for the views object
 
 	if (redis) {
-		views = (
-			await redis.mget<number[]>(
+		try {
+			const viewsData = await redis.mget<number[]>(
 				...allProjects.map((p) => ["pageviews", "projects", p.slug].join(":")),
-			)
-		).reduce((acc: ViewsType, v, i) => {
-			// Explicitly type the accumulator as ViewsType
-			acc[allProjects[i].slug] = v ?? 0;
-			return acc;
-		}, {});
+			);
+			views = viewsData.reduce((acc: ViewsType, v, i) => {
+				acc[allProjects[i].slug] = v ?? 0;
+				return acc;
+			}, {});
+		} catch (error) {
+			console.error('Failed to fetch views from Redis:', error);
+			// Fallback or default views handling
+			views = allProjects.reduce((acc: ViewsType, project) => {
+				acc[project.slug] = 0; // Fallback to 0 views in case of error
+				return acc;
+			}, {});
+		}
 	} else {
-		// In local development, mock the page views or set them to 0
+		// Mocked views for development
 		views = allProjects.reduce((acc: ViewsType, project) => {
-			// Explicitly type the accumulator as ViewsType
 			acc[project.slug] = 0; // Or use a mock value as needed
 			return acc;
 		}, {});
-	}
+	}	
 
 	const featured = allProjects.find((project) => project.slug === "pandia")!;
 	const top2 = allProjects.find((project) => project.slug === "cryptoast")!;
