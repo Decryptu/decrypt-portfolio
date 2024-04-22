@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 		template: "%s | Decrypt",
 	},
 	description:
-		"Freelance graphic designer and web designer, founder of pandia.pro",
+		"Freelance graphic and web designer at pandia.pro, specializing in UX/UI design and front-end development.",
 	openGraph: {
 		title: "Decrypt",
 		description:
-			"Freelance graphic designer and web designer, founder of pandia.pro",
+			"Freelance graphic and web designer at pandia.pro, specializing in UX/UI design and front-end development.",
 		url: "https://decrypt.im/",
 		siteName: "decrypt.im",
 		images: [
