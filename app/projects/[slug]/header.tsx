@@ -61,7 +61,7 @@ export const Header: React.FC<Props> = ({ project, views }) => {
               title="View counter for this page"
               className={`duration-200 hover:font-medium flex items-center gap-1 ${
                 isIntersecting
-                  ? " text-zinc-400 hover:text-zinc-100 dark:text-zinc-600 dark:hover:text-zinc-900"
+                  ? " text-zinc-400 hover:text-zinc-100"
                   : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
               } `}
             >
@@ -74,7 +74,7 @@ export const Header: React.FC<Props> = ({ project, views }) => {
               <Twitter
                 className={`w-6 h-6 duration-200 hover:font-medium ${
                   isIntersecting
-                    ? " text-zinc-400 hover:text-zinc-100 dark:text-zinc-600 dark:hover:text-zinc-900"
+                    ? " text-zinc-400 hover:text-zinc-100"
                     : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                 } `}
               />
@@ -83,7 +83,7 @@ export const Header: React.FC<Props> = ({ project, views }) => {
               <Github
                 className={`w-6 h-6 duration-200 hover:font-medium ${
                   isIntersecting
-                    ? " text-zinc-400 hover:text-zinc-100 dark:text-zinc-600 dark:hover:text-zinc-900"
+                    ? " text-zinc-400 hover:text-zinc-100"
                     : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                 } `}
               />
@@ -94,7 +94,7 @@ export const Header: React.FC<Props> = ({ project, views }) => {
             href="/projects"
             className={`duration-200 hover:font-medium ${
               isIntersecting
-                ? " text-zinc-400 hover:text-zinc-100 dark:text-zinc-600 dark:hover:text-zinc-900"
+                ? " text-zinc-400 hover:text-zinc-100"
                 : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
             } `}
           >
