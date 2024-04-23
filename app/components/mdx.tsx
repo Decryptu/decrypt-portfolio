@@ -26,8 +26,8 @@ const Callout: React.FC<CalloutProps> = ({ emoji, children, variant = 'default' 
 
   // Conditional styling based on the variant
   const variantStyles = {
-    default: "border border-neutral-200 bg-neutral-50 text-neutral-900",
-    danger: "border border-red-500 bg-red-100 text-red-800",
+    default: "border border-zinc-200 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100",
+    danger: "border border-red-500 bg-red-100 dark:bg-red-950 text-red-800 dark:text-red-100",
   };
 
   // Select the correct variant style, defaulting to 'default'

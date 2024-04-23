@@ -46,7 +46,7 @@ const ClickableImage: React.FC<ClickableImageProps> = ({ src, alt }) => {
         src={src}
         alt={alt || "image"}
         onClick={() => setShow(true)}
-        className="cursor-pointer rounded-md border border-zinc-200"
+        className="cursor-pointer rounded-md border border-zinc-200 dark:border-zinc-800"
       />
       {lightbox}
     </>
