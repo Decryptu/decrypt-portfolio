@@ -1,25 +1,26 @@
 "use client";
 
-import React, {
-  FC,
-  PropsWithChildren,
-  MouseEventHandler,
-  useCallback,
-} from "react";
+import React, { useCallback, PropsWithChildren } from "react";
 import { motion, useSpring, useMotionTemplate } from "framer-motion";
+import { throttle } from "lodash"; // Ensure lodash.throttle is installed
 
-export const Card: FC<PropsWithChildren> = React.memo(({ children }) => {
+export const Card: React.FC<PropsWithChildren> = React.memo(({ children }) => {
   const mouseX = useSpring(0, { stiffness: 500, damping: 100 });
   const mouseY = useSpring(0, { stiffness: 500, damping: 100 });
 
-  const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
-    ({ currentTarget, clientX, clientY }) => {
-      const { left, top } = currentTarget.getBoundingClientRect();
-      mouseX.set(clientX - left);
-      mouseY.set(clientY - top);
-    },
+  // Create a throttled onMouseMove handler
+  const onMouseMove = useCallback(
+    throttle((event: React.MouseEvent<HTMLDivElement>) => {
+      const { currentTarget, clientX, clientY } = event;
+      // Check if currentTarget is still part of the DOM
+      if (currentTarget && document.body.contains(currentTarget)) {
+        const { left, top } = currentTarget.getBoundingClientRect();
+        mouseX.set(clientX - left);
+        mouseY.set(clientY - top);
+      }
+    }, 50),
     [mouseX, mouseY]
-  );
+  ); // Throttle the updates to reduce re-renders
 
   const maskImage = useMotionTemplate`radial-gradient(240px at ${mouseX}px ${mouseY}px, white, transparent)`;
   const style = { maskImage, WebkitMaskImage: maskImage };
@@ -44,3 +45,5 @@ export const Card: FC<PropsWithChildren> = React.memo(({ children }) => {
     </div>
   );
 });
+
+export default Card; // Export default if you are using this component across your app
