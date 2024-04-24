@@ -18,6 +18,9 @@ const NavigationBar = () => {
   const ellipsisRef = useRef<HTMLButtonElement>(null);
   const subMenuRef = useRef<HTMLDivElement>(null);
 
+  // Utility to determine if the device is mobile
+  const isMobile = () => window.innerWidth < 768 || "ontouchstart" in window;
+
   useEffect(() => {
     // Set the initial path based on the window's location to sync server/client rendering
     if (typeof window !== "undefined") {
@@ -73,7 +76,7 @@ const NavigationBar = () => {
             className={`relative flex items-center justify-center w-8 h-8 ${
               currentPath === "/" ? "bg-zinc-200 rounded-md" : ""
             }`}
-            onMouseEnter={() => setTooltip("Home")}
+            onMouseEnter={() => !isMobile() && setTooltip("Home")}
             onMouseLeave={() => setTooltip(null)}
             onClick={() => handleLinkClick("/")}
           >
@@ -92,7 +95,7 @@ const NavigationBar = () => {
             className={`relative flex items-center justify-center w-8 h-8 ${
               currentPath === "/projects" ? "bg-zinc-200 rounded-md" : ""
             }`}
-            onMouseEnter={() => setTooltip("Projects")}
+            onMouseEnter={() => !isMobile() && setTooltip("Projects")}
             onMouseLeave={() => setTooltip(null)}
             onClick={() => handleLinkClick("/projects")}
           >
@@ -111,7 +114,7 @@ const NavigationBar = () => {
             className={`relative flex items-center justify-center w-8 h-8 ${
               currentPath === "/contact" ? "bg-zinc-200 rounded-md" : ""
             }`}
-            onMouseEnter={() => setTooltip("Contact")}
+            onMouseEnter={() => !isMobile() && setTooltip("Contact")}
             onMouseLeave={() => setTooltip(null)}
             onClick={() => handleLinkClick("/contact")}
           >
@@ -132,7 +135,7 @@ const NavigationBar = () => {
           ref={ellipsisRef}
           onClick={handleEllipsisClick}
           className="relative flex items-center justify-center w-8 h-8"
-          onMouseEnter={() => setTooltip("More")}
+          onMouseEnter={() => !isMobile() && setTooltip("More")}
           onMouseLeave={() => setTooltip(null)}
         >
           <Ellipsis strokeWidth={1.5} className="w-6 h-6" />
