@@ -1,7 +1,7 @@
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import Link from "next/link";
-import type * as React from "react";
+import * as React from "react";
 import ClickableImage from "./ClickableImage";
 
 interface ComponentProps extends React.HTMLAttributes<HTMLElement> {
@@ -17,95 +17,72 @@ interface LinkProps extends ComponentProps {
 interface CalloutProps {
   emoji: string;
   children: React.ReactNode;
-  variant?: 'default' | 'danger'; // Define allowable variants
+  variant?: "default" | "danger"; // Define allowable variants
 }
 
-const Callout: React.FC<CalloutProps> = ({ emoji, children, variant = 'default' }) => {
+const Callout: React.FC<CalloutProps> = ({
+  emoji,
+  children,
+  variant = "default",
+}) => {
   // Define base styles
   const baseStyles = "px-4 rounded p-1 text-sm flex items-center mb-8";
 
   // Conditional styling based on the variant
   const variantStyles = {
-    default: "border border-zinc-200 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100",
-    danger: "border border-red-500 bg-red-100 dark:bg-red-950 text-red-800 dark:text-red-100",
+    default:
+      "border border-zinc-200 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100",
+    danger:
+      "border border-red-500 bg-red-100 dark:bg-red-950 text-red-800 dark:text-red-100",
   };
 
   // Select the correct variant style, defaulting to 'default'
-  const style = `${baseStyles} ${variantStyles[variant]}`;
-
   return (
-    <div className={style}>
+    <div className={`${baseStyles} ${variantStyles[variant]}`}>
       <div className="flex items-center w-4 mr-4">{emoji}</div>
       <div className="w-full callout">{children}</div>
     </div>
   );
 };
 
+function createHeading(type: keyof JSX.IntrinsicElements, style: string) {
+  return ({ className, ...props }: ComponentProps) =>
+    React.createElement(type, {
+      className: clsx(style, className),
+      ...props,
+    });
+}
+
 function clsx(...args: (string | undefined | null)[]) {
   return args.filter(Boolean).join(" ");
 }
+
 const components = {
-  h1: ({ className, ...props }: ComponentProps) => (
-    <h1
-      className={clsx(
-        "mt-2 scroll-m-20 text-4xl font-bold tracking-tight",
-        className
-      )}
-      {...props}
-    />
+  h1: createHeading("h1", "mt-2 scroll-m-20 text-4xl font-bold tracking-tight"),
+  h2: createHeading(
+    "h2",
+    "mt-10 scroll-m-20 border-b border-b-zinc-800 pb-1 text-3xl font-semibold tracking-tight first:mt-0"
   ),
-  h2: ({ className, ...props }: ComponentProps) => (
-    <h2
-      className={clsx(
-        "mt-10 scroll-m-20 border-b border-b-zinc-800 pb-1 text-3xl font-semibold tracking-tight first:mt-0",
-        className
-      )}
-      {...props}
-    />
+  h3: createHeading(
+    "h3",
+    "mt-8 scroll-m-20 text-2xl font-semibold tracking-tight"
   ),
-  h3: ({ className, ...props }: ComponentProps) => (
-    <h3
-      className={clsx(
-        "mt-8 scroll-m-20 text-2xl font-semibold tracking-tight",
-        className
-      )}
-      {...props}
-    />
+  h4: createHeading(
+    "h4",
+    "mt-8 scroll-m-20 text-xl font-semibold tracking-tight"
   ),
-  h4: ({ className, ...props }: ComponentProps) => (
-    <h4
-      className={clsx(
-        "mt-8 scroll-m-20 text-xl font-semibold tracking-tight",
-        className
-      )}
-      {...props}
-    />
+  h5: createHeading(
+    "h5",
+    "mt-8 scroll-m-20 text-lg font-semibold tracking-tight"
   ),
-  h5: ({ className, ...props }: ComponentProps) => (
-    <h5
-      className={clsx(
-        "mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
-        className
-      )}
-      {...props}
-    />
-  ),
-  h6: ({ className, ...props }: ComponentProps) => (
-    <h6
-      className={clsx(
-        "mt-8 scroll-m-20 text-base font-semibold tracking-tight",
-        className
-      )}
-      {...props}
-    />
+  h6: createHeading(
+    "h6",
+    "mt-8 scroll-m-20 text-base font-semibold tracking-tight"
   ),
   a: ({ className, href, ...props }: LinkProps) => (
     <Link href={href} passHref legacyBehavior>
       <a
-        className={clsx(
-          "font-medium text-zinc-900 underline underline-offset-4",
-          className
-        )}
+        className={`font-medium text-zinc-900 underline underline-offset-4 ${className}`}
         {...props}
       />
     </Link>
@@ -203,7 +180,6 @@ interface MdxProps {
 
 export function Mdx({ code }: MdxProps) {
   const Component = useMDXComponent(code);
-
   return (
     <div className="mdx">
       <Component components={components as any} />
