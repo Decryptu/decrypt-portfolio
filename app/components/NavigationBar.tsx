@@ -69,7 +69,7 @@ const NavigationBar = () => {
       } animate-fadeIn`}
       style={{ zIndex: 1000 }}
     >
-      <div className="flex items-center space-x-2 rounded-2xl bg-white px-3 py-2 shadow-[0_3px_10px_rgb(0,0,0,0.1)]">
+      <div className="flex items-center space-x-2 rounded-lg bg-white p-1 shadow-[0_3px_10px_rgb(0,0,0,0.1)]">
         {/* Home Icon */}
         <Link href="/" passHref legacyBehavior>
           <a
