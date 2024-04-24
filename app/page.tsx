@@ -63,7 +63,7 @@ export default function Home() {
             href="https://decrypt.im/projects/adan"
             className="underline duration-500 hover:text-zinc-300"
           >
-            ADAN
+            Adan
           </Link>
           . I am also the founder of{" "}
           <Link
