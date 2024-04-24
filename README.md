@@ -11,8 +11,8 @@ Create a `.env` file similar to [`.env.example`](https://github.com/Decryptu/dec
 Then install dependencies and run the development server:
 
 ```sh-session
-pnpm install
-pnpm dev
+bun install
+bun dev
 ```
 
 ## Cloning / Forking
