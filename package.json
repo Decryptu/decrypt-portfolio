@@ -12,6 +12,7 @@
     "reinstall": "bun cleanup && bun install && bun recursive install"
   },
   "dependencies": {
+    "@contentlayer/core": "^0.3.4",
     "@emotion/is-prop-valid": "^1.2.2",
     "@next/mdx": "^14.1.4",
     "@types/lodash": "^4.17.0",
