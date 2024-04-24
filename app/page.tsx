@@ -1,22 +1,10 @@
-"use client";
-
 import Link from "next/link";
-import React, { Suspense, lazy, useEffect } from "react";
+import React, { Suspense, lazy } from "react";
 import { Meteors } from "./components/Meteors";
 
 const Particles = lazy(() => import("./components/particles"));
 
 export default function Home() {
-  useEffect(() => {
-    // Prefetch the projects data
-    fetch("/api/projects")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Projects data prefetched!", data);
-      })
-      .catch((err) => console.error("Error prefetching projects data:", err));
-  }, []);
-
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
       <div className="hidden w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
@@ -41,8 +29,8 @@ export default function Home() {
             className="underline duration-500 hover:text-zinc-300"
           >
             Cryptoast
-          </Link>{" "}
-          &{" "}
+          </Link>
+          {" "}&{" "}
           <Link
             target="_blank"
             href="https://decrypt.im/projects/adan"
