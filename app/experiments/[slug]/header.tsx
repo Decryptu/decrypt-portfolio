@@ -45,7 +45,7 @@ export const Header: React.FC<Props> = ({ experiment, views }) => {
   return (
     <header
       ref={ref}
-      className="relative isolate overflow-hidden bg-gradient-to-tl from-black via-zinc-900 to-black"
+      className="relative z-20 isolate overflow-hidden bg-gradient-to-tl from-black via-zinc-900 to-black"
     >
       <Meteors number={5} />
       <div

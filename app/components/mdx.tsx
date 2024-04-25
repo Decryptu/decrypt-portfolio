@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import ClickableImage from "./ClickableImage";
+import CodeBlock from "./CodeBlock";
 
 interface ComponentProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
@@ -152,19 +153,11 @@ const components = {
       {...props}
     />
   ),
-  pre: ({ className, ...props }: ComponentProps) => (
-    <pre
-      className={clsx(
-        "mt-6 mb-4 overflow-x-auto rounded-lg bg-zinc-900 py-4",
-        className
-      )}
-      {...props}
-    />
-  ),
+  pre: CodeBlock,
   code: ({ className, ...props }: ComponentProps) => (
     <code
       className={clsx(
-        "relative rounded border bg-zinc-300 bg-opacity-25 py-[0.2rem] px-[0.3rem] font-mono text-sm text-zinc-600",
+        "relative rounded bg-opacity-25 py-[0.2rem] px-[0.3rem] font-light font-mono text-sm text-zinc-600 dark:text-zinc-400",
         className
       )}
       {...props}
@@ -180,9 +173,5 @@ interface MdxProps {
 
 export function Mdx({ code }: MdxProps) {
   const Component = useMDXComponent(code);
-  return (
-    <div className="mdx">
-      <Component components={components as any} />
-    </div>
-  );
+  return <Component components={components as any} />;
 }
