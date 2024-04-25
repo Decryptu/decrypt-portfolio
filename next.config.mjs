@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const generateSitemap = async () => {
-	const pages = ["/", "/contact", "/projects"];
+	const pages = ["/", "/contact", "/projects", "/experiments"];
 
 	const directoryPath = join(__dirname, "content", "projects");
 	const files = await fs.readdir(directoryPath);
