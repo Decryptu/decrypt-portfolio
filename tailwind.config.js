@@ -42,7 +42,7 @@ module.exports = {
         "fade-left": "fade-left 3s ease-in-out forwards",
         "fade-right": "fade-right 3s ease-in-out forwards",
         "meteor-effect": "meteor 5s linear infinite",
-		fadeIn: 'fadeIn 2s ease-out'
+        fadeIn: "fadeIn 2s ease-out",
       },
       keyframes: {
         meteor: {

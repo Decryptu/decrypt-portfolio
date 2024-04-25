@@ -8,6 +8,7 @@ import {
   Contact,
   Ellipsis,
   ArrowUpRight,
+  FlaskConical,
 } from "lucide-react";
 
 const NavigationBar = () => {
@@ -64,6 +65,7 @@ const NavigationBar = () => {
   const navItems = [
     { path: "/", Icon: Home, label: "Home" },
     { path: "/projects", Icon: BriefcaseBusiness, label: "Projects" },
+    { path: "/experiments", Icon: FlaskConical, label: "Laboratory" },
     { path: "/contact", Icon: Contact, label: "Contact" },
   ];
 
