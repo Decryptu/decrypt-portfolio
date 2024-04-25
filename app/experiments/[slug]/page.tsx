@@ -42,7 +42,7 @@ export default async function PostPage({ params }: Props) {
 		// Fetch views from Redis only when it's available and in production
 		try {
 			const fetchedViews = await redis.get<number>(
-				["pageviews", "experiments", slug].join(":"),
+				["pageviews", "projects", slug].join(":"),
 			);
 			views = fetchedViews ?? views;
 		} catch (error) {
