@@ -135,7 +135,7 @@ const NavigationBar = () => {
       {state.isSubMenuVisible && (
         <div
           ref={subMenuRef}
-          className="absolute bottom-14 left-1/2 transform translate-x-2 border dark:border-zinc-800 border-zinc-300 dark:bg-zinc-900 dark:text-zinc-50 bg-zinc-50 text-zinc-950 rounded-lg shadow-2xl py-2"
+          className="absolute bottom-14 left-1/2 transform translate-x-6 border dark:border-zinc-800 border-zinc-300 dark:bg-zinc-900 dark:text-zinc-50 bg-zinc-50 text-zinc-950 rounded-lg shadow-2xl py-2"
         >
           <SubMenuLink href="https://twitter.com/DecryptTV" label="Twitter" />
           <SubMenuLink href="https://github.com/Decryptu" label="GitHub" />
