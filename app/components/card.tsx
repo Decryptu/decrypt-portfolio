@@ -2,7 +2,7 @@
 
 import React, { useCallback, PropsWithChildren } from "react";
 import { motion, useSpring, useMotionTemplate } from "framer-motion";
-import { throttle } from "lodash"; // Ensure lodash.throttle is installed
+import { throttle } from "lodash";
 
 export const Card: React.FC<PropsWithChildren> = React.memo(({ children }) => {
   const mouseX = useSpring(0, { stiffness: 500, damping: 100 });
