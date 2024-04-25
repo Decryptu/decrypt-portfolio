@@ -1,0 +1,112 @@
+---
+title: Dot Pattern
+description: A Dot Pattern component for Next.js, built with React and styled using TailwindCSS.
+date: "2024-04-10"
+tags: ["React", "NextJS", "Tailwind"]
+published: true
+icon: "Grip"
+---
+
+import { DotPattern } from "@/app/components/DotPattern";
+
+# Dot Pattern Component
+
+This component generates a scalable dot pattern background that automatically adapts to dark and light modes, enhancing the visual design of your application. Using the `DotPattern` component in your project is straightforward and customizable.
+
+<div 
+    className="max-w-full h-64 relative overflow-hidden border border-zinc-500 rounded-lg"
+    style={{
+        background: 'linear-gradient(100deg, #18181b 50%, #f4f4f5 50%)'
+    }}
+>
+    <DotPattern />
+</div>
+
+## Usage
+
+To use the `DotPattern` component in your project, simply import it as shown below:
+
+```tsx
+import { DotPattern } from "@/app/components/DotPattern";
+
+function MyApp() {
+  return <DotPattern />
+}
+```
+
+## Source Code
+
+You can create the `DotPattern` component in `@/app/components/DotPattern.tsx` using the following structure:
+
+```tsx
+import { useId } from "react";
+import clsx from "clsx"; // if you're not already using this, you might want to install it
+
+interface DotPatternProps {
+  width?: number;
+  height?: number;
+  x?: number;
+  y?: number;
+  cx?: number;
+  cy?: number;
+  cr?: number;
+  className?: string;
+  [key: string]: any;
+}
+
+export const DotPattern = ({
+  width = 16,
+  height = 16,
+  x = 0,
+  y = 0,
+  cx = 1,
+  cy = 1,
+  cr = 1,
+  className,
+  ...props
+}: DotPatternProps) => {
+  const id = useId();
+
+  return (
+    <svg
+      aria-hidden="true"
+      className={clsx(
+        "pointer-events-none absolute inset-0 h-full w-full fill-neutral-400/80",
+        className
+      )}
+      {...props}
+    >
+      <defs>
+        <pattern
+          id={id}
+          width={width}
+          height={height}
+          patternUnits="userSpaceOnUse"
+          patternContentUnits="userSpaceOnUse"
+          x={x}
+          y={y}
+        >
+          <circle cx={cx} cy={cy} r={cr} />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill={`url(#${id})`} />
+    </svg>
+  );
+};
+
+export default DotPattern;
+```
+
+## Props
+
+| Prop Name   | Type    | Default | Description                                                         |
+|-------------|---------|---------|---------------------------------------------------------------------|
+| `width`     | number  | 16      | The width of the repeating pattern unit in the SVG.                 |
+| `height`    | number  | 16      | The height of the repeating pattern unit in the SVG.                |
+| `x`         | number  | 0       | The x-coordinate for the starting point of the pattern.             |
+| `y`         | number  | 0       | The y-coordinate for the starting point of the pattern.             |
+| `cx`        | number  | 1       | The x-coordinate of the center of the circle in the pattern.        |
+| `cy`        | number  | 1       | The y-coordinate of the center of the circle in the pattern.        |
+| `cr`        | number  | 1       | The radius of the circle in the pattern.                            |
+| `className` | string  | None    | Additional CSS classes to apply to the SVG for custom styling.      |
+| `...props`  | any     | None    | Additional SVG properties that can be passed for further control.   |
