@@ -1,0 +1,67 @@
+---
+title: Keyboard Key
+description: A versatile keyboard key component for React and Next.js applications, styled using TailwindCSS.
+date: "2024-04-25"
+tags: ["React", "NextJS", "Tailwind"]
+published: true
+icon: "Keyboard"
+---
+
+import KeyboardKey from '@/app/components/KeyboardKey';
+
+# Keyboard Key Component
+
+This responsive component renders customizable keyboard keys suitable for various applications, adapting elegantly to both dark and light modes. Utilize the `KeyboardKey` component in your project by simply setting the `character` prop to display the desired key.
+
+<div 
+    className="max-w-full content-center text-center h-64 relative overflow-hidden border border-zinc-500 rounded-lg"
+    style={{
+        background: 'linear-gradient(100deg, #18181b 50%, #f4f4f5 50%)'
+    }}
+>
+    <KeyboardKey character="⌘"/>
+    <KeyboardKey character="⇧" />
+    <KeyboardKey character="Space" />
+    <KeyboardKey character="K" />
+</div>
+
+## Usage
+
+To incorporate the `KeyboardKey` component into your project, simply import it and pass the `character` prop as illustrated below:
+
+```tsx
+import KeyboardKey from "./components/KeyboardKey";
+
+function MyApp() {
+  return <KeyboardKey character="⌘"/>;
+}
+```
+
+## Source Code
+
+Create the `KeyboardKey` component in `@/app/components/KeyboardKey.tsx` following this structure:
+
+```tsx
+import React from "react";
+
+interface KeyboardKeyProps {
+  character: string;
+}
+
+const KeyboardKey: React.FC<KeyboardKeyProps> = ({ character }) => {
+  return (
+    <kbd
+      className="inline-flex items-center justify-center mx-1 px-3 py-2.5 text-sm font-semibold text-zinc-900 bg-zinc-100 rounded-lg cursor-pointer select-none
+                 border border-zinc-50
+                 transition-all duration-50
+                 shadow-[inset_0px_-4px_0px_0px_#0000000F,0px_0px_0px_2px_#E5E6E880]
+                 active:shadow-[inset_0px_-1px_0px_0px_#0000000F,0px_0px_0px_2px_#E5E6E890] active:translate-y-1 active:bg-zinc-200
+                 focus:outline-none"
+    >
+      {character}
+    </kbd>
+  );
+};
+
+export default KeyboardKey;
+```

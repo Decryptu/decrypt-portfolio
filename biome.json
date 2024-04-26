@@ -1,20 +1,26 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.6.4/schema.json",
-	"organizeImports": {
-		"enabled": true
-	},
-	"linter": {
-		"ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"],
-		"enabled": true,
-		"rules": {
-			"recommended": true
-		}
-	},
-	"formatter": {
-		"ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"],
-		"enabled": true
-	},
-	"files": {
-		"ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"]
-	}
+  "$schema": "https://biomejs.dev/schemas/1.6.4/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"],
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"],
+    "attributePosition": "auto",
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80
+  },
+  "files": {
+    "ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"]
+  }
 }
