@@ -115,9 +115,9 @@ const components = {
 	img: ({
 		src,
 		...props
-	}: React.ImgHTMLAttributes<HTMLImageElement> & { src: string }) => (
-		<ClickableImage src={src || ""} alt={props.alt} />
-	),
+	}: React.ImgHTMLAttributes<HTMLImageElement> & {
+		src: string;
+	}) => <ClickableImage src={src || ""} alt={props.alt} />,
 	hr: ({ ...props }) => (
 		<hr className="my-4 border-zinc-200 md:my-8" {...props} />
 	),

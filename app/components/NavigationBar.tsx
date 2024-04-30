@@ -39,7 +39,10 @@ const NavigationBar = () => {
 	const handleLinkClick = (path: string) =>
 		setState((prev) => ({ ...prev, currentPath: path }));
 	const handleEllipsisClick = () =>
-		setState((prev) => ({ ...prev, isSubMenuVisible: !prev.isSubMenuVisible }));
+		setState((prev) => ({
+			...prev,
+			isSubMenuVisible: !prev.isSubMenuVisible,
+		}));
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -49,7 +52,10 @@ const NavigationBar = () => {
 				!subMenuRef.current.contains(event.target as Node) &&
 				!ellipsisRef.current.contains(event.target as Node)
 			) {
-				setState((prev) => ({ ...prev, isSubMenuVisible: false }));
+				setState((prev) => ({
+					...prev,
+					isSubMenuVisible: false,
+				}));
 			}
 		};
 
@@ -64,8 +70,16 @@ const NavigationBar = () => {
 
 	const navItems = [
 		{ path: "/", Icon: Home, label: "Home" },
-		{ path: "/projects", Icon: BriefcaseBusiness, label: "Projects" },
-		{ path: "/experiments", Icon: FlaskConical, label: "Laboratory" },
+		{
+			path: "/projects",
+			Icon: BriefcaseBusiness,
+			label: "Projects",
+		},
+		{
+			path: "/experiments",
+			Icon: FlaskConical,
+			label: "Laboratory",
+		},
 		{ path: "/contact", Icon: Contact, label: "Contact" },
 	];
 
@@ -88,10 +102,17 @@ const NavigationBar = () => {
 									: ""
 							}`}
 							onMouseEnter={() =>
-								!isMobile() && setState((prev) => ({ ...prev, tooltip: label }))
+								!isMobile() &&
+								setState((prev) => ({
+									...prev,
+									tooltip: label,
+								}))
 							}
 							onMouseLeave={() =>
-								setState((prev) => ({ ...prev, tooltip: null }))
+								setState((prev) => ({
+									...prev,
+									tooltip: null,
+								}))
 							}
 							onClick={() => handleLinkClick(path)}
 						>
@@ -115,7 +136,11 @@ const NavigationBar = () => {
 					onClick={handleEllipsisClick}
 					className="relative flex items-center justify-center w-8 h-8 dark:hover:bg-zinc-800 hover:bg-zinc-200 rounded-md"
 					onMouseEnter={() =>
-						!isMobile() && setState((prev) => ({ ...prev, tooltip: "More" }))
+						!isMobile() &&
+						setState((prev) => ({
+							...prev,
+							tooltip: "More",
+						}))
 					}
 					onMouseLeave={() => setState((prev) => ({ ...prev, tooltip: null }))}
 					type="button"

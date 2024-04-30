@@ -23,8 +23,14 @@ export default function Particles({
 	const context = useRef<CanvasRenderingContext2D | null>(null);
 	const circles = useRef<any[]>([]);
 	const mousePosition = useMousePosition();
-	const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-	const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
+	const mouse = useRef<{ x: number; y: number }>({
+		x: 0,
+		y: 0,
+	});
+	const canvasSize = useRef<{ w: number; h: number }>({
+		w: 0,
+		h: 0,
+	});
 	const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
 	useEffect(() => {
@@ -100,9 +106,7 @@ export default function Particles({
 		const translateY = 0;
 		const size = Math.floor(Math.random() * 2) + 0.1;
 		const alpha = 0;
-		const targetAlpha = Number.parseFloat(
-			(Math.random() * 0.6 + 0.1).toFixed(1),
-		);
+		const targetAlpha = Number.parseFloat((Math.random() * 0.6 + 0.1).toFixed(1));
 		const dx = (Math.random() - 0.5) * 0.2;
 		const dy = (Math.random() - 0.5) * 0.2;
 		const magnetism = 0.1 + Math.random() * 4;
@@ -138,12 +142,7 @@ export default function Particles({
 
 	const clearContext = () => {
 		if (context.current) {
-			context.current.clearRect(
-				0,
-				0,
-				canvasSize.current.w,
-				canvasSize.current.h,
-			);
+			context.current.clearRect(0, 0, canvasSize.current.w, canvasSize.current.h);
 		}
 	};
 

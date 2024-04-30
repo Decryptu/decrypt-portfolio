@@ -5,8 +5,14 @@ import { throttle } from "lodash";
 import React, { useCallback, type PropsWithChildren } from "react";
 
 export const Card: React.FC<PropsWithChildren> = React.memo(({ children }) => {
-	const mouseX = useSpring(0, { stiffness: 500, damping: 100 });
-	const mouseY = useSpring(0, { stiffness: 500, damping: 100 });
+	const mouseX = useSpring(0, {
+		stiffness: 500,
+		damping: 100,
+	});
+	const mouseY = useSpring(0, {
+		stiffness: 500,
+		damping: 100,
+	});
 
 	// Create a throttled onMouseMove handler
 	const onMouseMove = useCallback(

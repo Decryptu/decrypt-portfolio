@@ -16,7 +16,7 @@
 		"ignore": ["node_modules", ".next", ".contentlayer", "dist", "**/*.mdx"],
 		"attributePosition": "auto",
 		"indentStyle": "tab",
-		"indentWidth": 2,
+		"indentWidth": 1,
 		"lineEnding": "lf",
 		"lineWidth": 80
 	},

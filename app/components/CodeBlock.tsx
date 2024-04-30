@@ -16,11 +16,7 @@ const CodeBlock: React.FC<{
 		React.Children.forEach(nodes, (node) => {
 			if (typeof node === "string") {
 				text += node;
-			} else if (
-				React.isValidElement(node) &&
-				node.props &&
-				node.props.children
-			) {
+			} else if (React.isValidElement(node) && node.props && node.props.children) {
 				text += extractText(node.props.children);
 			}
 		});

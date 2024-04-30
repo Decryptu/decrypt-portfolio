@@ -55,8 +55,7 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
 		</div>
 	);
 
-	const lightbox =
-		show && ReactDOM.createPortal(lightboxElement, document.body);
+	const lightbox = show && ReactDOM.createPortal(lightboxElement, document.body);
 
 	return (
 		<>

@@ -23,9 +23,7 @@ export default async function ExperimentsPage() {
 	if (redis) {
 		try {
 			const viewsData = await redis.mget<number[]>(
-				...allExperiments.map((p) =>
-					["pageviews", "projects", p.slug].join(":"),
-				),
+				...allExperiments.map((p) => ["pageviews", "projects", p.slug].join(":")),
 			);
 			views = viewsData.reduce((acc: ViewsType, v, i) => {
 				acc[allExperiments[i].slug] = v ?? 0;

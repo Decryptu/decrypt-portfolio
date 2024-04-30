@@ -11,7 +11,9 @@ export default async function incr(req: NextRequest): Promise<NextResponse> {
 		return new NextResponse("use POST", { status: 405 });
 	}
 	if (req.headers.get("Content-Type") !== "application/json") {
-		return new NextResponse("must be json", { status: 400 });
+		return new NextResponse("must be json", {
+			status: 400,
+		});
 	}
 
 	const body = await req.json();
@@ -20,7 +22,9 @@ export default async function incr(req: NextRequest): Promise<NextResponse> {
 		slug = body.slug;
 	}
 	if (!slug) {
-		return new NextResponse("Slug not found", { status: 400 });
+		return new NextResponse("Slug not found", {
+			status: 400,
+		});
 	}
 	const ip = req.ip;
 	if (ip) {

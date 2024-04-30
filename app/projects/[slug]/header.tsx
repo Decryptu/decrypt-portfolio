@@ -66,9 +66,9 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 							} `}
 						>
 							<Eye className="w-5 h-5" />{" "}
-							{Intl.NumberFormat("fr-FR", { notation: "compact" }).format(
-								views,
-							)}
+							{Intl.NumberFormat("fr-FR", {
+								notation: "compact",
+							}).format(views)}
 						</span>
 						<Link target="_blank" href="https://twitter.com/decrypttv">
 							<Twitter

@@ -23,8 +23,12 @@ module.exports = {
 				},
 				quoteless: {
 					css: {
-						"blockquote p:first-of-type::before": { content: "none" },
-						"blockquote p:first-of-type::after": { content: "none" },
+						"blockquote p:first-of-type::before": {
+							content: "none",
+						},
+						"blockquote p:first-of-type::after": {
+							content: "none",
+						},
 					},
 				},
 			},
@@ -46,7 +50,10 @@ module.exports = {
 			},
 			keyframes: {
 				meteor: {
-					"0%": { transform: "rotate(215deg) translateX(0)", opacity: 1 },
+					"0%": {
+						transform: "rotate(215deg) translateX(0)",
+						opacity: 1,
+					},
 					"70%": { opacity: 1 },
 					"100%": {
 						transform: "rotate(215deg) translateX(-500px)",
@@ -54,8 +61,14 @@ module.exports = {
 					},
 				},
 				fadeIn: {
-					"0%": { opacity: "0", transform: "translateY(100px)" },
-					"100%": { opacity: "1", transform: "translateY(0)" },
+					"0%": {
+						opacity: "0",
+						transform: "translateY(100px)",
+					},
+					"100%": {
+						opacity: "1",
+						transform: "translateY(0)",
+					},
 				},
 				"fade-in": {
 					"0%": {

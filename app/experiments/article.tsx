@@ -17,11 +17,17 @@ type Experiment = GeneratedExperiment & {
 export const Article: React.FC<Props> = ({ experiment, views }) => {
 	// Memoize the date formatter
 	const dateFormatter = useMemo(
-		() => new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }),
+		() =>
+			new Intl.DateTimeFormat(undefined, {
+				dateStyle: "medium",
+			}),
 		[],
 	);
 	const numberFormatter = useMemo(
-		() => new Intl.NumberFormat("en-US", { notation: "compact" }),
+		() =>
+			new Intl.NumberFormat("en-US", {
+				notation: "compact",
+			}),
 		[],
 	);
 
