@@ -8,13 +8,13 @@ import NavigationBar from "./components/NavigationBar";
 
 export const metadata: Metadata = {
   title: {
-    default: "Decrypt",
+    default: "Decrypt Portfolio",
     template: "%s | Decrypt",
   },
   description:
     "Freelance graphic and web designer at pandia.pro, specializing in UX/UI design and front-end development.",
   openGraph: {
-    title: "Decrypt",
+    title: "Decrypt Portfolio",
     description:
       "Freelance graphic and web designer at pandia.pro, specializing in UX/UI design and front-end development.",
     url: "https://decrypt.im/",
