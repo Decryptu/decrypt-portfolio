@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, PropsWithChildren } from "react";
+import React, { useCallback, type PropsWithChildren } from "react";
 import { motion, useSpring, useMotionTemplate } from "framer-motion";
 import { throttle } from "lodash";
 
@@ -19,7 +19,7 @@ export const Card: React.FC<PropsWithChildren> = React.memo(({ children }) => {
         mouseY.set(clientY - top);
       }
     }, 50),
-    [mouseX, mouseY]
+    [] // Remove mouseX and mouseY from dependency array
   ); // Throttle the updates to reduce re-renders
 
   const maskImage = useMotionTemplate`radial-gradient(240px at ${mouseX}px ${mouseY}px, white, transparent)`;

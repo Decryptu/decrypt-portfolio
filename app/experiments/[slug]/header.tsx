@@ -23,7 +23,7 @@ export const Header: React.FC<Props> = ({ experiment, views }) => {
   if (experiment.repository) {
     links.push({
       label: "Github",
-      href: `https://github.com/Decryptu`,
+      href: "https://github.com/Decryptu",
     });
   }
   if (experiment.url) {

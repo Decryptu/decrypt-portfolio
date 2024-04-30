@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 interface ClickableImageProps {
@@ -35,6 +36,11 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
     <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
       onClick={() => setShow(false)}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          setShow(false);
+        }
+      }}
       tabIndex={-1}
       role="dialog"
       aria-modal="true"
@@ -58,9 +64,12 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
         src={src}
         alt={alt}
         onClick={() => setShow(true)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            setShow(true);
+          }
+        }}
         className="cursor-pointer rounded-md border border-zinc-200 dark:border-zinc-800"
-        role="button"
-        tabIndex={0}
       />
       {lightbox}
     </>

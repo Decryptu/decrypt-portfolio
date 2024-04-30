@@ -118,6 +118,7 @@ const NavigationBar = () => {
             !isMobile() && setState((prev) => ({ ...prev, tooltip: "More" }))
           }
           onMouseLeave={() => setState((prev) => ({ ...prev, tooltip: null }))}
+          type="button"
         >
           <Ellipsis
             strokeWidth={1.5}

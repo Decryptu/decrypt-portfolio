@@ -24,15 +24,13 @@ export default function Home() {
           Hello, I am Decrypt, a freelance graphic designer and web designer who
           has worked, among others, for{" "}
           <Link
-            target="_blank"
             href="https://decrypt.im/projects/cryptoast"
             className="underline duration-500 hover:text-zinc-300"
           >
             Cryptoast
-          </Link>
-          {" "}&{" "}
+          </Link>{" "}
+          &{" "}
           <Link
-            target="_blank"
             href="https://decrypt.im/projects/adan"
             className="underline duration-500 hover:text-zinc-300"
           >
@@ -40,7 +38,6 @@ export default function Home() {
           </Link>
           . I am also the founder of{" "}
           <Link
-            target="_blank"
             href="https://decrypt.im/projects/pandia"
             className="underline duration-500 hover:text-zinc-300"
           >

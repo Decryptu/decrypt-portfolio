@@ -1,7 +1,7 @@
-import { useId } from "react";
-import clsx from "clsx"; // if you're not already using this, you might want to install it
+import { useId, type SVGProps } from "react";
+import clsx from "clsx"; // Ensure clsx is installed as suggested
 
-interface DotPatternProps {
+interface DotPatternProps extends SVGProps<SVGSVGElement> {
   width?: number;
   height?: number;
   x?: number;
@@ -10,7 +10,6 @@ interface DotPatternProps {
   cy?: number;
   cr?: number;
   className?: string;
-  [key: string]: any;
 }
 
 export const DotPattern = ({

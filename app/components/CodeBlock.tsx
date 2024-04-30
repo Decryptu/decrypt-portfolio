@@ -49,8 +49,9 @@ const CodeBlock: React.FC<{
     >
       {hover && (
         <button
+          type="button"
           onClick={() => copyToClipboard(extractText(children))}
-          className={`absolute right-2 top-2 rounded text-white bg-zinc-800 p-1 z-20`}
+          className="absolute right-2 top-2 rounded text-white bg-zinc-800 p-1 z-20"
           title="Copy to Clipboard"
         >
           <Icon className="w-5 h-5" />
@@ -58,7 +59,9 @@ const CodeBlock: React.FC<{
       )}
 
       <pre
-        className={`mt-6 mb-4 overflow-x-auto rounded-lg bg-zinc-900 py-4 ${className} relative z-10`}
+        className={`mt-6 mb-4 overflow-x-auto rounded-lg bg-zinc-900 py-4 ${
+          className || ""
+        } relative z-10`}
       >
         <code className="block w-full whitespace-pre overflow-x-auto">
           {children}

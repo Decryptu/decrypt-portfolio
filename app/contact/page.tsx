@@ -2,7 +2,7 @@
 import { Github, Mail, Twitter } from "lucide-react";
 import Link from "next/link";
 import { Card } from "../components/card";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 // Define an interface for the social links
 interface SocialLinkProps {
