@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "generate:sitemap": "node scripts/generateSitemap.js",
-    "fmt": "bun biome check --apply .",
+    "fmt": "bunx @biomejs/biome check --apply .",
     "cleanup": "rimraf node_modules .next && rimraf **/node_modules",
     "reinstall": "bun cleanup && bun install && bun recursive install"
   },
