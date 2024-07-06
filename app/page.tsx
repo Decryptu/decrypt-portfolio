@@ -22,12 +22,12 @@ export default function Home() {
       <div className="my-16 text-center animate-fade-in">
         <h2 className="text-base mx-8 md:mx-32 lg:mx-80 text-zinc-500 ">
           Hello, I am Decrypt, a freelance graphic designer and web designer. I
-          currently work with
+          currently work with{" "}
           <Link
             href="https://decrypt.im/projects/defillama"
             className="underline duration-500 hover:text-zinc-300"
           >
-          {" "}DefiLlama
+          DefiLlama
           </Link>{" "}
           &{" "}
           <Link
