@@ -27,7 +27,7 @@ export default function Home() {
             href="https://decrypt.im/projects/defillama"
             className="underline duration-500 hover:text-zinc-300"
           >
-            DefiLlama
+          {" "}DefiLlama
           </Link>{" "}
           &{" "}
           <Link
