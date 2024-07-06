@@ -48,7 +48,7 @@ export default async function ProjectsPage() {
 		}, {});
 	}
 
-	const featured = allProjects.find((project) => project.slug === "pandia")!;
+	const featured = allProjects.find((project) => project.slug === "defillama")!;
 	const top2 = allProjects.find((project) => project.slug === "webdesign")!;
 	const top3 = allProjects.find((project) => project.slug === "cryptoast")!;
 	const sorted = allProjects
