@@ -42,7 +42,7 @@ export default function Home() {
             className="underline duration-500 hover:text-zinc-300"
           >
             Cryptoast
-          </Link>{" "}
+          </Link>
           ,{" "}
           <Link
             href="https://decrypt.im/projects/oak"
