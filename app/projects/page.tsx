@@ -48,9 +48,16 @@ export default async function ProjectsPage() {
 		}, {});
 	}
 
-	const featured = allProjects.find((project) => project.slug === "defillama")!;
-	const top2 = allProjects.find((project) => project.slug === "webdesign")!;
-	const top3 = allProjects.find((project) => project.slug === "cryptoast")!;
+	// Find featured projects with fallbacks
+	const featured = allProjects.find((project) => project.slug === "defillama");
+	const top2 = allProjects.find((project) => project.slug === "cryptoast");
+	const top3 = allProjects.find((project) => project.slug === "oak");
+
+	// Check if featured projects exist
+	if (!featured || !top2 || !top3) {
+		throw new Error("Required featured projects not found");
+	}
+
 	const sorted = allProjects
 		.filter((p) => p.published)
 		.filter(
