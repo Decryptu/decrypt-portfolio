@@ -43,6 +43,13 @@ export default function Home() {
           >
             Cryptoast
           </Link>{" "}
+          ,{" "}
+          <Link
+            href="https://decrypt.im/projects/oak"
+            className="underline duration-500 hover:text-zinc-300"
+          >
+            OAK Research
+          </Link>{" "}
           &{" "}
           <Link
             href="https://decrypt.im/projects/adan"
