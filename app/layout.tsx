@@ -1,12 +1,10 @@
 // app/layout.tsx
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import LocalFont from "next/font/local";
 import { geistSans, calSans } from "@/lib/fonts";
-import "./global.css";
 import NavigationBar from "./components/NavigationBar";
 import { Analytics } from "./components/analytics";
+import "./global.css";
 
 export const metadata: Metadata = {
 	title: {
