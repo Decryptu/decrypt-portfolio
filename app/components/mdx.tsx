@@ -161,7 +161,7 @@ const sharedComponents = {
   code: ({ className, ...props }: ComponentProps) => (
     <code
       className={clsx(
-        "relative rounded bg-opacity-25 py-[0.2rem] px-[0.3rem] font-light font-mono text-sm text-zinc-600 dark:text-zinc-400",
+        "relative rounded py-[0.2rem] px-[0.3rem] font-light font-mono text-sm text-zinc-600 dark:text-zinc-400",
         className,
       )}
       {...props}
