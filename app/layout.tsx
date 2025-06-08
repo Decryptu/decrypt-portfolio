@@ -1,10 +1,10 @@
+// app/layout.tsx
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import LocalFont from "next/font/local";
-import "../global.css";
+import { geistSans, calSans } from "@/lib/fonts";
 import NavigationBar from "./components/NavigationBar";
 import { Analytics } from "./components/analytics";
+import "./global.css";
 
 export const metadata: Metadata = {
 	title: {
@@ -48,15 +48,6 @@ export const metadata: Metadata = {
 		shortcut: "/favicon.png",
 	},
 };
-const inter = Inter({
-	subsets: ["latin"],
-	variable: "--font-inter",
-});
-
-const calSans = LocalFont({
-	src: "../public/fonts/CalSans-SemiBold.ttf",
-	variable: "--font-calsans",
-});
 
 export default function RootLayout({
 	children,
@@ -64,7 +55,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en" className={[inter.variable, calSans.variable].join(" ")}>
+		<html lang="en" className={`${geistSans.variable} ${calSans.variable}`}>
 			<body
 				className={`bg-black ${
 					process.env.NODE_ENV === "development" ? "debug-screens" : undefined

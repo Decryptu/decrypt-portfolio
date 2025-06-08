@@ -1,66 +1,75 @@
+// app/projects/[slug]/page.tsx
 import { Mdx } from "@/app/components/mdx";
-import { Redis } from "@upstash/redis";
-import { allProjects } from "contentlayer/generated";
+import { projects } from "#site/content";
 import { notFound } from "next/navigation";
 import { Header } from "./header";
 import "./mdx.css";
 import { ReportView } from "./view";
 
+// Force dynamic rendering for Redis calls
+export const dynamic = "force-dynamic";
 export const revalidate = 60;
 
 type Props = {
-	params: {
+	params: Promise<{
 		slug: string;
-	};
+	}>;
 };
 
-const isRedisConfigured = Boolean(
-	process.env.UPSTASH_REDIS_REST_URL && process.env.NODE_ENV === "production",
-);
-const redis = isRedisConfigured ? Redis.fromEnv() : null;
-
-export async function generateStaticParams(): Promise<Props["params"][]> {
-	return allProjects
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+	return projects
 		.filter((p) => p.published)
 		.map((p) => ({
-			slug: p.slug,
+			slug: p.slugAsParams,
 		}));
 }
 
-export default async function PostPage({ params }: Props) {
-	const slug = params?.slug;
-	const project = allProjects.find((project) => project.slug === slug);
-
-	if (!project) {
-		notFound();
-		return; // Ensure the function exits after calling notFound()
-	}
-
-	let views = 100; // Default mock views count for local development or fallback
-
-	if (redis) {
-		// Fetch views from Redis only when it's available and in production
+async function getViews(slug: string): Promise<number> {
+	// Only fetch views in production with Redis configured
+	if (
+		process.env.NODE_ENV === "production" &&
+		process.env.UPSTASH_REDIS_REST_URL
+	) {
 		try {
+			const { Redis } = await import("@upstash/redis");
+			const redis = Redis.fromEnv();
 			const fetchedViews = await redis.get<number>(
 				["pageviews", "projects", slug].join(":"),
 			);
-			views = fetchedViews ?? views;
+			return fetchedViews ?? 100;
 		} catch (error) {
 			console.error(`Error fetching views from Redis for slug: ${slug}`, error);
-			// Optionally, fall back to mock views in case of an error
+			return 100; // Fallback
 		}
-	} else {
-		// Log a message to indicate that the views count is mocked in development
-		console.log(`Using mock views count for slug: ${slug}`);
 	}
+
+	// Development fallback
+	return 100;
+}
+
+export default async function PostPage(props: Props) {
+	const params = await props.params;
+	const slug = params?.slug;
+
+	// Find project by slug (matching the slugAsParams)
+	const project = projects.find((project) => project.slugAsParams === slug);
+
+	if (!project) {
+		notFound();
+		return;
+	}
+
+	// Get views with proper error handling
+	const views = await getViews(slug);
 
 	return (
 		<div className="bg-zinc-50 dark:bg-zinc-950 min-h-screen">
 			<Header project={project} views={views} />
-			<ReportView slug={project.slug} />
+			<ReportView slug={slug} />
 
-			<article className="px-4 py-12 mx-auto prose prose-zinc dark:prose-invert prose-quoteless">
-				<Mdx code={project.body.code} />
+			<article className="px-4 py-12 mx-auto max-w-4xl prose prose-zinc dark:prose-invert prose-quoteless">
+				{" "}
+				<Mdx code={project.body} />
 			</article>
 		</div>
 	);

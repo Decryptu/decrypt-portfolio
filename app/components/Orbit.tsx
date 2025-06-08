@@ -1,6 +1,6 @@
 "use client";
 import OrbitingCircles from "@/app/components/OrbitingCircles";
-import { Moon, Globe, Satellite, Eclipse } from 'lucide-react';
+import { Moon, Globe, Satellite, Eclipse } from "lucide-react";
 
 export function OrbitingCirclesDemo() {
   return (
@@ -9,14 +9,14 @@ export function OrbitingCirclesDemo() {
         Decrypt
       </span>
 
-      {/* Inner Circles */}
+      {/* Inner circles */}
       <OrbitingCircles
         className="h-[30px] w-[30px] border-none bg-transparent"
         duration={20}
         delay={20}
         radius={80}
       >
-        <Moon color="currentColor" />
+        <Moon size={30} />
       </OrbitingCircles>
       <OrbitingCircles
         className="h-[30px] w-[30px] border-none bg-transparent"
@@ -24,17 +24,17 @@ export function OrbitingCirclesDemo() {
         delay={10}
         radius={80}
       >
-        <Globe color="currentColor" />
+        <Globe size={30} />
       </OrbitingCircles>
 
-      {/* Outer Circles (reverse) */}
+      {/* Outer circles (reverse) */}
       <OrbitingCircles
         className="h-[50px] w-[50px] border-none bg-transparent"
         reverse
         radius={190}
         duration={20}
       >
-        <Satellite color="currentColor" />
+        <Satellite size={50} />
       </OrbitingCircles>
       <OrbitingCircles
         className="h-[50px] w-[50px] border-none bg-transparent"
@@ -43,7 +43,7 @@ export function OrbitingCirclesDemo() {
         duration={20}
         delay={20}
       >
-        <Eclipse color="currentColor" />
+        <Eclipse size={50} />
       </OrbitingCircles>
     </div>
   );

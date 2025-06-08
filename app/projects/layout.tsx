@@ -1,3 +1,4 @@
+// app/projects/layout.tsx
 import type React from "react";
 
 interface ProjectsLayoutProps {

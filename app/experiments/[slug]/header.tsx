@@ -1,8 +1,10 @@
+// app/experiments/[slug]/header.tsx
 "use client";
-import { ArrowLeft, Eye, Github, Twitter } from "lucide-react";
+import { ArrowLeft, Eye } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import { siGithub, siX } from "simple-icons";
 import { Meteors } from "../../components/Meteors";
 
 type Props = {
@@ -12,9 +14,34 @@ type Props = {
 		description: string;
 		repository?: string;
 	};
-
 	views: number;
 };
+
+// Simple icon component that renders simple-icons properly
+interface SimpleIconProps {
+	readonly iconData: {
+		readonly title: string;
+		readonly path: string;
+	};
+	readonly size?: number;
+	readonly className?: string;
+}
+
+const SimpleIcon = ({ iconData, size = 24, className }: SimpleIconProps): React.ReactElement => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		fill="currentColor"
+		xmlns="http://www.w3.org/2000/svg"
+		role="img"
+		aria-label={iconData.title}
+		className={className}
+	>
+		<path d={iconData.path} />
+	</svg>
+);
+
 export const Header: React.FC<Props> = ({ experiment, views }) => {
 	const ref = useRef<HTMLElement>(null);
 	const [isIntersecting, setIntersecting] = useState(true);
@@ -32,6 +59,7 @@ export const Header: React.FC<Props> = ({ experiment, views }) => {
 			href: experiment.url,
 		});
 	}
+
 	useEffect(() => {
 		if (!ref.current) return;
 		const observer = new IntersectionObserver(([entry]) =>
@@ -41,6 +69,18 @@ export const Header: React.FC<Props> = ({ experiment, views }) => {
 		observer.observe(ref.current);
 		return () => observer.disconnect();
 	}, []);
+
+	const iconClasses = `w-6 h-6 duration-200 hover:font-medium ${
+		isIntersecting
+			? " text-zinc-400 hover:text-zinc-100"
+			: "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+	}`;
+
+	const linkClasses = `duration-200 hover:font-medium ${
+		isIntersecting
+			? " text-zinc-400 hover:text-zinc-100"
+			: "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+	}`;
 
 	return (
 		<header
@@ -59,11 +99,7 @@ export const Header: React.FC<Props> = ({ experiment, views }) => {
 					<div className="flex justify-between gap-8">
 						<span
 							title="View counter for this page"
-							className={`duration-200 hover:font-medium flex items-center gap-1 ${
-								isIntersecting
-									? " text-zinc-400 hover:text-zinc-100"
-									: "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-							} `}
+							className={`duration-200 hover:font-medium flex items-center gap-1 ${linkClasses}`}
 						>
 							<Eye className="w-5 h-5" />{" "}
 							{Intl.NumberFormat("fr-FR", {
@@ -71,32 +107,24 @@ export const Header: React.FC<Props> = ({ experiment, views }) => {
 							}).format(views)}
 						</span>
 						<Link target="_blank" href="https://twitter.com/decrypttv">
-							<Twitter
-								className={`w-6 h-6 duration-200 hover:font-medium ${
-									isIntersecting
-										? " text-zinc-400 hover:text-zinc-100"
-										: "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-								} `}
+							<SimpleIcon 
+								iconData={siX} 
+								size={24} 
+								className={iconClasses}
 							/>
 						</Link>
 						<Link target="_blank" href="https://github.com/Decryptu">
-							<Github
-								className={`w-6 h-6 duration-200 hover:font-medium ${
-									isIntersecting
-										? " text-zinc-400 hover:text-zinc-100"
-										: "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-								} `}
+							<SimpleIcon 
+								iconData={siGithub} 
+								size={24} 
+								className={iconClasses}
 							/>
 						</Link>
 					</div>
 
 					<Link
 						href="/experiments"
-						className={`duration-200 hover:font-medium ${
-							isIntersecting
-								? " text-zinc-400 hover:text-zinc-100"
-								: "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-						} `}
+						className={linkClasses}
 					>
 						<ArrowLeft className="w-6 h-6 " />
 					</Link>

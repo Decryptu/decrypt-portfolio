@@ -1,3 +1,4 @@
+// app/projects/[slug]/view.tsx
 "use client";
 
 import { useEffect } from "react";
@@ -9,7 +10,12 @@ export const ReportView: React.FC<{ slug: string }> = ({ slug }) => {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ slug }),
+			body: JSON.stringify({ 
+				slug,
+				type: "projects" // Explicitly specify type for projects
+			}),
+		}).catch((error) => {
+			console.error("Failed to report view:", error);
 		});
 	}, [slug]);
 

@@ -1,17 +1,13 @@
-import type { Experiment as GeneratedExperiment } from "@/.contentlayer/generated";
+// app/experiments/article.tsx
+import type { experiments } from "#site/content";
 import { Eye } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
 import IconMapper from "../icons/iconMapper";
 
 type Props = {
-	experiment: Experiment;
+	experiment: (typeof experiments)[number];
 	views: number;
-};
-
-type Experiment = GeneratedExperiment & {
-	tags?: string[];
-	icon?: string;
 };
 
 export const Article: React.FC<Props> = ({ experiment, views }) => {
@@ -35,7 +31,7 @@ export const Article: React.FC<Props> = ({ experiment, views }) => {
 	const experimentDate = experiment.date ? new Date(experiment.date) : null;
 
 	return (
-		<Link href={`/experiments/${experiment.slug}`}>
+		<Link href={`/experiments/${experiment.slugAsParams}`}>
 			<article className="p-4 md:p-8">
 				<div className="flex justify-between gap-2 items-center">
 					<span className="text-xs duration-1000 text-zinc-200 group-hover:text-white group-hover:border-zinc-200 drop-shadow-orange">
