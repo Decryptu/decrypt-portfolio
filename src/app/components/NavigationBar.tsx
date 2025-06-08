@@ -81,7 +81,7 @@ const NavigationBar = () => {
 			label: "Laboratory",
 		},
 		{ path: "/contact", Icon: Contact, label: "Contact" },
-	];
+	] as const;
 
 	const isMobile = () => window.innerWidth < 768 || "ontouchstart" in window;
 
@@ -92,80 +92,92 @@ const NavigationBar = () => {
 			} animate-fadeIn`}
 			style={{ zIndex: 1000 }}
 		>
-			<div className="flex items-center space-x-2 rounded-lg border dark:border-zinc-800 border-zinc-300 dark:bg-zinc-900 bg-white p-1 shadow-[0_3px_10px_rgb(0,0,0,0.1)] dark:shadow-[0_3px_10px_rgb(0,0,0,0.5)]">
-				{navItems.map(({ path, Icon, label }) => (
-					<Link
-						key={path}
-						href={path}
-						className={`relative flex items-center justify-center w-8 h-8 dark:hover:bg-zinc-800 hover:bg-zinc-200 rounded-md ${
-							state.currentPath === path
-								? "bg-zinc-200 dark:bg-zinc-950 rounded-md"
-								: ""
-						}`}
+			{/* Gradient stroke wrapper */}
+			<div className="p-px bg-gradient-to-br from-zinc-500 from-0% to-zinc-800 to-50% rounded-lg shadow-lg">
+				<div className="flex items-center space-x-2 rounded-lg bg-gradient-to-b from-zinc-800 to-zinc-800 p-1">
+					{navItems.map(({ path, Icon, label }) => (
+						<Link
+							key={path}
+							href={path}
+							className={`relative flex items-center justify-center w-8 h-8 hover:bg-zinc-700/75 rounded-md transition-colors ${
+								state.currentPath === path
+									? "bg-zinc-700/75 rounded-md"
+									: ""
+							}`}
+							onMouseEnter={() =>
+								!isMobile() &&
+								setState((prev) => ({
+									...prev,
+									tooltip: label,
+								}))
+							}
+							onMouseLeave={() =>
+								setState((prev) => ({
+									...prev,
+									tooltip: null,
+								}))
+							}
+							onClick={() => handleLinkClick(path)}
+						>
+							<Icon
+								strokeWidth={1.25}
+								className={`w-6 h-6 ${
+									state.currentPath === path
+										? "stroke-zinc-200"
+										: "stroke-zinc-50"
+								}`}
+							/>
+							{state.tooltip === label && (
+								<span className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gradient-to-b from-zinc-800 to-zinc-800 text-zinc-50 text-xs rounded shadow-lg">
+									{label}
+								</span>
+							)}
+						</Link>
+					))}
+					{/* Separator */}
+					<div className="w-px h-6 bg-zinc-400" />
+					{/* More Options Icon */}
+					<button
+						ref={ellipsisRef}
+						onClick={handleEllipsisClick}
+						className="relative flex items-center justify-center w-8 h-8 hover:bg-zinc-700 rounded-md transition-colors"
 						onMouseEnter={() =>
 							!isMobile() &&
 							setState((prev) => ({
 								...prev,
-								tooltip: label,
+								tooltip: "More",
 							}))
 						}
-						onMouseLeave={() =>
-							setState((prev) => ({
-								...prev,
-								tooltip: null,
-							}))
-						}
-						onClick={() => handleLinkClick(path)}
+						onMouseLeave={() => setState((prev) => ({ ...prev, tooltip: null }))}
+						type="button"
 					>
-						<Icon
-							strokeWidth={1.25}
-							className="w-6 h-6 dark:stroke-zinc-100 stroke-zinc-950"
+						<Ellipsis
+							strokeWidth={1.5}
+							className="w-6 h-6 stroke-zinc-50"
 						/>
-						{state.tooltip === label && (
-							<span className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 dark:bg-zinc-900 dark:text-white bg-zinc-50 text-zinc-900 text-xs rounded shadow-lg">
-								{label}
+						{state.tooltip === "More" && (
+							<span className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gradient-to-b from-zinc-800 to-zinc-800 text-zinc-50 text-xs rounded shadow-lg">
+								More
 							</span>
 						)}
-					</Link>
-				))}
-				{/* Separator */}
-				<div className="w-px h-6 dark:bg-zinc-500 bg-zinc-200" />
-				{/* More Options Icon */}
-				<button
-					ref={ellipsisRef}
-					onClick={handleEllipsisClick}
-					className="relative flex items-center justify-center w-8 h-8 dark:hover:bg-zinc-800 hover:bg-zinc-200 rounded-md"
-					onMouseEnter={() =>
-						!isMobile() &&
-						setState((prev) => ({
-							...prev,
-							tooltip: "More",
-						}))
-					}
-					onMouseLeave={() => setState((prev) => ({ ...prev, tooltip: null }))}
-					type="button"
-				>
-					<Ellipsis
-						strokeWidth={1.5}
-						className="w-6 h-6 dark:stroke-zinc-100 stroke-zinc-950"
-					/>
-					{state.tooltip === "More" && (
-						<span className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 dark:bg-zinc-900 dark:text-white bg-zinc-50 text-zinc-900 text-xs rounded shadow-lg">
-							More
-						</span>
-					)}
-				</button>
+					</button>
+				</div>
 			</div>
 
 			{/* Sub Menu */}
 			{state.isSubMenuVisible && (
-				<div
-					ref={subMenuRef}
-					className="absolute bottom-14 left-1/2 transform translate-x-6 border dark:border-zinc-800 border-zinc-300 dark:bg-zinc-900 dark:text-zinc-50 bg-zinc-50 text-zinc-950 rounded-lg shadow-2xl py-2"
-				>
-					<SubMenuLink href="https://twitter.com/DecryptTV" label="Twitter" />
-					<SubMenuLink href="https://github.com/Decryptu" label="GitHub" />
-					<SubMenuLink href="https://dribbble.com/Decrypt" label="Dribbble" />
+				<div className="absolute bottom-14 left-1/2 transform translate-x-6 shadow-lg">
+					{/* Gradient stroke wrapper for submenu */}
+					<div className="p-px bg-gradient-to-br from-zinc-600 from-0% to-zinc-800 to-35% rounded-lg">
+						<div
+							ref={subMenuRef}
+							className="bg-gradient-to-b from-zinc-800 to-zinc-800 text-zinc-50 hover:text-zinc-50 rounded-lg py-2"
+						>
+							<SubMenuLink href="https://twitter.com/DecryptTV" label="Twitter" />
+							<SubMenuLink href="https://github.com/Decryptu" label="GitHub" />
+							<SubMenuLink href="https://dribbble.com/Decrypt" label="Dribbble" />
+						</div>
+					</div>
 				</div>
 			)}
 		</div>
@@ -177,7 +189,7 @@ const SubMenuLink = ({ href, label }: { href: string; label: string }) => (
 		href={href}
 		target="_blank"
 		rel="noopener noreferrer"
-		className="flex items-center justify-center px-2 mx-2 py-2 dark:hover:bg-zinc-800 hover:bg-zinc-200 rounded-md"
+		className="flex items-center justify-center px-2 mx-2 py-2 hover:bg-zinc-700/75 hover:text-zinc-50 rounded-md transition-colors"
 	>
 		{label}
 		<ArrowUpRight strokeWidth={1.25} className="ml-1 w-4 h-4" />
