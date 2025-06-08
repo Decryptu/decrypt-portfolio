@@ -41,3 +41,5 @@ next-env.d.ts
 .velite
 .vscode
 build.log
+bun.lockb
+bun.lock
