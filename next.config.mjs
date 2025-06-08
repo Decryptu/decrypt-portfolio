@@ -1,7 +1,7 @@
+// next.config.mjs
 import { dirname, join } from "node:path";
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { withContentlayer } from "next-contentlayer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,6 +40,16 @@ const generateSitemap = async () => {
 
 generateSitemap();
 
+// Velite integration for Next.js 15
+const isDev = process.argv.indexOf('dev') !== -1;
+const isBuild = process.argv.indexOf('build') !== -1;
+
+if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
+  process.env.VELITE_STARTED = '1';
+  const { build } = await import('velite');
+  await build({ watch: isDev, clean: !isDev });
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
@@ -48,4 +58,4 @@ const nextConfig = {
   },
 };
 
-export default withContentlayer(nextConfig);
+export default nextConfig;

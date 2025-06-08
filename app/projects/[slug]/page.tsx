@@ -1,6 +1,7 @@
+// app/projects/[slug]/page.tsx
 import { Mdx } from "@/app/components/mdx";
 import { Redis } from "@upstash/redis";
-import { allProjects } from "contentlayer/generated";
+import { projects } from "#site/content";
 import { notFound } from "next/navigation";
 import { Header } from "./header";
 import "./mdx.css";
@@ -19,27 +20,29 @@ const isRedisConfigured = Boolean(
 );
 const redis = isRedisConfigured ? Redis.fromEnv() : null;
 
-export async function generateStaticParams(): Promise<Props["params"][]> {
-	return allProjects
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+	return projects
 		.filter((p) => p.published)
 		.map((p) => ({
-			slug: p.slug,
+			slug: p.slugAsParams,
 		}));
 }
 
 export default async function PostPage(props: Props) {
-    const params = await props.params;
-    const slug = params?.slug;
-    const project = allProjects.find((project) => project.slug === slug);
+	const params = await props.params;
+	const slug = params?.slug;
+	
+	// Find project by slug (matching the slugAsParams)
+	const project = projects.find((project) => project.slugAsParams === slug);
 
-    if (!project) {
+	if (!project) {
 		notFound();
-		return; // Ensure the function exits after calling notFound()
+		return;
 	}
 
-    let views = 100; // Default mock views count for local development or fallback
+	let views = 100; // Default mock views count for local development or fallback
 
-    if (redis) {
+	if (redis) {
 		// Fetch views from Redis only when it's available and in production
 		try {
 			const fetchedViews = await redis.get<number>(
@@ -55,13 +58,13 @@ export default async function PostPage(props: Props) {
 		console.log(`Using mock views count for slug: ${slug}`);
 	}
 
-    return (
+	return (
 		<div className="bg-zinc-50 dark:bg-zinc-950 min-h-screen">
 			<Header project={project} views={views} />
-			<ReportView slug={project.slug} />
+			<ReportView slug={slug} />
 
 			<article className="px-4 py-12 mx-auto prose prose-zinc dark:prose-invert prose-quoteless">
-				<Mdx code={project.body.code} />
+				<Mdx code={project.body} />
 			</article>
 		</div>
 	);
