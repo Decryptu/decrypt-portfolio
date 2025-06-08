@@ -20,3 +20,7 @@ bun dev
 ## Cloning / Forking
 
 Please remove all of my personal information (projects, images, etc.) before deploying your own version of this site.
+
+## Original Work
+
+This repo was forked from [chronark](https://github.com/chronark/chronark.com).
