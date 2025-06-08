@@ -1,0 +1,46 @@
+$ next build
+[32m[VELITE][0m building... 
+[32m[VELITE][0m build finished in 2423.75ms
+   ▲ Next.js 15.3.3
+   - Environments: .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 5.0s
+   Linting and checking validity of types ...
+   Collecting page data ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages (0/33) ...
+   Generating static pages (8/33) 
+   Generating static pages (16/33) 
+   Generating static pages (24/33) 
+ ✓ Generating static pages (33/33)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                       2 kB         106 kB
+├ ○ /_not-found                            977 B         102 kB
+├ ƒ /api/incr                              142 B         101 kB
+├ ○ /contact                             2.22 kB         147 kB
+├ ƒ /experiments                           829 B         145 kB
+├ ● /experiments/[slug]                  5.55 kB         117 kB
+├   ├ /experiments/card-spotlight
+├   ├ /experiments/card-tilt
+├   ├ /experiments/dot-pattern
+├   └ [+3 more paths]
+├ ƒ /projects                              830 B         145 kB
+└ ● /projects/[slug]                     3.66 kB         115 kB
+    ├ /projects/8sprod
+    ├ /projects/abprod
+    ├ /projects/adan
+    └ [+19 more paths]
++ First Load JS shared by all             101 kB
+  ├ chunks/4bd1b696-4ac05eaf41b0610c.js  53.2 kB
+  ├ chunks/684-7f855773afdd1486.js       45.8 kB
+  └ other shared chunks (total)          1.93 kB
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

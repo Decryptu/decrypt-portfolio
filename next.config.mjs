@@ -10,13 +10,13 @@ const generateSitemap = async () => {
   const pages = ["/", "/contact", "/projects", "/experiments"];
 
   // Generate URLs for projects
-  const projectsDirectoryPath = join(__dirname, "content", "projects");
+  const projectsDirectoryPath = join(__dirname, "src", "content", "projects");
   const projectFiles = await fs.readdir(projectsDirectoryPath);
   const projectSlugs = projectFiles.map((file) => file.replace(".mdx", ""));
   const projectPages = projectSlugs.map((slug) => `/projects/${slug}`);
 
   // Generate URLs for experiments
-  const experimentsDirectoryPath = join(__dirname, "content", "experiments");
+  const experimentsDirectoryPath = join(__dirname, "src", "content", "experiments");
   const experimentFiles = await fs.readdir(experimentsDirectoryPath);
   const experimentSlugs = experimentFiles.map((file) =>
     file.replace(".mdx", "")
