@@ -1,7 +1,8 @@
+// app/components/particles.tsx
 "use client";
 
 import { useMousePosition } from "@/util/mouse";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 
 interface ParticlesProps {
 	className?: string;
