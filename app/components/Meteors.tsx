@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, type JSX } from "react";
 
 export const Meteors = ({ number }: { number?: number }) => {
 	const [meteors, setMeteors] = useState<JSX.Element[]>([]);

@@ -1,11 +1,12 @@
-"use client";
-
+"use client";;
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import ClickableImage from "./ClickableImage";
 import CodeBlock from "./CodeBlock";
+
+import type { JSX } from "react";
 
 interface ComponentProps extends React.HTMLAttributes<HTMLElement> {
 	className?: string;

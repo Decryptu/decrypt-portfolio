@@ -9,9 +9,9 @@ import { ReportView } from "./view";
 export const revalidate = 60;
 
 type Props = {
-	params: {
+	params: Promise<{
 		slug: string;
-	};
+	}>;
 };
 
 const isRedisConfigured = Boolean(
@@ -27,18 +27,19 @@ export async function generateStaticParams(): Promise<Props["params"][]> {
 		}));
 }
 
-export default async function PostPage({ params }: Props) {
-	const slug = params?.slug;
-	const project = allProjects.find((project) => project.slug === slug);
+export default async function PostPage(props: Props) {
+    const params = await props.params;
+    const slug = params?.slug;
+    const project = allProjects.find((project) => project.slug === slug);
 
-	if (!project) {
+    if (!project) {
 		notFound();
 		return; // Ensure the function exits after calling notFound()
 	}
 
-	let views = 100; // Default mock views count for local development or fallback
+    let views = 100; // Default mock views count for local development or fallback
 
-	if (redis) {
+    if (redis) {
 		// Fetch views from Redis only when it's available and in production
 		try {
 			const fetchedViews = await redis.get<number>(
@@ -54,7 +55,7 @@ export default async function PostPage({ params }: Props) {
 		console.log(`Using mock views count for slug: ${slug}`);
 	}
 
-	return (
+    return (
 		<div className="bg-zinc-50 dark:bg-zinc-950 min-h-screen">
 			<Header project={project} views={views} />
 			<ReportView slug={project.slug} />

@@ -6,7 +6,7 @@ import { Card } from "../components/card";
 
 // Define an interface for the social links
 interface SocialLinkProps {
-	icon: ReactElement; // Assuming icons are React elements
+	icon: ReactElement<any>; // Assuming icons are React elements
 	href: string;
 	handle: string;
 	label: string;
