@@ -1,6 +1,6 @@
 # [decrypt.im](https://decrypt.im)
 
-My personal website, built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Upstash](https://upstash.com?ref=decrypt.im), [Contentlayer](https://www.contentlayer.dev/) and deployed to [Vercel](https://vercel.com/).
+My personal website, built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Upstash](https://upstash.com?ref=decrypt.im), [Velite](https://velite.js.org/) and deployed to [Vercel](https://vercel.com/).
 
 ![I am Designer logo](public/IamDesigner!English.png)
 
