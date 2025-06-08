@@ -176,11 +176,35 @@ interface MdxProps {
 }
 
 export function Mdx({ code }: MdxProps) {
-  // For Velite, the code is already the compiled MDX component
+  // For Velite, we need to properly handle the MDX compilation
   const Component = React.useMemo(() => {
-    const func = new Function(code);
-    return func().default;
+    try {
+      // Create a function that provides React and JSX runtime
+      const fn = new Function(
+        'React',
+        'Fragment', 
+        '_jsx',
+        '_jsxs',
+        `
+        ${code}
+        return { default: MDXContent };
+        `
+      );
+      
+      // Provide the necessary dependencies
+      const result = fn(
+        React,
+        React.Fragment,
+        (type: any, props: any) => React.createElement(type, props),
+        (type: any, props: any) => React.createElement(type, props)
+      );
+      
+      return result.default;
+    } catch (error) {
+      console.error('Error compiling MDX:', error);
+      return () => React.createElement('div', { className: 'text-red-500' }, 'Error loading content');
+    }
   }, [code]);
-  
-  return <Component components={components as any} />;
+
+  return <Component components={components} />;
 }

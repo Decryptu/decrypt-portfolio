@@ -1,15 +1,11 @@
-import { Redis } from "@upstash/redis";
-import { allExperiments } from "contentlayer/generated";
+// app/experiments/page.tsx
+import { experiments } from "#site/content";
 import React from "react";
 import { Card } from "../components/card";
 import { Article } from "./article";
 
-// Determine if we're in a production environment
-const isProduction = process.env.NODE_ENV === "production";
-
-// Initialize Redis only if in a production environment
-const redis = isProduction ? Redis.fromEnv() : null;
-
+// Force dynamic rendering to allow Redis calls
+export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 
 // Define a type for the views object
@@ -17,36 +13,43 @@ type ViewsType = {
 	[key: string]: number;
 };
 
-export default async function ExperimentsPage() {
-	let views: ViewsType; // Use the ViewsType for the views object
-
-	if (redis) {
+async function getViewsData(): Promise<ViewsType> {
+	// Only fetch views in production with Redis configured
+	if (process.env.NODE_ENV === "production" && process.env.UPSTASH_REDIS_REST_URL) {
 		try {
+			const { Redis } = await import("@upstash/redis");
+			const redis = Redis.fromEnv();
+			
 			const viewsData = await redis.mget<number[]>(
-				...allExperiments.map((p) => ["pageviews", "projects", p.slug].join(":")),
+				...experiments.map((p) => ["pageviews", "experiments", p.slugAsParams].join(":")),
 			);
-			views = viewsData.reduce((acc: ViewsType, v, i) => {
-				acc[allExperiments[i].slug] = v ?? 0;
+			
+			return viewsData.reduce((acc: ViewsType, v, i) => {
+				acc[experiments[i].slugAsParams] = v ?? 0;
 				return acc;
 			}, {});
 		} catch (error) {
 			console.error("Failed to fetch views from Redis:", error);
-			// Fallback or default views handling
-			views = allExperiments.reduce((acc: ViewsType, experiment) => {
-				acc[experiment.slug] = 0; // Fallback to 0 views in case of error
+			// Fallback to zero views
+			return experiments.reduce((acc: ViewsType, experiment) => {
+				acc[experiment.slugAsParams] = 0;
 				return acc;
 			}, {});
 		}
-	} else {
-		// Mocked views for development
-		views = allExperiments.reduce((acc: ViewsType, experiment) => {
-			acc[experiment.slug] = 0; // Or use a mock value as needed
-			return acc;
-		}, {});
 	}
+	
+	// Development fallback - return zero views for all experiments
+	return experiments.reduce((acc: ViewsType, experiment) => {
+		acc[experiment.slugAsParams] = 0;
+		return acc;
+	}, {});
+}
+
+export default async function ExperimentsPage() {
+	const views = await getViewsData();
 
 	// Sort all experiments by published date
-	const sortedExperiments = allExperiments
+	const sortedExperiments = experiments
 		.filter((p) => p.published)
 		.sort(
 			(a, b) =>
@@ -76,7 +79,7 @@ export default async function ExperimentsPage() {
 									<Card key={experiment.slug}>
 										<Article
 											experiment={experiment}
-											views={views[experiment.slug] ?? 0}
+											views={views[experiment.slugAsParams] ?? 0}
 										/>
 									</Card>
 								))}

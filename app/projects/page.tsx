@@ -1,5 +1,4 @@
 // app/projects/page.tsx
-import { Redis } from "@upstash/redis";
 import { projects } from "#site/content";
 import { Eye } from "lucide-react";
 import Link from "next/link";
@@ -8,12 +7,8 @@ import { Card } from "../components/card";
 import IconMapper from "../icons/iconMapper";
 import { Article } from "./article";
 
-// Determine if we're in a production environment
-const isProduction = process.env.NODE_ENV === "production";
-
-// Initialize Redis only if in a production environment
-const redis = isProduction ? Redis.fromEnv() : null;
-
+// Force dynamic rendering to allow Redis calls
+export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 
 // Define a type for the views object
@@ -21,33 +16,40 @@ type ViewsType = {
   [key: string]: number;
 };
 
-export default async function ProjectsPage() {
-  let views: ViewsType; // Use the ViewsType for the views object
-
-  if (redis) {
+async function getViewsData(): Promise<ViewsType> {
+  // Only fetch views in production with Redis configured
+  if (process.env.NODE_ENV === "production" && process.env.UPSTASH_REDIS_REST_URL) {
     try {
+      const { Redis } = await import("@upstash/redis");
+      const redis = Redis.fromEnv();
+      
       const viewsData = await redis.mget<number[]>(
-        ...projects.map((p) => ["pageviews", "projects", p.slug].join(":")),
+        ...projects.map((p) => ["pageviews", "projects", p.slugAsParams].join(":")),
       );
-      views = viewsData.reduce((acc: ViewsType, v, i) => {
-        acc[projects[i].slug] = v ?? 0;
+      
+      return viewsData.reduce((acc: ViewsType, v, i) => {
+        acc[projects[i].slugAsParams] = v ?? 0;
         return acc;
       }, {});
     } catch (error) {
       console.error("Failed to fetch views from Redis:", error);
-      // Fallback or default views handling
-      views = projects.reduce((acc: ViewsType, project) => {
-        acc[project.slug] = 0; // Fallback to 0 views in case of error
+      // Fallback to zero views
+      return projects.reduce((acc: ViewsType, project) => {
+        acc[project.slugAsParams] = 0;
         return acc;
       }, {});
     }
-  } else {
-    // Mocked views for development
-    views = projects.reduce((acc: ViewsType, project) => {
-      acc[project.slug] = 0; // Or use a mock value as needed
-      return acc;
-    }, {});
   }
+  
+  // Development fallback - return zero views for all projects
+  return projects.reduce((acc: ViewsType, project) => {
+    acc[project.slugAsParams] = 0;
+    return acc;
+  }, {});
+}
+
+export default async function ProjectsPage() {
+  const views = await getViewsData();
 
   // Find featured projects with fallbacks - using slugAsParams
   const featured = projects.find((project) => project.slugAsParams === "defillama");
@@ -105,7 +107,7 @@ export default async function ProjectsPage() {
                     <Eye className="w-4 h-4" />
                     {Intl.NumberFormat("en-US", {
                       notation: "compact",
-                    }).format(views[featured.slug] ?? 0)}
+                    }).format(views[featured.slugAsParams] ?? 0)}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -146,7 +148,7 @@ export default async function ProjectsPage() {
           <div className="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0">
             {[top2, top3].map((project) => (
               <Card key={project.slug}>
-                <Article project={project} views={views[project.slug] ?? 0} />
+                <Article project={project} views={views[project.slugAsParams] ?? 0} />
               </Card>
             ))}
           </div>
@@ -158,7 +160,7 @@ export default async function ProjectsPage() {
               .filter((_, i) => i % 3 === 0)
               .map((project) => (
                 <Card key={project.slug}>
-                  <Article project={project} views={views[project.slug] ?? 0} />
+                  <Article project={project} views={views[project.slugAsParams] ?? 0} />
                 </Card>
               ))}
           </div>
@@ -167,7 +169,7 @@ export default async function ProjectsPage() {
               .filter((_, i) => i % 3 === 1)
               .map((project) => (
                 <Card key={project.slug}>
-                  <Article project={project} views={views[project.slug] ?? 0} />
+                  <Article project={project} views={views[project.slugAsParams] ?? 0} />
                 </Card>
               ))}
           </div>
@@ -176,7 +178,7 @@ export default async function ProjectsPage() {
               .filter((_, i) => i % 3 === 2)
               .map((project) => (
                 <Card key={project.slug}>
-                  <Article project={project} views={views[project.slug] ?? 0} />
+                  <Article project={project} views={views[project.slugAsParams] ?? 0} />
                 </Card>
               ))}
           </div>
