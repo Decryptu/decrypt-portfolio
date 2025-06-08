@@ -1,8 +1,7 @@
-// app/experiments/article.tsx
-import type { experiments } from "#site/content";
 import { Eye } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
+import type { experiments } from "#site/content";
 import IconMapper from "../icons/iconMapper";
 
 type Props = {

@@ -1,7 +1,6 @@
-// app/layout.tsx
+import { calSans, geistSans } from "@/lib/fonts";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { geistSans, calSans } from "@/lib/fonts";
 import NavigationBar from "./components/NavigationBar";
 import { Analytics } from "./components/analytics";
 import "./global.css";

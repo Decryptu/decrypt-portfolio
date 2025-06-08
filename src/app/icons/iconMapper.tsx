@@ -1,4 +1,4 @@
-import { icons, type LucideIcon } from "lucide-react";
+import { type LucideIcon, icons } from "lucide-react";
 import type React from "react";
 
 interface IconMapperProps {
@@ -12,7 +12,9 @@ const IconMapper: React.FC<IconMapperProps> = ({ name, className }) => {
 
 	// Check if the icon exists
 	if (!IconComponent) {
-		console.warn(`Icon "${name}" not found in Lucide icons, using default Feather icon.`);
+		console.warn(
+			`Icon "${name}" not found in Lucide icons, using default Feather icon.`,
+		);
 		// Use icons.Feather as fallback
 		const FallbackIcon = icons.Feather;
 		return <FallbackIcon className={className} />;

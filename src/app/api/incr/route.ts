@@ -1,7 +1,6 @@
-// app/api/incr/route.ts
 import { Redis } from "@upstash/redis";
-import { type NextRequest, NextResponse } from "next/server";
 import { ipAddress } from "@vercel/functions";
+import { type NextRequest, NextResponse } from "next/server";
 
 const redis = Redis.fromEnv();
 
@@ -18,7 +17,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
 		const body = await request.json();
 		const slug = body?.slug;
-		
+
 		if (!slug || typeof slug !== "string") {
 			return new NextResponse("Slug not found", {
 				status: 400,
@@ -37,15 +36,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 				.join("");
 
 			// deduplicate the ip for each slug
-			const isNew = await redis.set(
-				["deduplicate", hash, slug].join(":"), 
-				true, 
-				{
-					nx: true,
-					ex: 24 * 60 * 60,
-				}
-			);
-			
+			const isNew = await redis.set(["deduplicate", hash, slug].join(":"), true, {
+				nx: true,
+				ex: 24 * 60 * 60,
+			});
+
 			if (!isNew) {
 				return new NextResponse(null, { status: 202 });
 			}

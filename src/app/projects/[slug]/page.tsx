@@ -1,10 +1,9 @@
-// app/projects/[slug]/page.tsx
 import { Mdx } from "@/app/components/mdx";
-import { projects } from "#site/content";
 import { notFound } from "next/navigation";
+import { projects } from "#site/content";
 import { Header } from "./header";
-import "./mdx.css";
 import { ReportView } from "./view";
+import "./mdx.css";
 
 // Force dynamic rendering for Redis calls
 export const dynamic = "force-dynamic";

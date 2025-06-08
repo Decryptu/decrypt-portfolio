@@ -1,4 +1,3 @@
-// app/projects/[slug]/header.tsx
 "use client";
 import { ArrowLeft, Eye } from "lucide-react";
 import Link from "next/link";
@@ -27,7 +26,11 @@ interface SimpleIconProps {
 	readonly className?: string;
 }
 
-const SimpleIcon = ({ iconData, size = 24, className }: SimpleIconProps): React.ReactElement => (
+const SimpleIcon = ({
+	iconData,
+	size = 24,
+	className,
+}: SimpleIconProps): React.ReactElement => (
 	<svg
 		width={size}
 		height={size}
@@ -107,25 +110,14 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 							}).format(views)}
 						</span>
 						<Link target="_blank" href="https://twitter.com/decrypttv">
-							<SimpleIcon 
-								iconData={siX} 
-								size={24} 
-								className={iconClasses}
-							/>
+							<SimpleIcon iconData={siX} size={24} className={iconClasses} />
 						</Link>
 						<Link target="_blank" href="https://github.com/Decryptu">
-							<SimpleIcon 
-								iconData={siGithub} 
-								size={24} 
-								className={iconClasses}
-							/>
+							<SimpleIcon iconData={siGithub} size={24} className={iconClasses} />
 						</Link>
 					</div>
 
-					<Link
-						href="/projects"
-						className={linkClasses}
-					>
+					<Link href="/projects" className={linkClasses}>
 						<ArrowLeft className="w-6 h-6 " />
 					</Link>
 				</div>

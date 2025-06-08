@@ -23,7 +23,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ children, className }) => {
 			} else if (React.isValidElement(node)) {
 				// Type-safe way to check for children property
 				const element = node as React.ReactElement<{ children?: React.ReactNode }>;
-				if (element.props && 'children' in element.props) {
+				if (element.props && "children" in element.props) {
 					text += extractText(element.props.children);
 				}
 			}

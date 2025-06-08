@@ -1,4 +1,3 @@
-// app/page.tsx
 import Link from "next/link";
 import React, { Suspense, lazy } from "react";
 import { Meteors } from "./components/Meteors";

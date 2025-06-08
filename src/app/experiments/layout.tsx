@@ -1,4 +1,3 @@
-// app/experiments/layout.tsx
 import type React from "react";
 
 interface ExperimentsLayoutProps {

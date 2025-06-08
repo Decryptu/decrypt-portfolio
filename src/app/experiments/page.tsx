@@ -1,11 +1,10 @@
-// app/experiments/page.tsx
-import { experiments } from "#site/content";
 import React from "react";
+import { experiments } from "#site/content";
 import { Card } from "../components/card";
 import { Article } from "./article";
 
 // Force dynamic rendering to allow Redis calls
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export const revalidate = 60;
 
 // Define a type for the views object
@@ -15,15 +14,20 @@ type ViewsType = {
 
 async function getViewsData(): Promise<ViewsType> {
 	// Only fetch views in production with Redis configured
-	if (process.env.NODE_ENV === "production" && process.env.UPSTASH_REDIS_REST_URL) {
+	if (
+		process.env.NODE_ENV === "production" &&
+		process.env.UPSTASH_REDIS_REST_URL
+	) {
 		try {
 			const { Redis } = await import("@upstash/redis");
 			const redis = Redis.fromEnv();
-			
+
 			const viewsData = await redis.mget<number[]>(
-				...experiments.map((p) => ["pageviews", "experiments", p.slugAsParams].join(":")),
+				...experiments.map((p) =>
+					["pageviews", "experiments", p.slugAsParams].join(":"),
+				),
 			);
-			
+
 			return viewsData.reduce((acc: ViewsType, v, i) => {
 				acc[experiments[i].slugAsParams] = v ?? 0;
 				return acc;
@@ -37,7 +41,7 @@ async function getViewsData(): Promise<ViewsType> {
 			}, {});
 		}
 	}
-	
+
 	// Development fallback - return zero views for all experiments
 	return experiments.reduce((acc: ViewsType, experiment) => {
 		acc[experiment.slugAsParams] = 0;

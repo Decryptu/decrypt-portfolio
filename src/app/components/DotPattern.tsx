@@ -1,4 +1,4 @@
-import clsx from "clsx"; // Ensure clsx is installed as suggested
+import clsx from "clsx";
 import { type SVGProps, useId } from "react";
 
 interface DotPatternProps extends SVGProps<SVGSVGElement> {

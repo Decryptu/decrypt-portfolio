@@ -1,4 +1,3 @@
-// app/components/particles.tsx
 "use client";
 
 import { useMousePosition } from "@/util/mouse";
