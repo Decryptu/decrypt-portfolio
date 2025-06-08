@@ -17,11 +17,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
 		const body = await request.json();
 		const slug = body?.slug;
+		const type = body?.type;
 
 		if (!slug || typeof slug !== "string") {
-			return new NextResponse("Slug not found", {
-				status: 400,
-			});
+			return new NextResponse("Slug not found", { status: 400 });
+		}
+
+		if (!type || typeof type !== "string" || (type !== "projects" && type !== "experiments")) {
+			return new NextResponse("Type not found or invalid", { status: 400 });
 		}
 
 		const ip = ipAddress(request);
@@ -46,7 +49,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 			}
 		}
 
-		await redis.incr(["pageviews", "projects", slug].join(":"));
+		await redis.incr(["pageviews", type, slug].join(":"));
 		return new NextResponse(null, { status: 202 });
 	} catch (error) {
 		console.error("Error in incr API:", error);
