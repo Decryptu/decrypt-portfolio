@@ -40,3 +40,4 @@ next-env.d.ts
 .contentlayer
 .velite
 .vscode
+build.log
