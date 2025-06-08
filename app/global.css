@@ -1,3 +1,4 @@
+/* app/global.css */
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -8,8 +9,8 @@
 }
 
 @theme {
-  --font-family-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-family-display: var(--font-calsans);
+  --font-family-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-family-display: var(--font-calsans), ui-serif, serif;
   
   --color-background: #ffffff;
   --color-foreground: #000000;
@@ -25,6 +26,7 @@
   --gradient-radial: radial-gradient(50% 50% at 50% 50%, var(--tw-gradient-stops));
 }
 
+/* Rest of your keyframes... */
 @keyframes orbit {
   0% {
     transform: rotate(0deg) translateY(calc(var(--radius) * 1px)) rotate(0deg);

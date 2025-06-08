@@ -1,22 +1,47 @@
+// app/contact/page.tsx
 "use client";
-import { Github, Mail, Twitter } from "lucide-react";
+import { Mail } from "lucide-react";
 import Link from "next/link";
 import type { ReactElement } from "react";
+import { siGithub, siX } from "simple-icons";
 import { Card } from "../components/card";
 
-// Define an interface for the social links
-interface SocialLinkProps {
-	icon: ReactElement<any>; // Assuming icons are React elements
-	href: string;
-	handle: string;
-	label: string;
+// Simple icon component that renders simple-icons properly
+interface SimpleIconProps {
+	readonly iconData: {
+		readonly title: string;
+		readonly path: string;
+	};
+	readonly size?: number;
 }
 
-const socials: SocialLinkProps[] = [
+const SimpleIcon = ({ iconData, size = 20 }: SimpleIconProps): ReactElement => (
+	<svg
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		fill="currentColor"
+		xmlns="http://www.w3.org/2000/svg"
+		role="img"
+		aria-label={iconData.title}
+	>
+		<path d={iconData.path} />
+	</svg>
+);
+
+// Define a proper interface for the social links with strict typing
+interface SocialLinkProps {
+	readonly icon: ReactElement;
+	readonly href: string;
+	readonly handle: string;
+	readonly label: string;
+}
+
+const socials: readonly SocialLinkProps[] = [
 	{
-		icon: <Twitter size={20} />,
-		href: "https://twitter.com/decrypttv",
-		label: "Twitter",
+		icon: <SimpleIcon iconData={siX} size={20} />,
+		href: "https://x.com/decrypttv",
+		label: "X (Twitter)",
 		handle: "@DecryptTV",
 	},
 	{
@@ -26,30 +51,30 @@ const socials: SocialLinkProps[] = [
 		handle: "louis.vicomte@proton.me",
 	},
 	{
-		icon: <Github size={20} />,
+		icon: <SimpleIcon iconData={siGithub} size={20} />,
 		href: "https://github.com/Decryptu",
-		label: "Github",
+		label: "GitHub",
 		handle: "Decryptu",
 	},
-];
+] as const;
 
 const containerClasses =
-	"p-4 flex flex-col items-center gap-4 duration-700 group md:gap-8 md:py-24 lg:pb-48 md:p-16";
+	"p-4 flex flex-col items-center gap-4 duration-700 group md:gap-8 md:py-24 lg:pb-48 md:p-16" as const;
 const iconContainerClasses =
-	"relative z-10 flex items-center justify-center w-12 h-12 text-sm duration-1000 border rounded-full text-zinc-200 group-hover:text-white group-hover:bg-zinc-900 border-zinc-500 bg-zinc-900 group-hover:border-zinc-200 drop-shadow-orange";
+	"relative z-10 flex items-center justify-center w-12 h-12 text-sm duration-1000 border rounded-full text-zinc-200 group-hover:text-white group-hover:bg-zinc-900 border-zinc-500 bg-zinc-900 group-hover:border-zinc-200 drop-shadow-orange" as const;
 const handleClasses =
-	"text-xl font-medium duration-150 lg:text-3xl text-zinc-200 group-hover:text-white font-display";
+	"text-xl font-medium duration-150 lg:text-3xl text-zinc-200 group-hover:text-white font-display" as const;
 const labelClasses =
-	"mt-4 text-sm text-center duration-1000 text-zinc-400 group-hover:text-zinc-200";
+	"mt-4 text-sm text-center duration-1000 text-zinc-400 group-hover:text-zinc-200" as const;
 
-const SocialLink: React.FC<SocialLinkProps> = ({
+const SocialLink = ({
 	icon,
 	href,
 	handle,
 	label,
-}) => (
-	<Card key={handle}>
-		<Link href={href} target="_blank" className="relative" legacyBehavior>
+}: SocialLinkProps): ReactElement => (
+	<Card>
+		<Link href={href} target="_blank" className="relative">
 			<div className={containerClasses}>
 				<span
 					className="absolute w-px h-2/3 bg-gradient-to-b from-zinc-500 via-zinc-500/50 to-transparent"
@@ -65,13 +90,13 @@ const SocialLink: React.FC<SocialLinkProps> = ({
 	</Card>
 );
 
-export default function Example() {
+export default function ContactPage(): ReactElement {
 	return (
 		<div className="bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
 			<div className="container flex items-center justify-center min-h-screen px-4 mx-auto">
 				<div className="grid w-full grid-cols-1 gap-8 mx-auto mt-16 sm:mt-0 sm:grid-cols-3 lg:gap-16">
-					{socials.map((s) => (
-						<SocialLink key={s.handle} {...s} />
+					{socials.map((social) => (
+						<SocialLink key={social.handle} {...social} />
 					))}
 				</div>
 			</div>

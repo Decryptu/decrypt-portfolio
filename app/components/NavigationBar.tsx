@@ -94,38 +94,38 @@ const NavigationBar = () => {
 		>
 			<div className="flex items-center space-x-2 rounded-lg border dark:border-zinc-800 border-zinc-300 dark:bg-zinc-900 bg-white p-1 shadow-[0_3px_10px_rgb(0,0,0,0.1)] dark:shadow-[0_3px_10px_rgb(0,0,0,0.5)]">
 				{navItems.map(({ path, Icon, label }) => (
-					<Link key={path} href={path} passHref legacyBehavior>
-						<a
-							className={`relative flex items-center justify-center w-8 h-8 dark:hover:bg-zinc-800 hover:bg-zinc-200 rounded-md ${
-								state.currentPath === path
-									? "bg-zinc-200 dark:bg-zinc-950 rounded-md"
-									: ""
-							}`}
-							onMouseEnter={() =>
-								!isMobile() &&
-								setState((prev) => ({
-									...prev,
-									tooltip: label,
-								}))
-							}
-							onMouseLeave={() =>
-								setState((prev) => ({
-									...prev,
-									tooltip: null,
-								}))
-							}
-							onClick={() => handleLinkClick(path)}
-						>
-							<Icon
-								strokeWidth={1.25}
-								className="w-6 h-6 dark:stroke-zinc-100 stroke-zinc-950"
-							/>
-							{state.tooltip === label && (
-								<span className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 dark:bg-zinc-900 dark:text-white bg-zinc-50 text-zinc-900 text-xs rounded shadow-lg">
-									{label}
-								</span>
-							)}
-						</a>
+					<Link
+						key={path}
+						href={path}
+						className={`relative flex items-center justify-center w-8 h-8 dark:hover:bg-zinc-800 hover:bg-zinc-200 rounded-md ${
+							state.currentPath === path
+								? "bg-zinc-200 dark:bg-zinc-950 rounded-md"
+								: ""
+						}`}
+						onMouseEnter={() =>
+							!isMobile() &&
+							setState((prev) => ({
+								...prev,
+								tooltip: label,
+							}))
+						}
+						onMouseLeave={() =>
+							setState((prev) => ({
+								...prev,
+								tooltip: null,
+							}))
+						}
+						onClick={() => handleLinkClick(path)}
+					>
+						<Icon
+							strokeWidth={1.25}
+							className="w-6 h-6 dark:stroke-zinc-100 stroke-zinc-950"
+						/>
+						{state.tooltip === label && (
+							<span className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-2 py-1 dark:bg-zinc-900 dark:text-white bg-zinc-50 text-zinc-900 text-xs rounded shadow-lg">
+								{label}
+							</span>
+						)}
 					</Link>
 				))}
 				{/* Separator */}

@@ -1,7 +1,7 @@
 // velite.config.ts
 import { defineConfig, defineCollection, s } from 'velite'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeShiki from '@shikijs/rehype'
 import rehypeSlug from 'rehype-slug'
 
 const computedFields = <T extends { slug: string }>(data: T) => ({
@@ -75,21 +75,11 @@ export default defineConfig({
     rehypePlugins: [
       rehypeSlug,
       [
-        rehypePrettyCode,
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        rehypeShiki as any,
         {
-          theme: 'github-dark',
-          onVisitLine(node: any) {
-            if (node.children.length === 0) {
-              node.children = [{ type: 'text', value: ' ' }]
-            }
-          },
-          onVisitHighlightedLine(node: any) {
-            node.properties.className.push('line--highlighted')
-          },
-          onVisitHighlightedWord(node: any) {
-            node.properties.className = ['word--highlighted']
-          },
-        },
+          theme: 'github-dark'
+        }
       ],
       [
         rehypeAutolinkHeadings,

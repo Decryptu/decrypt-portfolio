@@ -2,6 +2,7 @@
 "use client";
 
 import * as React from "react";
+import * as runtime from 'react/jsx-runtime';
 import Image from "next/image";
 import Link from "next/link";
 import ClickableImage from "./ClickableImage";
@@ -62,7 +63,7 @@ function clsx(...args: (string | undefined | null)[]) {
   return args.filter(Boolean).join(" ");
 }
 
-const components = {
+const sharedComponents = {
   h1: createHeading("h1", "mt-2 scroll-m-20 text-4xl font-bold tracking-tight"),
   h2: createHeading(
     "h2",
@@ -85,12 +86,11 @@ const components = {
     "mt-8 scroll-m-20 text-base font-semibold tracking-tight",
   ),
   a: ({ className, href, ...props }: LinkProps) => (
-    <Link href={href} passHref legacyBehavior>
-      <a
-        className={`font-medium text-zinc-900 underline underline-offset-4 ${className}`}
-        {...props}
-      />
-    </Link>
+    <Link
+      href={href}
+      className={`font-medium text-zinc-900 underline underline-offset-4 ${className || ""}`}
+      {...props}
+    />
   ),
   p: ({ className, ...props }: ComponentProps) => (
     <p
@@ -171,40 +171,19 @@ const components = {
   Callout,
 };
 
-interface MdxProps {
+// parse the Velite generated MDX code into a React component function
+const useMDXComponent = (code: string) => {
+  const fn = new Function(code);
+  return fn({ ...runtime }).default;
+};
+
+interface MDXProps {
   code: string;
+  components?: Record<string, React.ComponentType>;
 }
 
-export function Mdx({ code }: MdxProps) {
-  // For Velite, we need to properly handle the MDX compilation
-  const Component = React.useMemo(() => {
-    try {
-      // Create a function that provides React and JSX runtime
-      const fn = new Function(
-        'React',
-        'Fragment', 
-        '_jsx',
-        '_jsxs',
-        `
-        ${code}
-        return { default: MDXContent };
-        `
-      );
-      
-      // Provide the necessary dependencies
-      const result = fn(
-        React,
-        React.Fragment,
-        (type: any, props: any) => React.createElement(type, props),
-        (type: any, props: any) => React.createElement(type, props)
-      );
-      
-      return result.default;
-    } catch (error) {
-      console.error('Error compiling MDX:', error);
-      return () => React.createElement('div', { className: 'text-red-500' }, 'Error loading content');
-    }
-  }, [code]);
-
-  return <Component components={components} />;
-}
+// MDXContent component
+export const Mdx = ({ code, components }: MDXProps) => {
+  const Component = useMDXComponent(code);
+  return <Component components={{ ...sharedComponents, ...components }} />;
+};
