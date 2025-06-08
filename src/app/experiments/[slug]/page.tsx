@@ -29,10 +29,10 @@ async function getViews(slug: string): Promise<number> {
 			const fetched = await redis.get<number>(
 				["pageviews", "experiments", slug].join(":"),
 			);
-			return fetched ?? 100;
+			return fetched ?? 0;
 		} catch {}
 	}
-	return 100;
+	return 0;
 }
 
 export default async function PostPage({ params }: Props) {
