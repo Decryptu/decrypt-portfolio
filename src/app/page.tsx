@@ -24,7 +24,7 @@ export default function Home() {
 			<div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
 			<div className="my-16 text-center animate-fade-in">
 				<h2 className="text-base mx-8 md:mx-32 lg:mx-80 text-zinc-500 ">
-					Hello, I am Decrypt, a freelance graphic designer and web designer. I
+					Hello, I am Decrypt, an independent graphic designer and web designer. I
 					currently work with{" "}
 					<Link
 						href="https://decrypt.im/projects/defillama"
@@ -45,13 +45,6 @@ export default function Home() {
 						className="underline duration-500 hover:text-zinc-300"
 					>
 						Cryptoast
-					</Link>
-					,{" "}
-					<Link
-						href="https://decrypt.im/projects/oak"
-						className="underline duration-500 hover:text-zinc-300"
-					>
-						OAK Research
 					</Link>{" "}
 					&{" "}
 					<Link
@@ -60,7 +53,14 @@ export default function Home() {
 					>
 						Adan
 					</Link>
-					. Additionally, I am the founder of{" "}
+					. I am CTO of{" "}
+					<Link
+						href="https://decrypt.im/projects/oak"
+						className="underline duration-500 hover:text-zinc-300"
+					>
+						OAK Research
+					</Link>{" "}
+					and founder of{" "}
 					<Link
 						href="https://decrypt.im/projects/pandia"
 						className="underline duration-500 hover:text-zinc-300"
