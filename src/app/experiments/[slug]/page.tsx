@@ -5,7 +5,7 @@ import { Header } from "./header";
 import { ReportView } from "./view";
 import "./mdx.css";
 
-export const dynamic = "force-dynamic";
+// Enable ISR: pages are statically generated but revalidate every 60 seconds
 export const revalidate = 60;
 
 type Props = {

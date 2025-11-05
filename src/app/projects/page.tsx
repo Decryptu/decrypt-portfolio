@@ -6,8 +6,7 @@ import { Card } from "../components/card";
 import IconMapper from "../icons/iconMapper";
 import { Article } from "./article";
 
-// Force dynamic rendering to allow Redis calls
-export const dynamic = "force-dynamic";
+// Enable ISR: pages are statically generated but revalidate every 60 seconds
 export const revalidate = 60;
 
 // Define a type for the views object
