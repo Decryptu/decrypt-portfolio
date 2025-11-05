@@ -105,8 +105,8 @@ export default async function ProjectsPage() {
 				<div className="w-full h-px bg-zinc-800" />
 				<div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
 					<Card>
-						<Link href={`/projects/${featured.slugAsParams}`}>
-							<article className="relative h-full w-full p-4 md:p-8">
+						<Link href={`/projects/${featured.slugAsParams}`} className="block h-full">
+							<article className="relative h-full w-full p-4 md:p-8 flex flex-col">
 								<div className="flex justify-between gap-2 items-center">
 									<div className="text-xs text-zinc-100">
 										{featured.date ? (
