@@ -1,5 +1,6 @@
 import { Mdx } from "@/app/components/mdx";
 import { notFound } from "next/navigation";
+import { unstable_cache } from "next/cache";
 import { projects } from "#site/content";
 import { Header } from "./header";
 import { ReportView } from "./view";
@@ -29,12 +30,24 @@ async function getViews(slug: string): Promise<number> {
 		process.env.UPSTASH_REDIS_REST_URL
 	) {
 		try {
-			const { Redis } = await import("@upstash/redis");
-			const redis = Redis.fromEnv();
-			const fetchedViews = await redis.get<number>(
-				["pageviews", "projects", slug].join(":"),
+			// Wrap Redis call with unstable_cache to allow SSG
+			const getCachedViews = unstable_cache(
+				async (slug: string) => {
+					const { Redis } = await import("@upstash/redis");
+					const redis = Redis.fromEnv();
+					const fetchedViews = await redis.get<number>(
+						["pageviews", "projects", slug].join(":"),
+					);
+					return fetchedViews ?? 100;
+				},
+				[`project-views-${slug}`],
+				{
+					revalidate: 60,
+					tags: [`project-views-${slug}`],
+				},
 			);
-			return fetchedViews ?? 100;
+
+			return await getCachedViews(slug);
 		} catch (error) {
 			console.error(`Error fetching views from Redis for slug: ${slug}`, error);
 			return 100; // Fallback

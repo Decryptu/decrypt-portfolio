@@ -1,6 +1,7 @@
 import { Eye } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { unstable_cache } from "next/cache";
 import { projects } from "#site/content";
 import { Card } from "../components/card";
 import IconMapper from "../icons/iconMapper";
@@ -21,17 +22,29 @@ async function getViewsData(): Promise<ViewsType> {
 		process.env.UPSTASH_REDIS_REST_URL
 	) {
 		try {
-			const { Redis } = await import("@upstash/redis");
-			const redis = Redis.fromEnv();
+			// Wrap Redis call with unstable_cache to allow SSG
+			const getCachedViewsData = unstable_cache(
+				async () => {
+					const { Redis } = await import("@upstash/redis");
+					const redis = Redis.fromEnv();
 
-			const viewsData = await redis.mget<number[]>(
-				...projects.map((p) => ["pageviews", "projects", p.slugAsParams].join(":")),
+					const viewsData = await redis.mget<number[]>(
+						...projects.map((p) => ["pageviews", "projects", p.slugAsParams].join(":")),
+					);
+
+					return viewsData.reduce((acc: ViewsType, v, i) => {
+						acc[projects[i].slugAsParams] = v ?? 0;
+						return acc;
+					}, {});
+				},
+				["projects-views-all"],
+				{
+					revalidate: 60,
+					tags: ["projects-views"],
+				},
 			);
 
-			return viewsData.reduce((acc: ViewsType, v, i) => {
-				acc[projects[i].slugAsParams] = v ?? 0;
-				return acc;
-			}, {});
+			return await getCachedViewsData();
 		} catch (error) {
 			console.error("Failed to fetch views from Redis:", error);
 			// Fallback to zero views

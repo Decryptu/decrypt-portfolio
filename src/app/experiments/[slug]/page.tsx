@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { unstable_cache } from "next/cache";
 import { experiments } from "#site/content";
 import ExperimentMdx from "../ExperimentMdx";
 import { Header } from "./header";
@@ -24,13 +25,27 @@ async function getViews(slug: string): Promise<number> {
 		process.env.UPSTASH_REDIS_REST_URL
 	) {
 		try {
-			const { Redis } = await import("@upstash/redis");
-			const redis = Redis.fromEnv();
-			const fetched = await redis.get<number>(
-				["pageviews", "experiments", slug].join(":"),
+			// Wrap Redis call with unstable_cache to allow SSG
+			const getCachedViews = unstable_cache(
+				async (slug: string) => {
+					const { Redis } = await import("@upstash/redis");
+					const redis = Redis.fromEnv();
+					const fetched = await redis.get<number>(
+						["pageviews", "experiments", slug].join(":"),
+					);
+					return fetched ?? 0;
+				},
+				[`experiment-views-${slug}`],
+				{
+					revalidate: 60,
+					tags: [`experiment-views-${slug}`],
+				},
 			);
-			return fetched ?? 0;
-		} catch {}
+
+			return await getCachedViews(slug);
+		} catch {
+			return 0;
+		}
 	}
 	return 0;
 }
