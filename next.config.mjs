@@ -44,9 +44,11 @@ const generateSitemap = async () => {
 
 generateSitemap();
 
-// Velite integration for Next.js 15
-const isDev = process.argv.indexOf("dev") !== -1;
-const isBuild = process.argv.indexOf("build") !== -1;
+// Velite integration for Next.js 16
+// In Next.js 16, process.argv checking for 'dev' returns false
+// Use NODE_ENV instead
+const isDev = process.env.NODE_ENV === "development";
+const isBuild = process.env.NODE_ENV === "production";
 
 if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 	process.env.VELITE_STARTED = "1";
