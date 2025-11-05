@@ -1,0 +1,43 @@
+---
+title: Claude Meter
+description: A native macOS menu bar app for monitoring Claude AI usage in real-time. Built with Swift and SwiftUI, featuring automatic credential detection and privacy-first design.
+date: "2024-11-05"
+url: https://github.com/Decryptu/claude-meter
+tags: ["Dev"]
+published: true
+icon: "Gauge"
+---
+
+# Claude Meter
+
+A native macOS menu bar application for monitoring Claude AI subscription usage in real-time. Built entirely in Swift with SwiftUI, this tool showcases native macOS development skills and thoughtful UX design.
+
+![Claude Meter Logo](/images/claudemeter-logo.webp)
+
+## What It Does
+
+Claude Meter sits in your menu bar and displays your Claude subscription usage statistics without requiring any API keys or manual configuration. It automatically detects credentials from either the Claude Desktop app or web browser cookies (Chrome, Brave), making it seamless to use.
+
+## Key Features
+
+- **Menu Bar Integration**: Lightweight app with a ring-style indicator showing usage at a glance
+- **Automatic Detection**: No setup needed—automatically finds credentials from Claude Desktop or browser
+- **Real-Time Monitoring**: Refreshes every 60 seconds to keep you informed
+- **Launch at Login**: Optional auto-start for continuous monitoring
+- **Privacy-First**: All data stays local, zero telemetry, open-source codebase
+
+![Claude Meter Screenshot](/images/claudemeter-screen.webp)
+
+## Technical Stack
+
+- **Language**: Swift 5.9+
+- **Framework**: SwiftUI for native macOS UI
+- **Platform**: macOS 13+
+- **Architecture**: Native macOS frameworks, no external dependencies
+- **License**: MIT (fully open-source)
+
+## Design Philosophy
+
+The app was designed with a focus on simplicity and privacy. It monitors account-based usage (not API consumption) and keeps everything local—communicating only with claude.ai. The menu bar integration provides non-intrusive access to usage stats without cluttering the interface.
+
+This project demonstrates proficiency in Swift development, macOS system integration, and creating polished native applications with attention to user privacy and experience.
