@@ -1,10 +1,10 @@
 import React from "react";
+import { unstable_cache } from "next/cache";
 import { experiments } from "#site/content";
 import { Card } from "../components/card";
 import { Article } from "./article";
 
-// Force dynamic rendering to allow Redis calls
-export const dynamic = "force-dynamic";
+// Enable ISR: pages are statically generated but revalidate every 60 seconds
 export const revalidate = 60;
 
 // Define a type for the views object
@@ -19,19 +19,31 @@ async function getViewsData(): Promise<ViewsType> {
 		process.env.UPSTASH_REDIS_REST_URL
 	) {
 		try {
-			const { Redis } = await import("@upstash/redis");
-			const redis = Redis.fromEnv();
+			// Wrap Redis call with unstable_cache to allow SSG
+			const getCachedViewsData = unstable_cache(
+				async () => {
+					const { Redis } = await import("@upstash/redis");
+					const redis = Redis.fromEnv();
 
-			const viewsData = await redis.mget<number[]>(
-				...experiments.map((p) =>
-					["pageviews", "experiments", p.slugAsParams].join(":"),
-				),
+					const viewsData = await redis.mget<number[]>(
+						...experiments.map((p) =>
+							["pageviews", "experiments", p.slugAsParams].join(":"),
+						),
+					);
+
+					return viewsData.reduce((acc: ViewsType, v, i) => {
+						acc[experiments[i].slugAsParams] = v ?? 0;
+						return acc;
+					}, {});
+				},
+				["experiments-views-all"],
+				{
+					revalidate: 60,
+					tags: ["experiments-views"],
+				},
 			);
 
-			return viewsData.reduce((acc: ViewsType, v, i) => {
-				acc[experiments[i].slugAsParams] = v ?? 0;
-				return acc;
-			}, {});
+			return await getCachedViewsData();
 		} catch (error) {
 			console.error("Failed to fetch views from Redis:", error);
 			// Fallback to zero views

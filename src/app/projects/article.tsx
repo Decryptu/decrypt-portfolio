@@ -30,8 +30,8 @@ export const Article: React.FC<Props> = ({ project, views }) => {
 	const projectDate = project.date ? new Date(project.date) : null;
 
 	return (
-		<Link href={`/projects/${project.slugAsParams}`}>
-			<article className="p-4 md:p-8">
+		<Link href={`/projects/${project.slugAsParams}`} className="block h-full">
+			<article className="p-4 md:p-8 h-full flex flex-col">
 				<div className="flex justify-between gap-2 items-center">
 					<span className="text-xs duration-1000 text-zinc-200 group-hover:text-white group-hover:border-zinc-200 drop-shadow-orange">
 						{projectDate ? (

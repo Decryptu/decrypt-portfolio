@@ -1,13 +1,13 @@
 import { Eye } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { unstable_cache } from "next/cache";
 import { projects } from "#site/content";
 import { Card } from "../components/card";
 import IconMapper from "../icons/iconMapper";
 import { Article } from "./article";
 
-// Force dynamic rendering to allow Redis calls
-export const dynamic = "force-dynamic";
+// Enable ISR: pages are statically generated but revalidate every 60 seconds
 export const revalidate = 60;
 
 // Define a type for the views object
@@ -22,17 +22,29 @@ async function getViewsData(): Promise<ViewsType> {
 		process.env.UPSTASH_REDIS_REST_URL
 	) {
 		try {
-			const { Redis } = await import("@upstash/redis");
-			const redis = Redis.fromEnv();
+			// Wrap Redis call with unstable_cache to allow SSG
+			const getCachedViewsData = unstable_cache(
+				async () => {
+					const { Redis } = await import("@upstash/redis");
+					const redis = Redis.fromEnv();
 
-			const viewsData = await redis.mget<number[]>(
-				...projects.map((p) => ["pageviews", "projects", p.slugAsParams].join(":")),
+					const viewsData = await redis.mget<number[]>(
+						...projects.map((p) => ["pageviews", "projects", p.slugAsParams].join(":")),
+					);
+
+					return viewsData.reduce((acc: ViewsType, v, i) => {
+						acc[projects[i].slugAsParams] = v ?? 0;
+						return acc;
+					}, {});
+				},
+				["projects-views-all"],
+				{
+					revalidate: 60,
+					tags: ["projects-views"],
+				},
 			);
 
-			return viewsData.reduce((acc: ViewsType, v, i) => {
-				acc[projects[i].slugAsParams] = v ?? 0;
-				return acc;
-			}, {});
+			return await getCachedViewsData();
 		} catch (error) {
 			console.error("Failed to fetch views from Redis:", error);
 			// Fallback to zero views
@@ -93,8 +105,8 @@ export default async function ProjectsPage() {
 				<div className="w-full h-px bg-zinc-800" />
 				<div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
 					<Card>
-						<Link href={`/projects/${featured.slugAsParams}`}>
-							<article className="relative h-full w-full p-4 md:p-8">
+						<Link href={`/projects/${featured.slugAsParams}`} className="block h-full">
+							<article className="relative h-full w-full p-4 md:p-8 flex flex-col">
 								<div className="flex justify-between gap-2 items-center">
 									<div className="text-xs text-zinc-100">
 										{featured.date ? (
