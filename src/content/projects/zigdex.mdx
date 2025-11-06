@@ -1,0 +1,53 @@
+---
+title: Zigdex
+description: A blazingly fast terminal Pokemon sprite viewer built with Zig. Features embedded sprites, shiny variants, and performance-optimized architecture—5.8x faster than alternatives.
+date: "2025-11-06"
+url: https://github.com/Decryptu/zigdex
+tags: ["Dev"]
+published: true
+icon: "Zap"
+---
+
+# Zigdex
+
+A high-performance terminal application for displaying Pokemon sprites, written entirely in Zig. Built as a modern, lightning-fast reimplementation of tools like pokeget and krabby, zigdex showcases low-level systems programming and performance optimization.
+
+![Zigdex Logo](/images/zigdex-logo.webp)
+
+## What It Does
+
+Zigdex brings Pokemon to your terminal with style. Display any Pokemon by name, Pokedex number, or randomly—with a 1/128 chance of encountering shiny variants. The tool is designed to be fast enough for shell startup scripts without any noticeable delay.
+
+## Key Features
+
+- **Random Pokemon Display**: Randomly select from all available Pokemon with authentic shiny encounter rates
+- **Shiny Variant Support**: Force shiny display or let probability decide
+- **Embedded Sprites**: All sprites compiled directly into the binary—no external files needed
+- **Zero Dependencies**: Self-contained executable that works offline
+- **Blazingly Fast**: Optimized for minimal startup time and resource usage
+
+![Zigdex Screenshot](/images/zigdex-screenshot.webp)
+
+## Performance
+
+Benchmarking shows zigdex significantly outperforms alternatives:
+- **zigdex random**: ~630 microseconds average
+- 1.9x faster than pokeget
+- 5.8x faster than krabby
+
+This speed is achieved by embedding sprites as byte arrays during compilation, eliminating filesystem I/O overhead entirely.
+
+## Technical Stack
+
+- **Language**: Zig
+- **Architecture**: Compile-time sprite embedding
+- **Memory Management**: Zig's GeneralPurposeAllocator with proper cleanup
+- **Lookup System**: Supports case-insensitive names, slugs, and Pokedex numbers
+- **Distribution**: Homebrew support and standalone binaries
+- **License**: MIT (fully open-source)
+
+## Why Zig?
+
+This project demonstrates Zig's strengths for systems programming: compile-time execution for embedding assets, explicit memory management without garbage collection overhead, and the ability to produce fast, portable binaries with no runtime dependencies.
+
+Built for developers who want their terminal tools to be both fun and performant.
