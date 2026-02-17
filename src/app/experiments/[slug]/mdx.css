@@ -1,7 +1,7 @@
 @reference "../../global.css";
 
 [data-rehype-pretty-code-fragment] code {
-	@apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-sm text-black;
+	@apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-sm text-zinc-800 dark:text-zinc-200;
 	counter-reset: line;
 	box-decoration-break: clone;
 }

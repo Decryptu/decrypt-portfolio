@@ -66,7 +66,7 @@ const sharedComponents = {
 	h1: createHeading("h1", "mt-2 scroll-m-20 text-4xl font-bold tracking-tight"),
 	h2: createHeading(
 		"h2",
-		"mt-10 scroll-m-20 border-b border-b-zinc-800 pb-1 text-3xl font-semibold tracking-tight first:mt-0",
+		"mt-10 scroll-m-20 border-b border-b-zinc-300 dark:border-b-zinc-700 pb-1 text-3xl font-semibold tracking-tight first:mt-0",
 	),
 	h3: createHeading(
 		"h3",
@@ -87,7 +87,7 @@ const sharedComponents = {
 	a: ({ className, href, ...props }: LinkProps) => (
 		<Link
 			href={href}
-			className={`font-medium text-zinc-900 underline underline-offset-4 ${className || ""}`}
+			className={`font-medium text-zinc-900 dark:text-zinc-100 underline underline-offset-4 ${className || ""}`}
 			{...props}
 		/>
 	),
@@ -109,7 +109,7 @@ const sharedComponents = {
 	blockquote: ({ className, ...props }: ComponentProps) => (
 		<blockquote
 			className={clsx(
-				"mt-6 border-l-2 border-zinc-300 pl-6 italic text-zinc-800 [&>*]:text-zinc-600",
+				"mt-6 border-l-2 border-zinc-300 dark:border-zinc-700 pl-6 italic text-zinc-800 dark:text-zinc-200 [&>*]:text-zinc-600 dark:[&>*]:text-zinc-400",
 				className,
 			)}
 			{...props}
@@ -122,7 +122,7 @@ const sharedComponents = {
 		src: string;
 	}) => <ClickableImage src={src || ""} alt={props.alt} />,
 	hr: ({ ...props }) => (
-		<hr className="my-4 border-zinc-200 md:my-8" {...props} />
+		<hr className="my-4 border-zinc-200 dark:border-zinc-800 md:my-8" {...props} />
 	),
 	table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
 		<div className="w-full my-6 overflow-y-auto">
@@ -132,7 +132,7 @@ const sharedComponents = {
 	tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
 		<tr
 			className={clsx(
-				"m-0 border-t border-zinc-300 p-0 even:bg-zinc-100 dark:even:bg-zinc-900",
+				"m-0 border-t border-zinc-300 dark:border-zinc-700 p-0 even:bg-zinc-100 dark:even:bg-zinc-900",
 				className,
 			)}
 			{...props}
@@ -141,7 +141,7 @@ const sharedComponents = {
 	th: ({ className, ...props }: ComponentProps) => (
 		<th
 			className={clsx(
-				"border border-zinc-200 px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
+				"border border-zinc-200 dark:border-zinc-700 px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
 				className,
 			)}
 			{...props}
@@ -150,7 +150,7 @@ const sharedComponents = {
 	td: ({ className, ...props }: ComponentProps) => (
 		<td
 			className={clsx(
-				"border border-zinc-200 px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right",
+				"border border-zinc-200 dark:border-zinc-700 px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right",
 				className,
 			)}
 			{...props}
