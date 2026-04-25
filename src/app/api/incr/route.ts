@@ -4,8 +4,6 @@ import { type NextRequest, NextResponse } from "next/server";
 
 const redis = Redis.fromEnv();
 
-export const runtime = "edge";
-
 export async function POST(request: NextRequest): Promise<NextResponse> {
 	try {
 		// Check content type

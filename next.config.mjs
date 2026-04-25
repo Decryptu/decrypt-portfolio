@@ -62,6 +62,9 @@ const nextConfig = {
 	experimental: {
 		mdxRs: true,
 	},
+	turbopack: {
+		root: __dirname,
+	},
 };
 
 export default nextConfig;
