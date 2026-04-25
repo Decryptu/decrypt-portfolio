@@ -8,6 +8,7 @@ import { Meteors } from "../../components/Meteors";
 
 type Props = {
 	project: {
+		slugAsParams: string;
 		url?: string;
 		title: string;
 		description: string;
@@ -48,6 +49,7 @@ const SimpleIcon = ({
 export const Header: React.FC<Props> = ({ project, views }) => {
 	const ref = useRef<HTMLElement>(null);
 	const [isIntersecting, setIntersecting] = useState(true);
+	const [currentViews, setCurrentViews] = useState(views);
 
 	const links: { label: string; href: string }[] = [];
 	if (project.repository) {
@@ -72,6 +74,36 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 		observer.observe(ref.current);
 		return () => observer.disconnect();
 	}, []);
+
+	useEffect(() => {
+		let ignore = false;
+
+		fetch("/api/incr", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				slug: project.slugAsParams,
+				type: "projects",
+			}),
+		})
+			.then(async (response) => {
+				if (!response.ok) return;
+
+				const data = (await response.json()) as { views?: number };
+				if (!ignore && typeof data.views === "number") {
+					setCurrentViews(data.views);
+				}
+			})
+			.catch((error) => {
+				console.error("Failed to report view:", error);
+			});
+
+		return () => {
+			ignore = true;
+		};
+	}, [project.slugAsParams]);
 
 	const iconClasses = `w-6 h-6 duration-200 hover:font-medium ${
 		isIntersecting
@@ -107,7 +139,7 @@ export const Header: React.FC<Props> = ({ project, views }) => {
 							<Eye className="w-5 h-5" />{" "}
 							{Intl.NumberFormat("fr-FR", {
 								notation: "compact",
-							}).format(views)}
+							}).format(currentViews)}
 						</span>
 						<Link target="_blank" href="https://twitter.com/decrypttv">
 							<SimpleIcon iconData={siX} size={24} className={iconClasses} />

@@ -3,7 +3,6 @@ import { unstable_cache } from "next/cache";
 import { experiments } from "#site/content";
 import ExperimentMdx from "../ExperimentMdx";
 import { Header } from "./header";
-import { ReportView } from "./view";
 import "./mdx.css";
 
 // Enable ISR: pages are statically generated but revalidate every 60 seconds
@@ -61,7 +60,6 @@ export default async function PostPage({ params }: Props) {
 	return (
 		<div className="bg-zinc-50 dark:bg-zinc-950 min-h-screen">
 			<Header experiment={experiment} views={views} />
-			<ReportView slug={slug} />
 
 			<article className="px-4 py-12 mx-auto max-w-4xl prose prose-zinc dark:prose-invert prose-quoteless">
 				<ExperimentMdx code={experiment.body} />
