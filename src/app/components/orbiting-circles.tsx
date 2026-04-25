@@ -37,7 +37,7 @@ export default function OrbitingCircles({
       )}
 
       <div
-        className={`absolute flex h-full w-full [will-change:transform] ${reverse ? "animate-orbit-reverse" : "animate-orbit"}items-center justify-center rounded-full text-zinc-600 ${className ?? ""}
+        className={`absolute flex h-full w-full [will-change:transform] ${reverse ? "animate-orbit-reverse" : "animate-orbit"} items-center justify-center rounded-full text-zinc-600 ${className ?? ""}
         `}
         style={
           {
