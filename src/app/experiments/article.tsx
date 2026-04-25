@@ -2,76 +2,79 @@ import { Eye } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
 import type { experiments } from "#site/content";
-import IconMapper from "../icons/iconMapper";
+import IconMapper from "../icons/icon-mapper";
 
-type Props = {
-	experiment: (typeof experiments)[number];
-	views: number;
-};
+interface Props {
+  experiment: (typeof experiments)[number];
+  views: number;
+}
 
 export const Article: React.FC<Props> = ({ experiment, views }) => {
-	// Memoize the date formatter
-	const dateFormatter = useMemo(
-		() =>
-			new Intl.DateTimeFormat(undefined, {
-				dateStyle: "medium",
-			}),
-		[],
-	);
-	const numberFormatter = useMemo(
-		() =>
-			new Intl.NumberFormat("en-US", {
-				notation: "compact",
-			}),
-		[],
-	);
+  // Memoize the date formatter
+  const dateFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat(undefined, {
+        dateStyle: "medium",
+      }),
+    []
+  );
+  const numberFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat("en-US", {
+        notation: "compact",
+      }),
+    []
+  );
 
-	// Avoid redundant new Date instantiation
-	const experimentDate = experiment.date ? new Date(experiment.date) : null;
+  // Avoid redundant new Date instantiation
+  const experimentDate = experiment.date ? new Date(experiment.date) : null;
 
-	return (
-		<Link href={`/experiments/${experiment.slugAsParams}`} className="block h-full">
-			<article className="p-4 md:p-8 h-full flex flex-col">
-				<div className="flex justify-between gap-2 items-center">
-					<span className="text-xs duration-1000 text-zinc-200 group-hover:text-white group-hover:border-zinc-200 drop-shadow-orange">
-						{experimentDate ? (
-							<time dateTime={experimentDate.toISOString()}>
-								{dateFormatter.format(experimentDate)}
-							</time>
-						) : (
-							<span>SOON</span>
-						)}
-					</span>
-					<span className="text-zinc-500 text-xs flex items-center gap-1">
-						<Eye className="w-4 h-4" />
-						{numberFormatter.format(views)}
-					</span>
-				</div>
-				<div className="flex items-center gap-2">
-					{experiment.icon && (
-						<IconMapper
-							name={experiment.icon}
-							className="w-4 h-4 sm:w-6 sm:h-6 mt-1 text-zinc-200"
-						/>
-					)}
-					<h2 className="z-20 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
-						{experiment.title}
-					</h2>
-				</div>
-				<p className="z-20 mt-4 text-sm  duration-1000 text-zinc-400 group-hover:text-zinc-200">
-					{experiment.description}
-				</p>
-				<div className="mt-4 flex flex-wrap gap-2">
-					{experiment.tags?.map((tag) => (
-						<span
-							key={tag}
-							className="px-2 py-1 text-xs font-medium text-zinc-200 bg-zinc-800 border border-zinc-700 rounded-full"
-						>
-							{tag}
-						</span>
-					))}
-				</div>
-			</article>
-		</Link>
-	);
+  return (
+    <Link
+      className="block h-full"
+      href={`/experiments/${experiment.slugAsParams}`}
+    >
+      <article className="flex h-full flex-col p-4 md:p-8">
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-xs text-zinc-200 drop-shadow-orange duration-1000 group-hover:border-zinc-200 group-hover:text-white">
+            {experimentDate ? (
+              <time dateTime={experimentDate.toISOString()}>
+                {dateFormatter.format(experimentDate)}
+              </time>
+            ) : (
+              <span>SOON</span>
+            )}
+          </span>
+          <span className="flex items-center gap-1 text-xs text-zinc-500">
+            <Eye className="h-4 w-4" />
+            {numberFormatter.format(views)}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          {experiment.icon && (
+            <IconMapper
+              className="mt-1 h-4 w-4 text-zinc-200 sm:h-6 sm:w-6"
+              name={experiment.icon}
+            />
+          )}
+          <h2 className="z-20 font-display font-medium text-xl text-zinc-200 duration-1000 group-hover:text-white lg:text-3xl">
+            {experiment.title}
+          </h2>
+        </div>
+        <p className="z-20 mt-4 text-sm text-zinc-400 duration-1000 group-hover:text-zinc-200">
+          {experiment.description}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {experiment.tags?.map((tag) => (
+            <span
+              className="rounded-full border border-zinc-700 bg-zinc-800 px-2 py-1 font-medium text-xs text-zinc-200"
+              key={tag}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </article>
+    </Link>
+  );
 };
