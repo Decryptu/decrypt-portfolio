@@ -1,13 +1,40 @@
 import { Redis } from "@upstash/redis";
 import { ipAddress } from "@vercel/functions";
+import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 
-const redis = Redis.fromEnv();
+type ViewType = "projects" | "experiments";
+
+function getRedis() {
+	if (
+		!process.env.UPSTASH_REDIS_REST_URL ||
+		!process.env.UPSTASH_REDIS_REST_TOKEN
+	) {
+		throw new Error("Upstash Redis env vars are not configured");
+	}
+
+	return Redis.fromEnv();
+}
+
+function isViewType(type: unknown): type is ViewType {
+	return type === "projects" || type === "experiments";
+}
+
+function revalidateViewTags(type: ViewType, slug: string) {
+	if (type === "projects") {
+		revalidateTag(`project-views-${slug}`, "max");
+		revalidateTag("projects-views", "max");
+		return;
+	}
+
+	revalidateTag(`experiment-views-${slug}`, "max");
+	revalidateTag("experiments-views", "max");
+}
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
 	try {
 		// Check content type
-		if (request.headers.get("Content-Type") !== "application/json") {
+		if (!request.headers.get("Content-Type")?.includes("application/json")) {
 			return new NextResponse("must be json", {
 				status: 400,
 			});
@@ -21,9 +48,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 			return new NextResponse("Slug not found", { status: 400 });
 		}
 
-		if (!type || typeof type !== "string" || (type !== "projects" && type !== "experiments")) {
+		if (!isViewType(type)) {
 			return new NextResponse("Type not found or invalid", { status: 400 });
 		}
+
+		const redis = getRedis();
+		const pageviewsKey = ["pageviews", type, slug].join(":");
 
 		const ip = ipAddress(request);
 		if (ip) {
@@ -37,18 +67,25 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 				.join("");
 
 			// deduplicate the ip for each slug
-			const isNew = await redis.set(["deduplicate", hash, slug].join(":"), true, {
-				nx: true,
-				ex: 24 * 60 * 60,
-			});
+			const isNew = await redis.set(
+				["deduplicate", type, hash, slug].join(":"),
+				true,
+				{
+					nx: true,
+					ex: 24 * 60 * 60,
+				},
+			);
 
 			if (!isNew) {
-				return new NextResponse(null, { status: 202 });
+				const views = (await redis.get<number>(pageviewsKey)) ?? 0;
+				return NextResponse.json({ views }, { status: 202 });
 			}
 		}
 
-		await redis.incr(["pageviews", type, slug].join(":"));
-		return new NextResponse(null, { status: 202 });
+		const views = await redis.incr(pageviewsKey);
+		revalidateViewTags(type, slug);
+
+		return NextResponse.json({ views }, { status: 202 });
 	} catch (error) {
 		console.error("Error in incr API:", error);
 		return new NextResponse("Internal Server Error", { status: 500 });
