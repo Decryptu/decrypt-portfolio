@@ -50,7 +50,7 @@ const Hero: React.FC = () => (
         retrieval with citations
       </div>
       <h1
-        className="z-10 mx-auto max-w-4xl cursor-default text-balance bg-gradient-to-b from-white to-zinc-500 bg-clip-text font-display text-4xl text-transparent sm:text-5xl md:text-6xl"
+        className="z-10 mx-auto max-w-4xl cursor-default text-balance bg-gradient-to-b from-white to-zinc-500 bg-clip-text pb-2 font-display text-4xl text-transparent leading-[1.12] sm:text-5xl md:text-6xl"
         style={{ fontFamily: "var(--font-calsans)" }}
       >
         Your database, queryable in plain English.
