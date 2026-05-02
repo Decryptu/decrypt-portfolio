@@ -132,7 +132,7 @@ const NavigationBar = () => {
                 strokeWidth={1.25}
               />
               {state.tooltip === label && (
-                <span className="absolute -top-10 left-1/2 -translate-x-1/2 transform rounded bg-gradient-to-b from-zinc-800 to-zinc-800 px-2 py-1 text-xs text-zinc-50 shadow-lg">
+                <span className="absolute -top-10 left-1/2 -translate-x-1/2 transform whitespace-nowrap rounded bg-gradient-to-b from-zinc-800 to-zinc-800 px-2 py-1 text-xs text-zinc-50 shadow-lg">
                   {label}
                 </span>
               )}
@@ -159,7 +159,7 @@ const NavigationBar = () => {
           >
             <Ellipsis className="h-6 w-6 stroke-zinc-50" strokeWidth={1.5} />
             {state.tooltip === "More" && (
-              <span className="absolute -top-10 left-1/2 -translate-x-1/2 transform rounded bg-gradient-to-b from-zinc-800 to-zinc-800 px-2 py-1 text-xs text-zinc-50 shadow-lg">
+              <span className="absolute -top-10 left-1/2 -translate-x-1/2 transform whitespace-nowrap rounded bg-gradient-to-b from-zinc-800 to-zinc-800 px-2 py-1 text-xs text-zinc-50 shadow-lg">
                 More
               </span>
             )}
