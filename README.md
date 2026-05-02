@@ -45,21 +45,20 @@ which sends an HTML summary email via [Resend](https://resend.com).
 
 ### Where to replace placeholder images
 
-All placeholders are uniform gray `.webp` files in
-`public/placeholders/`. Replace these with the real assets when ready:
+Every placeholder lives at its real, unique path under `public/`. Drop the
+final asset in at the same path/filename — no code changes needed.
 
-- Subscription logos on `/automations` —
-  `public/placeholders/placeholder-logo.webp` (rendered 40×40 in the
-  calculator). To use distinct per-subscription logos, drop them in
-  `public/placeholders/<sub-id>.webp` and update
-  `src/app/automations/savings-calculator.tsx` to pick a different `src`
-  per card.
-- Cryptoast before/after thumbnails on `/automations` —
-  `public/placeholders/placeholder-wide.webp`
-  (referenced from `src/app/automations/case-study.tsx`).
-- AI Chat UI mockup on `/ai-chat` —
-  `public/placeholders/placeholder-square.webp`
-  (referenced from `src/app/ai-chat/page.tsx`).
+- **Subscription logos** on `/automations` — `public/automations/subscriptions/<id>.webp`
+  (rendered 40×40, square). One file per subscription, named after its
+  ID in `src/app/automations/data.ts`:
+  `shutterstock`, `getty`, `adobe-stock`, `istock`, `depositphotos`,
+  `iconscout`, `envato`, `freepik`, `flaticon`, `figma`, `canva`,
+  `creative-cloud`, `midjourney`, `chatgpt-team`, `claude-team`, `runway`.
+- **Cryptoast before/after thumbnails** on `/automations` —
+  `public/automations/case-study/thumb-{1..4}-before.webp` and
+  `public/automations/case-study/thumb-{1..4}-after.webp` (16:9, 8 files).
+- **AI Chat UI mockup** on `/ai-chat` —
+  `public/ai-chat/chat-ui-mockup.webp` (portrait/square).
 
 ### Adjusting calculator defaults
 

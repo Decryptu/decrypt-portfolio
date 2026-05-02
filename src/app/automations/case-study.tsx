@@ -67,8 +67,14 @@ export const CaseStudy: React.FC = () => (
             {pair.label}
           </p>
           <div className="grid grid-cols-2 gap-3">
-            <BeforeAfterImage label="Before" />
-            <BeforeAfterImage label="After" />
+            <BeforeAfterImage
+              label="Before"
+              src={`/automations/case-study/${pair.id}-before.webp`}
+            />
+            <BeforeAfterImage
+              label="After"
+              src={`/automations/case-study/${pair.id}-after.webp`}
+            />
           </div>
         </div>
       ))}
@@ -78,16 +84,17 @@ export const CaseStudy: React.FC = () => (
 
 interface BeforeAfterImageProps {
   readonly label: string;
+  readonly src: string;
 }
 
-const BeforeAfterImage: React.FC<BeforeAfterImageProps> = ({ label }) => (
+const BeforeAfterImage: React.FC<BeforeAfterImageProps> = ({ label, src }) => (
   <div className="relative aspect-video overflow-hidden rounded-lg border border-zinc-700 bg-zinc-800">
     <Image
       alt={`${label} placeholder`}
       className="object-cover"
       fill
       sizes="(min-width: 768px) 25vw, 50vw"
-      src="/placeholders/placeholder-wide.webp"
+      src={src}
     />
     <span className="absolute bottom-2 left-2 rounded bg-zinc-900/80 px-2 py-0.5 text-xs text-zinc-200">
       {label}

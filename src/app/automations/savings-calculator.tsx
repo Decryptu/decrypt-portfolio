@@ -125,7 +125,7 @@ export const SavingsCalculator: React.FC = () => {
                     className="object-cover"
                     fill
                     sizes="40px"
-                    src="/placeholders/placeholder-logo.webp"
+                    src={`/automations/subscriptions/${sub.id}.webp`}
                   />
                 </div>
                 <span

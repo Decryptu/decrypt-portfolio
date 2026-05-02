@@ -158,7 +158,7 @@ const UseCase: React.FC = () => (
           className="object-cover"
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
-          src="/placeholders/placeholder-square.webp"
+          src="/ai-chat/chat-ui-mockup.webp"
         />
       </div>
     </div>
