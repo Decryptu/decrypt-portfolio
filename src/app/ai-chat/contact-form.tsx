@@ -58,7 +58,7 @@ export const ContactForm: React.FC = () => {
           Sent.
         </h3>
         <p className="mt-2 text-zinc-400">
-          Thanks — I'll get back to you within 24 hours.
+          Thanks. I'll get back to you within 24 hours.
         </p>
         <button
           className="mt-6 text-sm text-zinc-400 underline hover:text-zinc-200"

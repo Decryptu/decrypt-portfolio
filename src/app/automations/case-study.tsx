@@ -19,8 +19,8 @@ interface Stat {
 }
 
 const STATS: readonly Stat[] = [
-  { id: "cost-before", value: "€4,000/yr", label: "Before — stock photos" },
-  { id: "cost-after", value: "~€300/yr", label: "After — bot + API costs" },
+  { id: "cost-before", value: "€4,000/yr", label: "Before, with stock photos" },
+  { id: "cost-after", value: "~€300/yr", label: "After, bot + API costs" },
   { id: "time", value: "~5 min/article", label: "Editor time saved" },
   { id: "satisfaction", value: "Editor-approved", label: "Quality preserved" },
 ] as const;
@@ -32,10 +32,10 @@ export const CaseStudy: React.FC = () => (
         Case study
       </p>
       <h2 className="mt-2 font-bold font-display text-3xl text-zinc-100 tracking-tight sm:text-4xl">
-        Cryptoast — thumbnails on autopilot
+        Cryptoast: thumbnails on autopilot
       </h2>
       <p className="mt-4 text-zinc-400">
-        A Discord bot. Editors paste a title, get back an optimized thumbnail —
+        A Discord bot. Editors paste a title, get back an optimized thumbnail in
         WebP, watermarked, SEO-named, compressed, correct dimensions. Same look,
         zero stock library subscription.
       </p>

@@ -7,7 +7,7 @@ import { SavingsCalculator } from "./savings-calculator";
 export const metadata: Metadata = {
   title: "Automations",
   description:
-    "Custom bots that replace expensive SaaS subscriptions with API-based automations — at roughly 10× lower cost, with artistic direction baked in.",
+    "Custom bots that replace expensive SaaS subscriptions with API-based automations, at roughly 10× lower cost, with artistic direction baked in.",
 };
 
 export default function AutomationsPage() {
@@ -27,7 +27,7 @@ const ClosingBlock: React.FC = () => (
     <div className="mx-auto h-px w-24 bg-zinc-800" />
     <p className="mt-8 text-zinc-400">
       Ten years in graphic design. Artistic direction included on every bot.
-      Maintained after launch — not just shipped.
+      Maintained after launch, not just shipped.
     </p>
   </section>
 );

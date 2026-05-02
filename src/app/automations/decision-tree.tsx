@@ -21,7 +21,7 @@ const STEPS: readonly Step[] = [
   {
     id: "category",
     title: "What kind of bot?",
-    subtitle: "Pick the closest category — we'll refine later.",
+    subtitle: "Pick the closest category. We'll refine later.",
     options: [
       { value: "Design", description: "Thumbnails, social cards, image ops." },
       { value: "Writing", description: "Drafts, summaries, editorial assist." },
@@ -119,14 +119,14 @@ const estimateFor = (
 
   if (mode === "Fully Autonomous" || isComplexCategory(category)) {
     return {
-      label: "Complex bot — €3,000–6,000 setup + €50–300/mo",
+      label: "Complex bot. €3,000–6,000 setup + €50–300/mo",
       setup: "€3,000–6,000",
       running: "€50–300/mo",
     };
   }
 
   return {
-    label: "Simple bot — €1,500–3,000 setup + €20–100/mo",
+    label: "Simple bot. €1,500–3,000 setup + €20–100/mo",
     setup: "€1,500–3,000",
     running: "€20–100/mo",
   };
@@ -404,7 +404,7 @@ const renderBody = (args: BodyArgs): React.ReactElement => {
           Sent.
         </h3>
         <p className="mt-2 text-zinc-400">
-          Thanks — I'll get back to you within 24 hours.
+          Thanks. I'll get back to you within 24 hours.
         </p>
         <button
           className="mt-6 text-sm text-zinc-400 underline hover:text-zinc-200"
@@ -489,7 +489,7 @@ const renderBody = (args: BodyArgs): React.ReactElement => {
           Tell me more about what you want it to do
         </h3>
         <p className="mt-2 text-sm text-zinc-400">
-          Optional — anything that will help me scope the project.
+          Optional. Anything that will help me scope the project.
         </p>
         <textarea
           className="mt-6 h-40 w-full rounded-lg border border-zinc-700 bg-zinc-900 p-3 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-400 focus:outline-none"

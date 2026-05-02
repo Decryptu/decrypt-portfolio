@@ -6,7 +6,7 @@ import { ContactForm } from "./contact-form";
 export const metadata: Metadata = {
   title: "AI Chat",
   description:
-    "AI agents connected to your existing database. Plain-English answers to your users — sourced from your real content, not hallucinations.",
+    "AI agents connected to your existing database. Plain-English answers to your users, sourced from your real content, not hallucinations.",
 };
 
 export default function AiChatPage() {
@@ -26,14 +26,14 @@ const Hero: React.FC = () => (
   <section className="relative isolate flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-tl from-black via-zinc-900/40 to-black px-6 pt-24 pb-16">
     <div className="mx-auto max-w-4xl text-center">
       <h1
-        className="z-10 cursor-default whitespace-pre-line bg-white bg-clip-text font-display text-4xl text-edge-outline text-transparent sm:text-6xl md:text-7xl"
+        className="z-10 cursor-default whitespace-pre-line bg-white bg-clip-text font-display text-4xl text-transparent sm:text-6xl md:text-7xl"
         style={{ fontFamily: "var(--font-calsans)" }}
       >
         Your database, queryable in plain English.
       </h1>
       <p className="mt-8 text-base text-zinc-400 md:text-lg">
-        AI agents that read your real content and answer your users with sources
-        — not hallucinations.
+        AI agents that read your real content and answer your users with
+        sources, not hallucinations.
       </p>
       <div className="mt-12 flex justify-center">
         <a
@@ -63,13 +63,13 @@ const STEPS: readonly Step[] = [
     id: "connect",
     icon: Plug,
     title: "Connect your data sources",
-    description: "CMS, database, API — wherever your content lives.",
+    description: "CMS, database, API: wherever your content lives.",
   },
   {
     id: "build",
     icon: Database,
     title: "I build the retrieval layer",
-    description: "RAG, embeddings, vector search — tuned to your content.",
+    description: "RAG, embeddings, vector search, tuned to your content.",
   },
   {
     id: "embed",
@@ -116,11 +116,11 @@ const UseCase: React.FC = () => (
     <div className="mx-auto max-w-2xl text-center">
       <p className="text-sm text-zinc-400 uppercase tracking-wide">Use case</p>
       <h2 className="mt-2 font-bold font-display text-3xl text-zinc-100 tracking-tight sm:text-4xl">
-        Cryptoast — news, guides & rankings, queryable
+        Cryptoast: news, guides & rankings, queryable
       </h2>
       <p className="mt-4 text-zinc-400">
         News articles, long-form guides, live crypto rankings (price, market
-        cap, volume) — all answerable from a single chat, with citations back to
+        cap, volume), all answerable from a single chat, with citations back to
         the source content.
       </p>
     </div>
@@ -179,7 +179,7 @@ const INCLUDED: readonly { id: string; title: string; body: string }[] = [
   {
     id: "retrieval",
     title: "Custom retrieval pipeline",
-    body: "Tuned to your content — chunking, embeddings, ranking.",
+    body: "Tuned to your content: chunking, embeddings, ranking.",
   },
   {
     id: "citations",

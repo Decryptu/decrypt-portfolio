@@ -46,18 +46,18 @@ which sends an HTML summary email via [Resend](https://resend.com).
 ### Where to replace placeholder images
 
 Every placeholder lives at its real, unique path under `public/`. Drop the
-final asset in at the same path/filename — no code changes needed.
+final asset in at the same path/filename, no code changes needed.
 
-- **Subscription logos** on `/automations` — `public/automations/subscriptions/<id>.webp`
-  (rendered 40×40, square). One file per subscription, named after its
+- **Subscription logos** on `/automations`: `public/automations/subscriptions/<id>.webp`
+  (rendered 28×28, square). One file per subscription, named after its
   ID in `src/app/automations/data.ts`:
   `shutterstock`, `getty`, `adobe-stock`, `istock`, `depositphotos`,
   `iconscout`, `envato`, `freepik`, `flaticon`, `figma`, `canva`,
   `creative-cloud`, `midjourney`, `chatgpt-team`, `claude-team`, `runway`.
-- **Cryptoast before/after thumbnails** on `/automations` —
+- **Cryptoast before/after thumbnails** on `/automations`:
   `public/automations/case-study/thumb-{1..4}-before.webp` and
   `public/automations/case-study/thumb-{1..4}-after.webp` (16:9, 8 files).
-- **AI Chat UI mockup** on `/ai-chat` —
+- **AI Chat UI mockup** on `/ai-chat`:
   `public/ai-chat/chat-ui-mockup.webp` (portrait/square).
 
 ### Adjusting calculator defaults

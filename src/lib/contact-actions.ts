@@ -57,18 +57,18 @@ const renderAutomation = (
 ): { subject: string; html: string } => {
   const category =
     data.category === "Other" && data.categoryOther
-      ? `Other — ${data.categoryOther}`
+      ? `Other: ${data.categoryOther}`
       : data.category;
   const mode =
     data.mode === "Other" && data.modeOther
-      ? `Other — ${data.modeOther}`
+      ? `Other: ${data.modeOther}`
       : data.mode;
   const platform =
     data.platform === "Other" && data.platformOther
-      ? `Other — ${data.platformOther}`
+      ? `Other: ${data.platformOther}`
       : data.platform;
 
-  const subject = `New automation request — ${category} (${platform})`;
+  const subject = `New automation request: ${category} (${platform})`;
 
   const html = `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fafafa;padding:24px;color:#18181b;">
   <h2 style="margin:0 0 16px;font-size:18px;">New automation request</h2>

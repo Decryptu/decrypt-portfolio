@@ -5,15 +5,8 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { SAVINGS_RATIO, subscriptions } from "./data";
 
-interface CardState {
-  price: number;
-  selected: boolean;
-}
-
-const initialState = (): Record<string, CardState> =>
-  Object.fromEntries(
-    subscriptions.map((s) => [s.id, { selected: false, price: s.defaultPrice }])
-  );
+const initialState = (): Record<string, boolean> =>
+  Object.fromEntries(subscriptions.map((s) => [s.id, false]));
 
 const formatEur = (n: number): string =>
   new Intl.NumberFormat("fr-FR", {
@@ -53,15 +46,16 @@ const useAnimatedNumber = (target: number): number => {
 };
 
 export const SavingsCalculator: React.FC = () => {
-  const [state, setState] = useState<Record<string, CardState>>(initialState);
+  const [selected, setSelected] =
+    useState<Record<string, boolean>>(initialState);
 
   const currentTotal = useMemo(
     () =>
       subscriptions.reduce(
-        (sum, s) => (state[s.id]?.selected ? sum + state[s.id].price : sum),
+        (sum, s) => (selected[s.id] ? sum + s.defaultPrice : sum),
         0
       ),
-    [state]
+    [selected]
   );
 
   const automatedTotal = currentTotal * (1 - SAVINGS_RATIO);
@@ -72,16 +66,7 @@ export const SavingsCalculator: React.FC = () => {
   const animatedCurrent = useAnimatedNumber(currentTotal);
 
   const toggle = (id: string): void =>
-    setState((prev) => ({
-      ...prev,
-      [id]: { ...prev[id], selected: !prev[id].selected },
-    }));
-
-  const setPrice = (id: string, raw: string): void => {
-    const parsed = Number.parseInt(raw, 10);
-    const price = Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
-    setState((prev) => ({ ...prev, [id]: { ...prev[id], price } }));
-  };
+    setSelected((prev) => ({ ...prev, [id]: !prev[id] }));
 
   const scrollToTree = () => {
     const el = document.getElementById("decision-tree");
@@ -103,73 +88,39 @@ export const SavingsCalculator: React.FC = () => {
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+      <div className="mt-10 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {subscriptions.map((sub) => {
-          const card = state[sub.id];
-          const isSelected = card?.selected ?? false;
+          const isSelected = selected[sub.id] ?? false;
           return (
             <button
-              className={`group relative flex flex-col gap-3 rounded-xl border p-4 text-left transition-colors ${
+              className={`group flex items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors ${
                 isSelected
-                  ? "border-zinc-300 bg-zinc-800/50"
+                  ? "border-zinc-300 bg-zinc-800/60"
                   : "border-zinc-700 bg-zinc-900/30 hover:border-zinc-500"
               }`}
               key={sub.id}
               onClick={() => toggle(sub.id)}
               type="button"
             >
-              <div className="flex items-center justify-between">
-                <div className="relative h-10 w-10 overflow-hidden rounded-md bg-zinc-800">
-                  <Image
-                    alt=""
-                    className="object-cover"
-                    fill
-                    sizes="40px"
-                    src={`/automations/subscriptions/${sub.id}.webp`}
-                  />
-                </div>
-                <span
-                  aria-hidden="true"
-                  className={`flex h-5 w-5 items-center justify-center rounded border ${
-                    isSelected
-                      ? "border-zinc-200 bg-zinc-200 text-zinc-900"
-                      : "border-zinc-600"
-                  }`}
-                >
-                  {isSelected && (
-                    <svg
-                      aria-hidden="true"
-                      className="h-3 w-3"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={3}
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M5 13l4 4L19 7"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  )}
-                </span>
+              <div className="relative h-7 w-7 shrink-0 overflow-hidden rounded bg-zinc-800">
+                <Image
+                  alt=""
+                  className="object-cover"
+                  fill
+                  sizes="28px"
+                  src={`/automations/subscriptions/${sub.id}.webp`}
+                />
               </div>
-              <span className="font-medium text-sm text-zinc-100">
+              <span className="flex-1 truncate font-medium text-sm text-zinc-100">
                 {sub.name}
               </span>
-              <label className="flex items-center gap-2 text-xs text-zinc-400">
-                <span>€</span>
-                <input
-                  className="w-full rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-zinc-100 focus:border-zinc-400 focus:outline-none"
-                  inputMode="numeric"
-                  min={0}
-                  onChange={(e) => setPrice(sub.id, e.target.value)}
-                  onClick={(e) => e.stopPropagation()}
-                  type="number"
-                  value={card?.price ?? 0}
-                />
-                <span>/yr</span>
-              </label>
+              <span
+                className={`shrink-0 font-mono text-sm tabular-nums ${
+                  isSelected ? "text-zinc-100" : "text-zinc-400"
+                }`}
+              >
+                {formatEur(sub.defaultPrice)}/yr
+              </span>
             </button>
           );
         })}
@@ -195,19 +146,23 @@ export const SavingsCalculator: React.FC = () => {
       </div>
 
       {currentTotal > 0 && (
-        <motion.p
+        <motion.div
           animate={{ opacity: 1, y: 0 }}
-          className="mt-8 text-center font-bold font-display text-2xl text-zinc-100 md:text-4xl"
+          className="mt-10 text-center"
           initial={{ opacity: 0, y: 12 }}
           key={currentTotal}
           transition={{ duration: 0.4 }}
         >
-          You'd save{" "}
-          <span className="bg-gradient-to-r from-zinc-100 to-zinc-400 bg-clip-text text-transparent">
-            {formatEur(animatedSavings)}
-          </span>{" "}
-          per year
-        </motion.p>
+          <p className="text-sm text-zinc-400 uppercase tracking-wide">
+            You'd save
+          </p>
+          <p className="mt-3 font-bold font-display text-5xl tracking-tight sm:text-6xl md:text-7xl">
+            <span className="bg-gradient-to-r from-zinc-100 to-zinc-400 bg-clip-text text-transparent">
+              {formatEur(animatedSavings)}
+            </span>
+          </p>
+          <p className="mt-2 text-sm text-zinc-400">per year</p>
+        </motion.div>
       )}
 
       <div className="mt-10 flex justify-center">

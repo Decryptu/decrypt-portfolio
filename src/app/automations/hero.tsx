@@ -9,18 +9,17 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative isolate flex min-h-[80vh] items-center justify-center overflow-hidden bg-gradient-to-tl from-black via-zinc-900/40 to-black px-6 pt-24 pb-16">
-      <div className="hidden h-px w-full animate-fade-left animate-glow bg-gradient-to-r from-zinc-300/0 via-zinc-300/40 to-zinc-300/0 md:block" />
+    <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-gradient-to-tl from-black via-zinc-900/40 to-black px-6 pt-24 pb-16">
       <div className="mx-auto max-w-4xl text-center">
         <h1
-          className="z-10 cursor-default whitespace-pre-line bg-white bg-clip-text font-display text-4xl text-edge-outline text-transparent sm:text-6xl md:text-7xl"
+          className="cursor-default bg-white bg-clip-text font-display text-4xl text-transparent sm:text-6xl md:text-7xl"
           style={{ fontFamily: "var(--font-calsans)" }}
         >
           Replace your subscriptions with bots that don't look like AI slop.
         </h1>
         <p className="mt-8 text-base text-zinc-400 md:text-lg">
           Custom automations to replace Shutterstock, Iconscout, and the rest of
-          your stack — at roughly{" "}
+          your stack at roughly{" "}
           <span className="text-zinc-200">10× lower cost</span>, with artistic
           direction baked in.
         </p>
