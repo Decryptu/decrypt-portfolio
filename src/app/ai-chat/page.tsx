@@ -13,7 +13,7 @@ import { ContactForm } from "./contact-form";
 export const metadata: Metadata = {
   title: "AI Chat",
   description:
-    "AI agents connected to your existing database. Plain-English answers to your users, sourced from your real content, not hallucinations.",
+    "AI agents connected to your existing database. Multilingual answers to your users, sourced from your real content, not hallucinations.",
 };
 
 export default function AiChatPage() {
@@ -53,7 +53,7 @@ const Hero: React.FC = () => (
         className="z-10 mx-auto max-w-4xl cursor-default text-balance bg-gradient-to-b from-white to-zinc-500 bg-clip-text pb-2 font-display text-4xl text-transparent leading-[1.12] sm:text-5xl md:text-6xl"
         style={{ fontFamily: "var(--font-calsans)" }}
       >
-        Your database, queryable in plain English.
+        Your database, queryable in any language.
       </h1>
       <p className="mt-8 text-base text-zinc-400 md:text-lg">
         AI agents that read your real content and answer your users with
