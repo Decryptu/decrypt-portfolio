@@ -1,6 +1,6 @@
 {
   "name": "decrypt.im",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -32,6 +32,7 @@
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-wrap-balancer": "^1.1.1",
+    "resend": "^6.12.2",
     "simple-icons": "^16.17.0",
     "zod": "^4.3.6"
   },

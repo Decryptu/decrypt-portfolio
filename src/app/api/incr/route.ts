@@ -2,20 +2,9 @@ import { Redis } from "@upstash/redis";
 import { ipAddress } from "@vercel/functions";
 import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
+import { shouldUseRedis } from "@/lib/redis-guard";
 
 type ViewType = "projects" | "experiments";
-
-function getRedis() {
-  if (
-    !(
-      process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
-    )
-  ) {
-    throw new Error("Upstash Redis env vars are not configured");
-  }
-
-  return Redis.fromEnv();
-}
 
 function isViewType(type: unknown): type is ViewType {
   return type === "projects" || type === "experiments";
@@ -53,7 +42,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return new NextResponse("Type not found or invalid", { status: 400 });
     }
 
-    const redis = getRedis();
+    // Locally we noop so dev pages don't try to reach Upstash.
+    if (!shouldUseRedis()) {
+      return NextResponse.json({ views: 0, skipped: true }, { status: 202 });
+    }
+
+    const redis = Redis.fromEnv();
     const pageviewsKey = ["pageviews", type, slug].join(":");
 
     const ip = ipAddress(request);

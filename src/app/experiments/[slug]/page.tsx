@@ -1,6 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 import { experiments } from "#site/content";
+import { shouldUseRedis } from "@/lib/redis-guard";
 import ExperimentMdx from "../experiment-mdx";
 import { Header } from "./header";
 import "./mdx.css";
@@ -19,10 +20,7 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 }
 
 async function getViews(slug: string): Promise<number> {
-  if (
-    process.env.NODE_ENV === "production" &&
-    process.env.UPSTASH_REDIS_REST_URL
-  ) {
+  if (shouldUseRedis()) {
     try {
       // Wrap Redis call with unstable_cache to allow SSG
       const getCachedViews = unstable_cache(
