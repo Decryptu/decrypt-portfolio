@@ -2,11 +2,12 @@
 
 import {
   ArrowUpRight,
+  Bot,
   BriefcaseBusiness,
   Contact,
   Ellipsis,
-  FlaskConical,
   Home,
+  MessageSquareQuote,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -76,9 +77,14 @@ const NavigationBar = () => {
       label: "Projects",
     },
     {
-      path: "/experiments",
-      Icon: FlaskConical,
-      label: "Laboratory",
+      path: "/automations",
+      Icon: Bot,
+      label: "Automations",
+    },
+    {
+      path: "/ai-chat",
+      Icon: MessageSquareQuote,
+      label: "AI Chat",
     },
     { path: "/contact", Icon: Contact, label: "Contact" },
   ] as const;
