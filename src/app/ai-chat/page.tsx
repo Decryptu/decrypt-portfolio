@@ -14,6 +14,27 @@ export const metadata: Metadata = {
   title: "AI Chat",
   description:
     "AI agents connected to your existing database. Multilingual answers to your users, sourced from your real content, not hallucinations.",
+  openGraph: {
+    title: "AI Chat | Decrypt",
+    description:
+      "AI agents connected to your existing database. Multilingual answers to your users, sourced from your real content, not hallucinations.",
+    url: "https://decrypt.im/ai-chat",
+    images: [
+      {
+        url: "https://decrypt.im/og-ai-chat.png",
+        width: 1920,
+        height: 1081,
+        alt: "Decrypt AI Chat",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Chat | Decrypt",
+    description:
+      "AI agents connected to your existing database. Multilingual answers to your users, sourced from your real content, not hallucinations.",
+    images: ["https://decrypt.im/og-ai-chat.png"],
+  },
 };
 
 export default function AiChatPage() {
