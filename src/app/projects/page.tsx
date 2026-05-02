@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { projects } from "#site/content";
+import { shouldUseRedis } from "@/lib/redis-guard";
 import { ProjectsContent } from "./projects-content";
 
 // Enable ISR: pages are statically generated but revalidate every 60 seconds
@@ -11,11 +12,8 @@ interface ViewsType {
 }
 
 async function getViewsData(): Promise<ViewsType> {
-  // Only fetch views in production with Redis configured
-  if (
-    process.env.NODE_ENV === "production" &&
-    process.env.UPSTASH_REDIS_REST_URL
-  ) {
+  // Only fetch views from real Vercel deployments with Redis configured.
+  if (shouldUseRedis()) {
     try {
       // Wrap Redis call with unstable_cache to allow SSG
       const getCachedViewsData = unstable_cache(
