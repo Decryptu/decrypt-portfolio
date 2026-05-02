@@ -232,7 +232,7 @@ const Estimate: React.FC = () => (
       <div className="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-8">
         <p className="text-xs text-zinc-400 uppercase tracking-wide">Setup</p>
         <p className="mt-2 font-bold font-display text-4xl text-zinc-100 md:text-5xl">
-          €4,000–8,000
+          $5,000–10,000
         </p>
         <p className="mt-3 text-sm text-zinc-400">
           One-off. Depends on data sources, volume, and complexity of the
@@ -244,7 +244,7 @@ const Estimate: React.FC = () => (
           Running costs
         </p>
         <p className="mt-2 font-bold font-display text-4xl text-white md:text-5xl">
-          €100–500/mo
+          $150–600/mo
         </p>
         <p className="mt-3 text-sm text-zinc-300">
           API + vector DB hosting. Scales with traffic; capped to a budget you
