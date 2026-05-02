@@ -199,29 +199,19 @@ const HowItWorks: React.FC = () => (
 const UseCase: React.FC = () => (
   <section className="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:px-8">
     <div className="mx-auto max-w-2xl text-center">
-      <p className="text-sm text-zinc-400 uppercase tracking-wide">Use case</p>
+      <p className="text-sm text-zinc-400 uppercase tracking-wide">Use cases</p>
       <h2 className="mt-2 font-bold font-display text-3xl text-zinc-100 tracking-tight sm:text-4xl">
-        Cryptoast: news, guides & rankings, queryable
+        Internal AI chats connected to real product data
       </h2>
       <p className="mt-4 text-zinc-400">
-        News articles, long-form guides, live crypto rankings (price, market
-        cap, volume), all answerable from a single chat, with citations back to
-        the source content.
+        Two examples of custom assistants I worked on: one for editorial
+        research, one for DeFi analytics and chart generation.
       </p>
     </div>
 
-    <div className="mt-10 grid gap-6 lg:grid-cols-2">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-6 shadow-sm backdrop-blur">
-        <p className="text-xs text-zinc-400 uppercase tracking-wide">
-          Example question
-        </p>
-        <p className="mt-3 rounded-xl border border-white/10 bg-white/[0.045] p-4 text-zinc-200">
-          What's Solana's market cap, and which guide should I read first?
-        </p>
-        <p className="mt-6 text-xs text-zinc-400 uppercase tracking-wide">
-          Example answer
-        </p>
-        <div className="mt-3 rounded-xl border border-blue-300/15 bg-blue-400/10 p-4 text-zinc-200">
+    <div className="mt-10 space-y-8">
+      <UseCasePanel
+        answer={
           <p>
             Solana sits at <span className="text-zinc-100">$X.XB</span> market
             cap as of today. For a primer, start with{" "}
@@ -230,24 +220,113 @@ const UseCase: React.FC = () => (
             </span>{" "}
             then move on to the staking guide.
           </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <SourceTag label="cryptoast.fr/solana" />
-            <SourceTag label="cryptoast.fr/guides/solana-staking" />
-            <SourceTag label="api/markets/SOL" />
-          </div>
-        </div>
-      </div>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-zinc-800 shadow-2xl shadow-black/40 lg:aspect-auto">
-        <Image
-          alt="Chat UI mockup placeholder"
-          className="object-cover"
-          fill
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          src="/ai-chat/chat-ui-mockup.webp"
-        />
-      </div>
+        }
+        body="News articles, long-form guides, live crypto rankings, prices, market caps and volumes are all searchable from one internal chat, with citations back to the source content."
+        eyebrow="Cryptoast internal tool"
+        imageAlt="Cryptoast internal AI chat mockup placeholder"
+        imageSrc="/ai-chat/chat-ui-mockup.webp"
+        question="What's Solana's market cap, and which guide should I read first?"
+        sources={[
+          "cryptoast.fr/solana",
+          "cryptoast.fr/guides/solana-staking",
+          "api/markets/SOL",
+        ]}
+        title="Cryptoast: news, guides and rankings, queryable"
+      />
+
+      <UseCasePanel
+        answer={
+          <p>
+            LlamaAI can query DefiLlama data, rank the top protocols by daily
+            revenue, then render the result as an interactive React chart
+            component instead of a static answer.
+          </p>
+        }
+        body="I designed LlamaAI and participated in its creation. It can fetch the DefiLlama database, answer analytics questions and generate unique charts directly from the data."
+        eyebrow="DefiLlama client work"
+        imageAlt="LlamaAI chart generation placeholder"
+        imageSrc="/ai-chat/llamaai-placeholder.webp"
+        question="Create a chart with the top 10 protocols ranked by daily revenue."
+        reverse
+        sources={[
+          "api/protocols",
+          "api/fees-and-revenue",
+          "react/chart-component",
+        ]}
+        title="DefiLlama: LlamaAI turns DeFi data into answers and charts"
+      />
     </div>
   </section>
+);
+
+interface UseCasePanelProps {
+  readonly answer: React.ReactNode;
+  readonly body: string;
+  readonly eyebrow: string;
+  readonly imageAlt: string;
+  readonly imageSrc: string;
+  readonly question: string;
+  readonly reverse?: boolean;
+  readonly sources: readonly string[];
+  readonly title: string;
+}
+
+const UseCasePanel: React.FC<UseCasePanelProps> = ({
+  answer,
+  body,
+  eyebrow,
+  imageAlt,
+  imageSrc,
+  question,
+  reverse = false,
+  sources,
+  title,
+}) => (
+  <div className="grid gap-6 lg:grid-cols-2">
+    <div
+      className={`rounded-2xl border border-white/10 bg-white/[0.035] p-6 shadow-sm backdrop-blur ${
+        reverse ? "lg:order-2" : ""
+      }`}
+    >
+      <p className="w-fit rounded-full border border-blue-300/20 bg-blue-400/10 px-3 py-1 font-mono text-blue-100 text-xs">
+        {eyebrow}
+      </p>
+      <h3 className="mt-5 font-display font-medium text-2xl text-zinc-100">
+        {title}
+      </h3>
+      <p className="mt-3 text-sm text-zinc-400 leading-6">{body}</p>
+      <p className="mt-6 text-xs text-zinc-400 uppercase tracking-wide">
+        Example question
+      </p>
+      <p className="mt-3 rounded-xl border border-white/10 bg-white/[0.045] p-4 text-zinc-200">
+        {question}
+      </p>
+      <p className="mt-6 text-xs text-zinc-400 uppercase tracking-wide">
+        Example answer
+      </p>
+      <div className="mt-3 rounded-xl border border-blue-300/15 bg-blue-400/10 p-4 text-zinc-200">
+        {answer}
+        <div className="mt-4 flex flex-wrap gap-2">
+          {sources.map((source) => (
+            <SourceTag key={source} label={source} />
+          ))}
+        </div>
+      </div>
+    </div>
+    <div
+      className={`relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-zinc-800 shadow-2xl shadow-black/40 lg:aspect-auto ${
+        reverse ? "lg:order-1" : ""
+      }`}
+    >
+      <Image
+        alt={imageAlt}
+        className="object-cover"
+        fill
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        src={imageSrc}
+      />
+    </div>
+  </div>
 );
 
 interface SourceTagProps {
