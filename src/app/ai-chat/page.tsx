@@ -224,7 +224,7 @@ const UseCase: React.FC = () => (
         body="News articles, long-form guides, live crypto rankings, prices, market caps and volumes are all searchable from one internal chat, with citations back to the source content."
         eyebrow="Cryptoast internal tool"
         imageAlt="Cryptoast internal AI chat mockup placeholder"
-        imageSrc="/ai-chat/chat-ui-mockup.webp"
+        imageSrc="/ai-chat/cryptoast-ai-chat.webp"
         question="What's Solana's market cap, and which guide should I read first?"
         sources={[
           "cryptoast.fr/solana",
@@ -245,7 +245,7 @@ const UseCase: React.FC = () => (
         body="I designed LlamaAI and participated in its creation. It can fetch the DefiLlama database, answer analytics questions and generate unique charts directly from the data."
         eyebrow="DefiLlama client work"
         imageAlt="LlamaAI chart generation placeholder"
-        imageSrc="/ai-chat/llamaai-placeholder.webp"
+        imageSrc="/ai-chat/defillama-llamaai.webp"
         question="Create a chart with the top 10 protocols ranked by daily revenue."
         reverse
         sources={[
