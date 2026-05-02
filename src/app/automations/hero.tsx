@@ -25,8 +25,8 @@ export const Hero: React.FC = () => {
         </p>
         <p className="mt-4 text-sm text-zinc-500 md:text-base">
           Cryptoast went from{" "}
-          <span className="text-zinc-300">€4,000+/year</span> to{" "}
-          <span className="text-zinc-300">~€300/year</span> on visual assets.
+          <span className="text-zinc-300">$4,000+/year</span> to{" "}
+          <span className="text-zinc-300">~$300/year</span> on visual assets.
         </p>
         <div className="mt-12 flex justify-center">
           <button

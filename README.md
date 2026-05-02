@@ -53,7 +53,8 @@ final asset in at the same path/filename, no code changes needed.
   ID in `src/app/automations/data.ts`:
   `shutterstock`, `getty`, `adobe-stock`, `istock`, `depositphotos`,
   `iconscout`, `envato`, `freepik`, `flaticon`, `figma`, `canva`,
-  `creative-cloud`, `midjourney`, `chatgpt-team`, `claude-team`, `runway`.
+  `creative-cloud`, `midjourney`, `chatgpt-team`, `claude-team`, `runway`,
+  `zapier`, `elevenlabs`.
 - **Cryptoast before/after thumbnails** on `/automations`:
   `public/automations/case-study/thumb-{1..4}-before.webp` and
   `public/automations/case-study/thumb-{1..4}-after.webp` (16:9, 8 files).

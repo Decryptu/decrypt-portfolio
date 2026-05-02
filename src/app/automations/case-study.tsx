@@ -19,9 +19,9 @@ interface Stat {
 }
 
 const STATS: readonly Stat[] = [
-  { id: "cost-before", value: "€4,000/yr", label: "Before, with stock photos" },
-  { id: "cost-after", value: "~€300/yr", label: "After, bot + API costs" },
-  { id: "time", value: "~5 min/article", label: "Editor time saved" },
+  { id: "cost-before", value: "$4,000/yr", label: "Before, with stock photos" },
+  { id: "cost-after", value: "~$300/yr", label: "After, bot + API costs" },
+  { id: "time", value: "~10 min/article", label: "Editor time saved" },
   { id: "satisfaction", value: "Editor-approved", label: "Quality preserved" },
 ] as const;
 

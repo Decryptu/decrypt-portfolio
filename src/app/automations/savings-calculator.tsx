@@ -8,10 +8,10 @@ import { SAVINGS_RATIO, subscriptions } from "./data";
 const initialState = (): Record<string, boolean> =>
   Object.fromEntries(subscriptions.map((s) => [s.id, false]));
 
-const formatEur = (n: number): string =>
-  new Intl.NumberFormat("fr-FR", {
+const formatUsd = (n: number): string =>
+  new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "EUR",
+    currency: "USD",
     maximumFractionDigits: 0,
   }).format(Math.round(n));
 
@@ -119,7 +119,7 @@ export const SavingsCalculator: React.FC = () => {
                   isSelected ? "text-zinc-100" : "text-zinc-400"
                 }`}
               >
-                {formatEur(sub.defaultPrice)}/yr
+                {formatUsd(sub.defaultPrice)}/yr
               </span>
             </button>
           );
@@ -132,7 +132,7 @@ export const SavingsCalculator: React.FC = () => {
             Current annual cost
           </p>
           <p className="mt-2 font-bold font-display text-4xl text-zinc-200 md:text-5xl">
-            {formatEur(animatedCurrent)}
+            {formatUsd(animatedCurrent)}
           </p>
         </div>
         <div className="rounded-2xl border border-zinc-300/40 bg-gradient-to-br from-zinc-800 to-zinc-900 p-6 md:p-8">
@@ -140,7 +140,7 @@ export const SavingsCalculator: React.FC = () => {
             With Decrypt automations
           </p>
           <p className="mt-2 font-bold font-display text-4xl text-white md:text-5xl">
-            {formatEur(animatedAutomated)}
+            {formatUsd(animatedAutomated)}
           </p>
         </div>
       </div>
@@ -158,7 +158,7 @@ export const SavingsCalculator: React.FC = () => {
           </p>
           <p className="mt-3 font-bold font-display text-5xl tracking-tight sm:text-6xl md:text-7xl">
             <span className="bg-gradient-to-r from-zinc-100 to-zinc-400 bg-clip-text text-transparent">
-              {formatEur(animatedSavings)}
+              {formatUsd(animatedSavings)}
             </span>
           </p>
           <p className="mt-2 text-sm text-zinc-400">per year</p>

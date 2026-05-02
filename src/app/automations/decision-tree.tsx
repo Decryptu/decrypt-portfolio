@@ -119,16 +119,16 @@ const estimateFor = (
 
   if (mode === "Fully Autonomous" || isComplexCategory(category)) {
     return {
-      label: "Complex bot. €3,000–6,000 setup + €50–300/mo",
-      setup: "€3,000–6,000",
-      running: "€50–300/mo",
+      label: "Complex bot. $3,000–6,000 setup + $50–300/mo",
+      setup: "$3,000–6,000",
+      running: "$50–300/mo",
     };
   }
 
   return {
-    label: "Simple bot. €1,500–3,000 setup + €20–100/mo",
-    setup: "€1,500–3,000",
-    running: "€20–100/mo",
+    label: "Simple bot. $1,500–3,000 setup + $20–100/mo",
+    setup: "$1,500–3,000",
+    running: "$20–100/mo",
   };
 };
 
