@@ -93,10 +93,10 @@ export const SavingsCalculator: React.FC = () => {
           const isSelected = selected[sub.id] ?? false;
           return (
             <button
-              className={`group flex items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors ${
+              className={`group flex items-center gap-3 rounded-xl border px-3 py-2.5 text-left shadow-sm backdrop-blur transition-colors ${
                 isSelected
-                  ? "border-zinc-300 bg-zinc-800/60"
-                  : "border-zinc-700 bg-zinc-900/30 hover:border-zinc-500"
+                  ? "border-lime-300/50 bg-lime-300/10"
+                  : "border-white/10 bg-white/[0.035] hover:border-zinc-500 hover:bg-white/[0.055]"
               }`}
               key={sub.id}
               onClick={() => toggle(sub.id)}
@@ -127,7 +127,7 @@ export const SavingsCalculator: React.FC = () => {
       </div>
 
       <div className="mt-12 grid gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-6 md:p-8">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-6 shadow-sm backdrop-blur md:p-8">
           <p className="text-sm text-zinc-400 uppercase tracking-wide">
             Current annual cost
           </p>
@@ -135,8 +135,8 @@ export const SavingsCalculator: React.FC = () => {
             {formatUsd(animatedCurrent)}
           </p>
         </div>
-        <div className="rounded-2xl border border-zinc-300/40 bg-gradient-to-br from-zinc-800 to-zinc-900 p-6 md:p-8">
-          <p className="text-sm text-zinc-300 uppercase tracking-wide">
+        <div className="rounded-2xl border border-lime-300/30 bg-[linear-gradient(145deg,rgba(126,164,91,0.18),rgba(39,39,42,0.82))] p-6 shadow-sm backdrop-blur md:p-8">
+          <p className="text-lime-100/80 text-sm uppercase tracking-wide">
             With Decrypt automations
           </p>
           <p className="mt-2 font-bold font-display text-4xl text-white md:text-5xl">

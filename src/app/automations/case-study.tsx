@@ -6,10 +6,10 @@ interface Pair {
 }
 
 const PAIRS: readonly Pair[] = [
-  { id: "thumb-1", label: "News article thumbnail" },
-  { id: "thumb-2", label: "Guide thumbnail" },
-  { id: "thumb-3", label: "Market update thumbnail" },
-  { id: "thumb-4", label: "Project review thumbnail" },
+  { id: "thumb-1", label: "Thumbnail" },
+  { id: "thumb-2", label: "Thumbnail" },
+  { id: "thumb-3", label: "Thumbnail" },
+  { id: "thumb-4", label: "Thumbnail" },
 ] as const;
 
 interface Stat {
@@ -44,7 +44,7 @@ export const CaseStudy: React.FC = () => (
     <div className="mt-10 grid gap-4 md:grid-cols-4">
       {STATS.map((stat) => (
         <div
-          className="rounded-xl border border-zinc-700 bg-zinc-900/40 p-5"
+          className="rounded-xl border border-white/10 bg-white/[0.035] p-5 shadow-sm backdrop-blur"
           key={stat.id}
         >
           <p className="font-bold font-display text-2xl text-zinc-100">
@@ -60,7 +60,7 @@ export const CaseStudy: React.FC = () => (
     <div className="mt-12 grid gap-6 sm:grid-cols-2">
       {PAIRS.map((pair) => (
         <div
-          className="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-5"
+          className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 shadow-sm backdrop-blur"
           key={pair.id}
         >
           <p className="mb-3 text-xs text-zinc-400 uppercase tracking-wide">

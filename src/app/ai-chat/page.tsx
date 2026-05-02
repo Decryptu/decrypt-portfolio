@@ -1,4 +1,11 @@
-import { ArrowDown, Database, MessageSquare, Plug } from "lucide-react";
+import {
+  ArrowDown,
+  CheckCircle2,
+  Database,
+  MessageSquare,
+  Plug,
+  Search,
+} from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ContactForm } from "./contact-form";
@@ -11,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function AiChatPage() {
   return (
-    <div className="bg-gradient-to-tl from-zinc-900/0 via-zinc-900/30 to-zinc-900/0 pb-32">
+    <div className="bg-black pb-32">
       <Hero />
       <HowItWorks />
       <UseCase />
@@ -23,10 +30,27 @@ export default function AiChatPage() {
 }
 
 const Hero: React.FC = () => (
-  <section className="relative isolate flex min-h-[70vh] items-center justify-center overflow-hidden bg-gradient-to-tl from-black via-zinc-900/40 to-black px-6 pt-24 pb-16">
-    <div className="mx-auto max-w-4xl text-center">
+  <section className="relative isolate flex min-h-[88vh] items-center justify-center overflow-hidden bg-black px-6 pt-24 pb-16">
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:80px_80px] opacity-30"
+    />
+    <div
+      aria-hidden="true"
+      className="absolute inset-x-0 top-0 h-96 bg-[radial-gradient(ellipse_at_50%_0%,rgba(37,99,235,0.24),transparent_62%)]"
+    />
+    <div
+      aria-hidden="true"
+      className="absolute inset-x-0 bottom-0 h-80 bg-[linear-gradient(to_top,rgba(37,99,235,0.13),transparent)]"
+    />
+
+    <div className="relative mx-auto w-full max-w-5xl text-center">
+      <div className="mx-auto mb-6 flex w-fit items-center gap-2 rounded-full border border-blue-300/20 bg-blue-400/10 px-3 py-1 font-mono text-blue-100 text-xs">
+        <Search className="h-3.5 w-3.5" strokeWidth={1.5} />
+        retrieval with citations
+      </div>
       <h1
-        className="z-10 cursor-default whitespace-pre-line bg-white bg-clip-text font-display text-4xl text-transparent sm:text-6xl md:text-7xl"
+        className="z-10 mx-auto max-w-4xl cursor-default text-balance bg-gradient-to-b from-white to-zinc-500 bg-clip-text font-display text-4xl text-transparent sm:text-5xl md:text-6xl"
         style={{ fontFamily: "var(--font-calsans)" }}
       >
         Your database, queryable in plain English.
@@ -37,15 +61,76 @@ const Hero: React.FC = () => (
       </p>
       <div className="mt-12 flex justify-center">
         <a
-          className="group flex items-center gap-2 rounded-lg border border-zinc-300 bg-zinc-100 px-6 py-3 font-medium text-sm text-zinc-900 transition-colors hover:bg-white"
+          className="group flex items-center gap-2 rounded-lg border border-zinc-300 bg-zinc-100 px-6 py-3 font-medium text-sm text-zinc-900 shadow-[0_0_40px_rgba(255,255,255,0.12)] transition-colors hover:bg-white"
           href="#contact"
         >
           Start a project
           <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
         </a>
       </div>
+
+      <AiChatHeroVisual />
     </div>
   </section>
+);
+
+const AiChatHeroVisual: React.FC = () => (
+  <div
+    aria-hidden="true"
+    className="relative mx-auto mt-14 max-w-3xl overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950/75 p-3 text-left shadow-2xl shadow-black/60 backdrop-blur"
+  >
+    <div className="absolute -inset-px rounded-[2rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.2),transparent_34%,rgba(37,99,235,0.28))] opacity-70" />
+    <div className="relative rounded-[1.6rem] border border-white/10 bg-[linear-gradient(145deg,rgba(39,39,42,0.96),rgba(0,0,0,0.94))] p-4">
+      <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-blue-300/20 bg-blue-400/10 text-blue-100">
+          <Search className="h-4 w-4" strokeWidth={1.5} />
+        </span>
+        <p className="min-w-0 truncate font-mono text-sm text-zinc-200">
+          Ask: which article explains Solana staking best?
+        </p>
+      </div>
+
+      <div className="mt-3 grid gap-3 md:grid-cols-[1fr_0.8fr]">
+        <div className="rounded-2xl border border-white/10 bg-black/35 p-4">
+          <div className="flex items-center gap-2 font-mono text-[11px] text-zinc-500 uppercase tracking-wide">
+            <Database className="h-3.5 w-3.5" strokeWidth={1.5} />
+            answer
+          </div>
+          <p className="mt-4 text-sm text-zinc-200 leading-6">
+            Start with the Solana guide, then open staking. The answer cites the
+            live market row and the two source articles.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <SourceTag label="guide/solana" />
+            <SourceTag label="rankings/SOL" />
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-blue-300/15 bg-blue-400/10 p-4">
+          <div className="flex items-center gap-2 font-mono text-[11px] text-blue-100 uppercase tracking-wide">
+            <CheckCircle2 className="h-3.5 w-3.5" strokeWidth={1.5} />
+            retrieval score
+          </div>
+          <div className="mt-5 space-y-3">
+            {["CMS article", "Guide index", "Market API"].map((item, index) => (
+              <div className="flex items-center gap-3" key={item}>
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-200" />
+                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-blue-200"
+                    style={{ width: `${88 - index * 13}%` }}
+                  />
+                </div>
+                <span className="w-20 font-mono text-[11px] text-zinc-400">
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 );
 
 interface Step {
@@ -91,11 +176,11 @@ const HowItWorks: React.FC = () => (
         const Icon = step.icon;
         return (
           <div
-            className="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-6"
+            className="rounded-2xl border border-white/10 bg-white/[0.035] p-6 shadow-sm backdrop-blur"
             key={step.id}
           >
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-md border border-zinc-600 bg-zinc-800 text-zinc-200">
+              <span className="flex h-9 w-9 items-center justify-center rounded-md border border-blue-300/20 bg-blue-400/10 text-blue-100">
                 <Icon className="h-5 w-5" strokeWidth={1.5} />
               </span>
               <span className="font-mono text-xs text-zinc-500">0{i + 1}</span>
@@ -126,17 +211,17 @@ const UseCase: React.FC = () => (
     </div>
 
     <div className="mt-10 grid gap-6 lg:grid-cols-2">
-      <div className="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-6">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-6 shadow-sm backdrop-blur">
         <p className="text-xs text-zinc-400 uppercase tracking-wide">
           Example question
         </p>
-        <p className="mt-3 rounded-xl bg-zinc-800/50 p-4 text-zinc-200">
+        <p className="mt-3 rounded-xl border border-white/10 bg-white/[0.045] p-4 text-zinc-200">
           What's Solana's market cap, and which guide should I read first?
         </p>
         <p className="mt-6 text-xs text-zinc-400 uppercase tracking-wide">
           Example answer
         </p>
-        <div className="mt-3 rounded-xl border border-zinc-700 bg-zinc-900/60 p-4 text-zinc-200">
+        <div className="mt-3 rounded-xl border border-blue-300/15 bg-blue-400/10 p-4 text-zinc-200">
           <p>
             Solana sits at <span className="text-zinc-100">$X.XB</span> market
             cap as of today. For a primer, start with{" "}
@@ -152,7 +237,7 @@ const UseCase: React.FC = () => (
           </div>
         </div>
       </div>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-800 lg:aspect-auto">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-zinc-800 shadow-2xl shadow-black/40 lg:aspect-auto">
         <Image
           alt="Chat UI mockup placeholder"
           className="object-cover"
@@ -208,7 +293,7 @@ const Included: React.FC = () => (
     <div className="mt-10 grid gap-4 md:grid-cols-2">
       {INCLUDED.map((item) => (
         <div
-          className="rounded-xl border border-zinc-700 bg-zinc-900/40 p-5"
+          className="rounded-xl border border-white/10 bg-white/[0.035] p-5 shadow-sm backdrop-blur"
           key={item.id}
         >
           <h3 className="font-display font-medium text-lg text-zinc-100">
@@ -229,7 +314,7 @@ const Estimate: React.FC = () => (
       </h2>
     </div>
     <div className="mt-10 grid gap-6 md:grid-cols-2">
-      <div className="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-8">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-8 shadow-sm backdrop-blur">
         <p className="text-xs text-zinc-400 uppercase tracking-wide">Setup</p>
         <p className="mt-2 font-bold font-display text-4xl text-zinc-100 md:text-5xl">
           $5,000–10,000
@@ -239,8 +324,8 @@ const Estimate: React.FC = () => (
           retrieval pipeline.
         </p>
       </div>
-      <div className="rounded-2xl border border-zinc-300/40 bg-gradient-to-br from-zinc-800 to-zinc-900 p-8">
-        <p className="text-xs text-zinc-300 uppercase tracking-wide">
+      <div className="rounded-2xl border border-blue-300/30 bg-[linear-gradient(145deg,rgba(37,99,235,0.18),rgba(39,39,42,0.82))] p-8 shadow-sm backdrop-blur">
+        <p className="text-blue-100/80 text-xs uppercase tracking-wide">
           Running costs
         </p>
         <p className="mt-2 font-bold font-display text-4xl text-white md:text-5xl">
