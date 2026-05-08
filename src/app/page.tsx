@@ -6,8 +6,8 @@ const Particles = lazy(() => import("./components/particles"));
 
 export default function Home() {
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
-      <div className="hidden h-px w-screen animate-fade-left animate-glow bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 md:block" />
+    <div className="flex h-screen w-screen flex-col items-center justify-center overflow-hidden bg-linear-to-tl from-black via-zinc-600/20 to-black">
+      <div className="hidden h-px w-screen animate-fade-left animate-glow bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 md:block" />
       <Suspense fallback={<div>Loading...</div>}>
         <Particles
           className="absolute inset-0 -z-10 animate-fade-in"
@@ -21,10 +21,10 @@ export default function Home() {
       >
         Decrypt
       </h1>
-      <div className="hidden h-px w-screen animate-fade-right animate-glow bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 md:block" />
+      <div className="hidden h-px w-screen animate-fade-right animate-glow bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 md:block" />
       <div className="my-16 animate-fade-in text-center">
         <h2 className="mx-8 text-base text-zinc-500 md:mx-32 lg:mx-80">
-          Hello, I am Decrypt, an independent graphic designer and web designer
+          Hello, I am Decrypt, an independent graphic and web designer and web dev
           with 10+ years of experience in the field. I currently work with{" "}
           <Link
             className="underline duration-500 hover:text-zinc-300"
