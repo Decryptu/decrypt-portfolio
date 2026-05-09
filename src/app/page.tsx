@@ -24,8 +24,8 @@ export default function Home() {
       <div className="hidden h-px w-screen animate-fade-right animate-glow bg-linear-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 md:block" />
       <div className="my-16 animate-fade-in text-center">
         <h2 className="mx-8 text-base text-zinc-500 md:mx-32 lg:mx-80">
-          Hello, I am Decrypt, an independent graphic and web designer and web dev
-          with 10+ years of experience in the field. I currently work with{" "}
+          Hello, I am Decrypt, an independent graphic and web designer and web
+          dev with 10+ years of experience in the field. I currently work with{" "}
           <Link
             className="underline duration-500 hover:text-zinc-300"
             href="https://decrypt.im/projects/defillama"
