@@ -10,6 +10,8 @@ const PAIRS: readonly Pair[] = [
   { id: "thumb-2", label: "Thumbnail" },
   { id: "thumb-3", label: "Thumbnail" },
   { id: "thumb-4", label: "Thumbnail" },
+  { id: "thumb-5", label: "Thumbnail" },
+  { id: "thumb-6", label: "Thumbnail" },
 ] as const;
 
 interface Stat {
