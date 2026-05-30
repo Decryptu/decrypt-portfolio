@@ -1,6 +1,6 @@
 ---
 title: NoticeMeAI
-description: An AI SEO audit tool I designed and developed with Next.js, focused on helping websites improve LLM visibility, GEO/AEO readiness, and agent-friendly technical signals.
+description: An AI SEO and LLM rank tracking tool I designed and developed with Next.js, focused on helping websites measure visibility inside ChatGPT, Claude, Gemini, and other AI search surfaces.
 date: "2026-04-25"
 url: https://noticemeai.com
 tags: ["Dev", "UI", "UX"]
@@ -10,13 +10,14 @@ icon: "Bot"
 
 ## NoticeMeAI
 
-NoticeMeAI is an AI SEO audit tool I designed and developed end to end. It works like a Lighthouse-style scanner for LLM visibility, helping website owners understand whether their pages can be discovered, parsed, cited, and recommended by AI search engines and agents.
+NoticeMeAI is an AI SEO and LLM visibility tool I designed and developed end to end. It works like a Lighthouse-style scanner for AI search readiness, and now also checks how a website ranks inside ChatGPT, Claude, and Gemini for a specific prompt.
 
 The product focuses on **LLM SEO**, **GEO**, **AEO**, and agent readiness. It checks the technical signals that matter for tools like ChatGPT, Claude, Perplexity, Gemini, Google AI Overviews, and emerging AI agents.
 
 ## Core Product Focus
 
 - **AI visibility scoring**: grades websites across crawl access, extractability, structured data, citation readiness, prompt visibility, and agent readiness
+- **LLM rank tracking**: runs one prompt across ChatGPT, Claude, and Gemini to see whether a site is cited, where it ranks, and which sources appear ahead of it
 - **Lightweight scanning**: static HTTP fetches only, with no headless browser dependency
 - **Secure by default**: SSRF-safe fetch layer, rate limits, scoped reports, and Redis-only report storage with a 24h TTL
 - **Actionable output**: clear findings, Markdown/JSON exports, and AI-generated recommendations for paid scans
@@ -27,6 +28,8 @@ The product focuses on **LLM SEO**, **GEO**, **AEO**, and agent readiness. It ch
 - Full paid scan with schema, well-known, agent-readiness, and commerce protocol checks
 - Site-type-aware recommendations for SaaS, ecommerce, local business, documentation, marketplaces, and more
 - Pro competitor comparison using lightweight homepage signal checks
+- Live rank checks across ChatGPT, Claude, and Gemini from a single prompt
+- Source comparison showing which cited pages outrank the target website
 - Scan queue powered by BullMQ, Redis, and a separate worker process
 - Stripe subscriptions with Starter and Pro plans
 - Better Auth sign-in with Google and GitHub
@@ -42,3 +45,9 @@ The product focuses on **LLM SEO**, **GEO**, **AEO**, and agent readiness. It ch
 
 ### Scan Report
 ![NoticeMeAI scan report](/images/noticemeai-scan.webp)
+
+### AI Rank Checker
+![NoticeMeAI AI rank checker](/images/noticemeai-rankhome.webp)
+
+### Rank Results
+![NoticeMeAI rank results](/images/noticemeai-rankresult.webp)
