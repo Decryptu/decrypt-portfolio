@@ -67,13 +67,13 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
     <>
       <button
         aria-label={`Open image preview: ${alt}`}
-        className="block rounded-md border border-zinc-200 dark:border-zinc-800"
+        className="not-prose block overflow-hidden rounded-md border border-zinc-200 p-0 leading-none dark:border-zinc-800"
         onClick={() => setShow(true)}
         type="button"
       >
         <Image
           alt={alt}
-          className="rounded-md"
+          className="!m-0 block h-auto w-full"
           height={900}
           sizes="(min-width: 768px) 896px, 100vw"
           src={src}
