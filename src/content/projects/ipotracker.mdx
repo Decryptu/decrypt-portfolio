@@ -1,0 +1,53 @@
+---
+title: IPO Tracker
+description: A real-time aggregator for upcoming IPOs and pre-IPO assets, bringing Hyperliquid HIP-3 perps, Jupiter PreStocks, official IPO data, and broker links together under one canonical company entity.
+date: "2026-06-05"
+url: https://ipotracker.app
+tags: ["Dev", "UI", "UX"]
+published: true
+icon: "ChartCandlestick"
+---
+
+## IPO Tracker
+
+IPO Tracker is a real-time aggregator for upcoming IPOs and pre-IPO assets. It helps users find the next IPO, see which companies are about to go public, and compare every available source for a company under one canonical entity.
+
+The core idea is simple: no single number is the price of a private company. Hyperliquid HIP-3 pre-IPO perps, Jupiter PreStocks, official IPO pages, and broker listings can all imply different valuations. IPO Tracker brings those sources together so the spread itself becomes visible.
+
+![IPO Tracker homepage with IPO list](/images/ipotracker-home.webp)
+
+### What It Does
+
+IPO Tracker aggregates pre-IPO and IPO-related markets into one public interface:
+
+- **Canonical company pages**: Every source for a company is grouped under one entity.
+- **Live market data**: Prices, charts, and implied valuations update in real time.
+- **Source switching**: Users can move between Hyperliquid HIP-3 perps, Jupiter PreStocks, official IPO data, and broker links.
+- **IPO discovery**: The list and calendar make it easy to track companies that may go public soon.
+- **Public by default**: No wallet or account is required for browsing data.
+
+### Asset Pages
+
+Each company page is designed as a focused market view. Users can inspect live prices, chart movement, source-specific data, and links to external venues from a single place.
+
+For Hyperliquid HIP-3 markets, a wallet is only used when the user wants in-app trading. Everything else remains public and accessible without authentication.
+
+![IPO Tracker asset page with chart and price data](/images/ipotracker-asset.webp)
+
+### Search Experience
+
+Search is built around fast company discovery. The modal keeps the experience lightweight while still surfacing the important context users need before opening an asset page.
+
+![IPO Tracker search modal](/images/ipotracker-search.webp)
+
+### Aggregation Backend
+
+All list, chart, and calendar data comes from IPO Tracker's own aggregation backend. The browser never calls upstream providers directly, which keeps the frontend fast, consistent, and easier to reason about.
+
+The backend normalizes fragmented market sources into canonical company entities, then exposes the data needed for the homepage, search modal, calendar, and asset views.
+
+### Product Positioning
+
+IPO Tracker is built as an informational market-data product, not as a broker, exchange, dealer, or financial adviser. The interface is explicit that aggregated data can be delayed, incomplete, or inaccurate, and that pre-IPO and IPO-related instruments are high-risk and jurisdiction-dependent.
+
+That disclaimer is part of the product design: users get a clear data surface, but the app avoids presenting aggregated market signals as investment advice or recommendations.
