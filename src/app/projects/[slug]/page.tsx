@@ -4,6 +4,7 @@ import { projects } from "#site/content";
 import { Mdx } from "@/app/components/mdx";
 import { shouldUseRedis } from "@/lib/redis-guard";
 import { Header } from "./header";
+import { Toc } from "./toc";
 import "./mdx.css";
 
 // Enable ISR: pages are statically generated but revalidate every 60 seconds
@@ -74,10 +75,16 @@ export default async function PostPage(props: Props) {
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
       <Header project={project} views={views} />
 
-      <article className="prose prose-zinc dark:prose-invert prose-quoteless mx-auto max-w-4xl px-4 py-12">
-        {" "}
-        <Mdx code={project.body} />
-      </article>
+      <div className="mx-auto flex max-w-6xl gap-8 px-4 py-12">
+        <article className="prose prose-zinc dark:prose-invert prose-quoteless min-w-0 max-w-4xl flex-1">
+          <Mdx code={project.body} />
+        </article>
+        <aside className="hidden w-56 shrink-0 lg:block">
+          <div className="sticky top-24">
+            <Toc />
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }
