@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { Meteors } from "./components/meteors";
 
 const Particles = lazy(() => import("./components/particles"));
+const linkClassName = "underline duration-500 hover:text-zinc-300";
 
 export default function Home() {
   return (
@@ -28,45 +29,66 @@ export default function Home() {
           with 10+ years of experience across graphic design, web design, UI/UX,
           and web/mobile app development. I currently work with{" "}
           <Link
-            className="underline duration-500 hover:text-zinc-300"
+            className={linkClassName}
             href="https://decrypt.im/projects/defillama"
           >
             DefiLlama
-          </Link>{" "}
-          &{" "}
-          <Link
-            className="underline duration-500 hover:text-zinc-300"
-            href="https://decrypt.im/projects/defillama"
-          >
-            LlamaPay
           </Link>
           , and have ongoing collaborations with{" "}
           <Link
-            className="underline duration-500 hover:text-zinc-300"
+            className={linkClassName}
             href="https://decrypt.im/projects/cryptoast"
           >
             Cryptoast
           </Link>{" "}
           &{" "}
           <Link
-            className="underline duration-500 hover:text-zinc-300"
+            className={linkClassName}
             href="https://decrypt.im/projects/adan"
           >
             Adan
           </Link>
           . I am CTO of{" "}
           <Link
-            className="underline duration-500 hover:text-zinc-300"
+            className={linkClassName}
             href="https://decrypt.im/projects/oak"
           >
             OAK Research
           </Link>{" "}
           and founder of{" "}
           <Link
-            className="underline duration-500 hover:text-zinc-300"
+            className={linkClassName}
             href="https://decrypt.im/projects/pandia"
           >
             PandIA
+          </Link>
+          ,{" "}
+          <Link
+            className={linkClassName}
+            href="https://decrypt.im/projects/ipotracker"
+          >
+            IPO Tracker
+          </Link>
+          ,{" "}
+          <Link
+            className={linkClassName}
+            href="https://decrypt.im/projects/movrank"
+          >
+            Movrank
+          </Link>
+          ,{" "}
+          <Link
+            className={linkClassName}
+            href="https://decrypt.im/projects/lutincognito"
+          >
+            Lutincognito
+          </Link>
+          , and{" "}
+          <Link
+            className={linkClassName}
+            href="https://decrypt.im/projects/noticemeai"
+          >
+            NoticeMeAI
           </Link>
           .
         </h2>
