@@ -90,6 +90,13 @@ export default function Home() {
           >
             NoticeMeAI
           </Link>
+          , and{" "}
+          <Link
+            className={linkClassName}
+            href="https://decrypt.im/projects/pokerestore"
+          >
+            PokéRestore
+          </Link>
           .
         </h2>
       </div>
