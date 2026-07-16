@@ -2,6 +2,15 @@
 
 import { Resend } from "resend";
 import { z } from "zod";
+import {
+  containsBannedKeyword,
+  getClientIpHash,
+  isBanned,
+  looksLikeGibberish,
+  recordSpamHit,
+  recordSubmissionAndCheckLimit,
+  verifyCaptcha,
+} from "@/lib/spam-guard";
 
 const FROM_ADDRESS = process.env.RESEND_FROM ?? "onboarding@resend.dev";
 const TO_ADDRESS = process.env.CONTACT_EMAIL ?? "";
@@ -35,7 +44,16 @@ const inputSchema = z.discriminatedUnion("kind", [
 
 export type ContactInput = z.infer<typeof inputSchema>;
 
-export type ContactResult = { ok: true } | { ok: false; error: string };
+export interface ContactSecurity {
+  captchaAnswer: string;
+  captchaToken: string;
+  /** Hidden field. Real visitors never fill it in; bots usually do. */
+  honeypot?: string;
+}
+
+export type ContactResult =
+  | { ok: true }
+  | { ok: false; error: string; captchaError?: boolean };
 
 const escapeHtml = (value: string): string =>
   value
@@ -106,12 +124,76 @@ const renderAiChat = (
   return { subject, html };
 };
 
+const looksLikeSpam = (data: z.infer<typeof inputSchema>): boolean =>
+  containsBannedKeyword(
+    data.email,
+    data.company,
+    data.kind === "ai-chat" ? data.description : data.freeText,
+    data.kind === "automation" ? data.name : undefined
+  ) ||
+  looksLikeGibberish(data.company) ||
+  looksLikeGibberish(
+    data.kind === "ai-chat" ? data.description : data.freeText
+  ) ||
+  looksLikeGibberish(data.kind === "automation" ? data.name : undefined);
+
+/** Returns a fake-success result once a spam signal fires, banning the IP behind it. */
+async function checkSpamGuards(
+  data: z.infer<typeof inputSchema>,
+  security: ContactSecurity,
+  ipHash: string | null
+): Promise<ContactResult | null> {
+  if (ipHash && (await isBanned(ipHash))) {
+    return { ok: true };
+  }
+
+  if (security.honeypot && security.honeypot.trim() !== "") {
+    if (ipHash) {
+      await recordSpamHit(ipHash);
+    }
+    return { ok: true };
+  }
+
+  if (looksLikeSpam(data)) {
+    if (ipHash) {
+      await recordSpamHit(ipHash);
+    }
+    return { ok: true };
+  }
+
+  if (ipHash && (await recordSubmissionAndCheckLimit(ipHash))) {
+    return { ok: true };
+  }
+
+  return null;
+}
+
 export async function submitContact(
-  input: ContactInput
+  input: ContactInput,
+  security: ContactSecurity
 ): Promise<ContactResult> {
   const parsed = inputSchema.safeParse(input);
   if (!parsed.success) {
     return { ok: false, error: "Invalid form data" };
+  }
+
+  const ipHash = await getClientIpHash();
+
+  const spamResult = await checkSpamGuards(parsed.data, security, ipHash);
+  if (spamResult) {
+    return spamResult;
+  }
+
+  const captchaOk = await verifyCaptcha(
+    security.captchaToken,
+    security.captchaAnswer
+  );
+  if (!captchaOk) {
+    return {
+      ok: false,
+      error: "That answer isn't quite right, please try again.",
+      captchaError: true,
+    };
   }
 
   const apiKey = process.env.RESEND_API_KEY;
