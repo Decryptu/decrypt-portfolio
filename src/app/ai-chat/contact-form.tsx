@@ -1,16 +1,23 @@
 "use client";
 
 import { Check, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { submitContact } from "@/lib/contact-actions";
+import { getContactCaptcha } from "@/lib/spam-actions";
 
 interface State {
   company: string;
   description: string;
   email: string;
+  honeypot: string;
 }
 
-const initial: State = { description: "", email: "", company: "" };
+const initial: State = {
+  description: "",
+  email: "",
+  company: "",
+  honeypot: "",
+};
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -20,31 +27,54 @@ export const ContactForm: React.FC = () => {
   const [state, setState] = useState<State>(initial);
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [captcha, setCaptcha] = useState<{
+    question: string;
+    token: string;
+  } | null>(null);
+  const [captchaAnswer, setCaptchaAnswer] = useState("");
+
+  useEffect(() => {
+    getContactCaptcha().then(setCaptcha);
+  }, []);
 
   const canSubmit =
     state.description.trim() !== "" &&
     state.email.trim() !== "" &&
-    EMAIL_REGEX.test(state.email);
+    EMAIL_REGEX.test(state.email) &&
+    captchaAnswer.trim() !== "" &&
+    captcha !== null;
 
   const submit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    if (!canSubmit) {
+    if (!(canSubmit && captcha)) {
       return;
     }
     setStatus("submitting");
     setErrorMessage("");
-    const result = await submitContact({
-      kind: "ai-chat",
-      description: state.description,
-      email: state.email,
-      company: state.company || undefined,
-    });
+    const result = await submitContact(
+      {
+        kind: "ai-chat",
+        description: state.description,
+        email: state.email,
+        company: state.company || undefined,
+      },
+      {
+        honeypot: state.honeypot,
+        captchaToken: captcha.token,
+        captchaAnswer,
+      }
+    );
     if (result.ok) {
       setStatus("success");
       setState(initial);
+      setCaptchaAnswer("");
     } else {
       setStatus("error");
       setErrorMessage(result.error);
+      if (result.captchaError) {
+        setCaptchaAnswer("");
+        getContactCaptcha().then(setCaptcha);
+      }
     }
   };
 
@@ -118,6 +148,36 @@ export const ContactForm: React.FC = () => {
             value={state.company}
           />
         </label>
+        {/* Honeypot: hidden from real visitors, bots tend to fill every field. */}
+        <label
+          aria-hidden="true"
+          className="absolute left-[-9999px] h-0 w-0 overflow-hidden"
+        >
+          Leave this field empty
+          <input
+            autoComplete="off"
+            name="website"
+            onChange={(e) =>
+              setState((prev) => ({ ...prev, honeypot: e.target.value }))
+            }
+            tabIndex={-1}
+            type="text"
+            value={state.honeypot}
+          />
+        </label>
+        {captcha && (
+          <label className="block">
+            <span className="mb-1 block text-xs text-zinc-400 uppercase tracking-wide">
+              Quick check: {captcha.question} = ?
+            </span>
+            <input
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-400 focus:outline-none"
+              onChange={(e) => setCaptchaAnswer(e.target.value)}
+              required
+              value={captchaAnswer}
+            />
+          </label>
+        )}
       </div>
 
       {status === "error" && (

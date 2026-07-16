@@ -2,8 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, Check, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type ContactInput, submitContact } from "@/lib/contact-actions";
+import { getContactCaptcha } from "@/lib/spam-actions";
 
 interface Option {
   readonly description?: string;
@@ -90,6 +91,7 @@ interface State {
   answers: Record<string, Answer>;
   contact: ContactInfo;
   freeText: string;
+  honeypot: string;
   step: number;
 }
 
@@ -97,6 +99,7 @@ const initial: State = {
   step: 0,
   answers: {},
   freeText: "",
+  honeypot: "",
   contact: { email: "", name: "", company: "" },
 };
 
@@ -156,6 +159,15 @@ export const DecisionTree: React.FC = () => {
   const [state, setState] = useState<State>(initial);
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [captcha, setCaptcha] = useState<{
+    question: string;
+    token: string;
+  } | null>(null);
+  const [captchaAnswer, setCaptchaAnswer] = useState("");
+
+  useEffect(() => {
+    getContactCaptcha().then(setCaptcha);
+  }, []);
 
   const totalSteps = STEPS.length + 2;
   const progress = ((state.step + 1) / totalSteps) * 100;
@@ -194,6 +206,9 @@ export const DecisionTree: React.FC = () => {
   };
 
   const submit = async (): Promise<void> => {
+    if (!captcha) {
+      return;
+    }
     setStatus("submitting");
     setErrorMessage("");
     const estimate = estimateFor(state.answers);
@@ -212,12 +227,20 @@ export const DecisionTree: React.FC = () => {
       estimateLabel: estimate.label,
     };
 
-    const result = await submitContact(payload);
+    const result = await submitContact(payload, {
+      honeypot: state.honeypot,
+      captchaToken: captcha.token,
+      captchaAnswer,
+    });
     if (result.ok) {
       setStatus("success");
     } else {
       setStatus("error");
       setErrorMessage(result.error);
+      if (result.captchaError) {
+        setCaptchaAnswer("");
+        getContactCaptcha().then(setCaptcha);
+      }
     }
   };
 
@@ -241,7 +264,10 @@ export const DecisionTree: React.FC = () => {
   })();
 
   const canSubmit =
-    state.contact.email.trim() !== "" && EMAIL_REGEX.test(state.contact.email);
+    state.contact.email.trim() !== "" &&
+    EMAIL_REGEX.test(state.contact.email) &&
+    captchaAnswer.trim() !== "" &&
+    captcha !== null;
 
   return (
     <section
@@ -279,6 +305,9 @@ export const DecisionTree: React.FC = () => {
             setOther,
             setState,
             reset,
+            captcha,
+            captchaAnswer,
+            setCaptchaAnswer,
           })}
         </AnimatePresence>
 
@@ -375,12 +404,15 @@ const Recap: React.FC<RecapProps> = ({ answers }) => {
 };
 
 interface BodyArgs {
+  captcha: { question: string; token: string } | null;
+  captchaAnswer: string;
   currentStep: Step;
   errorMessage: string;
   isFreeTextStep: boolean;
   isOptionStep: boolean;
   reset: () => void;
   setAnswer: (id: string, value: string) => void;
+  setCaptchaAnswer: (value: string) => void;
   setOther: (id: string, other: string) => void;
   setState: React.Dispatch<React.SetStateAction<State>>;
   state: State;
@@ -547,6 +579,36 @@ const renderBody = (args: BodyArgs): React.ReactElement => {
           }
           value={args.state.contact.company}
         />
+        {/* Honeypot: hidden from real visitors, bots tend to fill every field. */}
+        <label
+          aria-hidden="true"
+          className="absolute left-[-9999px] h-0 w-0 overflow-hidden"
+        >
+          Leave this field empty
+          <input
+            autoComplete="off"
+            name="website"
+            onChange={(e) =>
+              args.setState((prev) => ({ ...prev, honeypot: e.target.value }))
+            }
+            tabIndex={-1}
+            type="text"
+            value={args.state.honeypot}
+          />
+        </label>
+        {args.captcha && (
+          <label className="block">
+            <span className="mb-1 block text-xs text-zinc-400 uppercase tracking-wide">
+              Quick check: {args.captcha.question} = ?
+            </span>
+            <input
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-400 focus:outline-none"
+              onChange={(e) => args.setCaptchaAnswer(e.target.value)}
+              required
+              value={args.captchaAnswer}
+            />
+          </label>
+        )}
       </div>
 
       <Recap answers={args.state.answers} />
