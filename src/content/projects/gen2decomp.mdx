@@ -1,0 +1,153 @@
+---
+title: gen2decomp
+description: An early-stage Godot 4 reimplementation of the Generation 2 Game Boy Color games, with native builds planned for desktop and mobile platforms.
+date: "2026-08-02"
+repository: https://github.com/Decryptu/gen2recomp
+tags: ["Dev", "Open Source", "Game"]
+published: true
+icon: "Gamepad2"
+---
+
+# gen2decomp
+
+![gen2decomp banner](/images/gen2decomp-banner.webp)
+
+gen2decomp is a work-in-progress, native [Godot 4](https://godotengine.org)
+reimplementation of the Generation 2 Game Boy Color games: Gold, Silver and
+Crystal. The project is published in the
+[gen2recomp repository](https://github.com/Decryptu/gen2recomp).
+
+This is not an emulator, a static recompilation or a disassembly. The engine is
+being written from scratch in GDScript. Your own cartridge dump is used as an
+asset database: it is verified, decoded into a local cache and then released.
+No game data is included in the repository.
+
+## Current status
+
+gen2decomp is still in an early development stage. The import gate and the first
+half of the importer are implemented and tested. A verified cartridge can
+already be decoded into species data, moves, items, types, palettes, Pokémon
+sprites, the font and text box borders. Sprites and text can be drawn on a real
+160x144 screen.
+
+The overworld, battle system, audio and mod loader are not implemented yet, so
+there is nothing playable here today. The first alpha release is coming soon.
+Until then, the repository is the place to follow development and try the
+project from source.
+
+## What you will be able to do
+
+Once the project reaches alpha, the
+[Releases page](https://github.com/Decryptu/gen2recomp/releases) will provide
+already-built executables for supported platforms. The project is targeting
+Windows, macOS, Linux, Android and iOS with Godot's GL Compatibility renderer.
+
+The current source already supports these workflows:
+
+- Verify a supported cartridge dump by SHA-1.
+- Import cartridge data into a cache stored in Godot's `user://` directory.
+- Preview decoded sprites, fonts and text box frames.
+- Dump decoded tables such as species, moves, items and types.
+- Open the sprite and text viewers in the Godot editor.
+- Run the automated tests without loading a real cartridge.
+
+## Before you start
+
+You need:
+
+- Godot 4.8 or newer.
+- A cartridge dump that you are legally allowed to use.
+- A clone of the [gen2recomp repository](https://github.com/Decryptu/gen2recomp).
+
+The project does not distribute ROMs, save files or extracted game assets. Put
+your own cartridge dumps in the repository's `roms/` folder. Matching is based
+on SHA-1, never on the filename, and an unknown dump is refused instead of
+being imported on a best-effort basis.
+
+## Quick start from source
+
+Clone the repository and enable its commit guard once per clone:
+
+```bash
+git clone https://github.com/Decryptu/gen2recomp.git
+cd gen2recomp
+git config core.hooksPath .githooks
+```
+
+Place a supported cartridge dump in `roms/`, then verify it:
+
+```bash
+godot --headless --path . -s res://tools/verify_rom.gd
+```
+
+Import the verified cartridge into the local cache:
+
+```bash
+godot --headless --path . -s res://tools/import_rom.gd
+```
+
+The import normally takes under a second per game. The cache is derived from
+your cartridge and stays in Godot's `user://` directory rather than being
+written into the project. Add `--verify` to run the checks without writing
+anything.
+
+## Supported cartridges
+
+The current importer recognises these dumps:
+
+| Game | SHA-1 |
+| --- | --- |
+| Gold (USA/Europe) | `d8b8a3600a465308c9953dfa04f0081c05bdcb94` |
+| Silver (USA/Europe) | `49b163f7e57702bc939d642a18f591de55d92dae` |
+| Crystal (USA/Europe Rev 1) | `f2f52230b536214ef7c9924f483392993e226cfb` |
+
+## Explore the imported data
+
+Generate a contact sheet of decoded sprites with:
+
+```bash
+godot --headless --path . -s res://tools/preview_pics.gd -- gold /tmp/gold.png front
+```
+
+Use `font` or `frames` instead of `front` to preview the decoded font or text
+box borders. You can also print decoded tables:
+
+```bash
+godot --headless --path . -s res://tools/dump_tables.gd -- gold moves
+```
+
+The table command accepts `species`, `moves`, `items`, `types` or `all`.
+
+## Run the viewers
+
+Open `game/render/pic_viewer.tscn` in Godot and press Play to inspect imported
+sprites. Use Left and Right to change species, `S` to toggle shiny sprites and
+`B` to switch between front and back sprites.
+
+Open `game/render/text_viewer.tscn` to inspect text rendering. Space advances
+the text box, `F` cycles through the eight borders and `C` displays the full
+font.
+
+The game screen is rendered at 160x144 and scaled by a whole number so the
+original pixel grid stays sharp.
+
+## Run the tests
+
+The project uses [GUT](https://github.com/bitwes/Gut) for its unit and
+integration tests:
+
+```bash
+godot --headless -s res://addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
+```
+
+The suite uses synthetic files and a known SHA-1 test vector, so it does not
+need a real cartridge. An exit code of `0` means the tests passed.
+
+## Links
+
+- [Source code on GitHub](https://github.com/Decryptu/gen2recomp)
+- [Downloads and alpha releases](https://github.com/Decryptu/gen2recomp/releases)
+- [Project README](https://github.com/Decryptu/gen2recomp#readme)
+
+The engine source is MIT licensed. The original games are not included or
+redistributed and remain the property of their respective owners.
