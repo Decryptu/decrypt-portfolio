@@ -5,14 +5,12 @@ import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import type { projects as projectsType } from "#site/content";
 import { Card } from "../components/card";
+import { ViewCount } from "../components/view-count";
 import IconMapper from "../icons/icon-mapper";
 import { Article } from "./article";
 import { TagFilter } from "./tag-filter";
 
 type Project = (typeof projectsType)[number];
-interface ViewsType {
-  [key: string]: number;
-}
 
 interface Props {
   allTags: string[];
@@ -20,7 +18,6 @@ interface Props {
   sorted: Project[];
   top2: Project;
   top3: Project;
-  views: ViewsType;
 }
 
 export const ProjectsContent: React.FC<Props> = ({
@@ -28,7 +25,6 @@ export const ProjectsContent: React.FC<Props> = ({
   top2,
   top3,
   sorted,
-  views,
   allTags,
 }) => {
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -79,9 +75,9 @@ export const ProjectsContent: React.FC<Props> = ({
         <div className="h-px flex-1 bg-zinc-800" />
       </div>
 
-      {hasHighlighted && (
+      {hasHighlighted ? (
         <div className="mx-auto grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {showFeatured && (
+          {showFeatured ? (
             <Card>
               <Link
                 className="block h-full"
@@ -102,18 +98,16 @@ export const ProjectsContent: React.FC<Props> = ({
                     </div>
                     <span className="flex items-center gap-1 text-xs text-zinc-500">
                       <Eye className="h-4 w-4" />
-                      {Intl.NumberFormat("en-US", {
-                        notation: "compact",
-                      }).format(views[featured.slugAsParams] ?? 0)}
+                      <ViewCount slug={featured.slugAsParams} type="projects" />
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    {featured.icon && (
+                    {featured.icon ? (
                       <IconMapper
                         className="mt-5 h-4 w-4 text-zinc-200 sm:h-6 sm:w-6"
                         name={featured.icon}
                       />
-                    )}
+                    ) : null}
                     <h2
                       className="mt-4 font-bold font-display text-3xl text-zinc-100 group-hover:text-white sm:text-4xl"
                       id="featured-post"
@@ -142,29 +136,23 @@ export const ProjectsContent: React.FC<Props> = ({
                 </article>
               </Link>
             </Card>
-          )}
-          {(showTop2 || showTop3) && (
+          ) : null}
+          {showTop2 || showTop3 ? (
             <div className="mx-auto flex w-full flex-col gap-8 border-gray-900/10 border-t lg:mx-0 lg:border-t-0">
               {showTop2 && (
                 <Card>
-                  <Article
-                    project={top2}
-                    views={views[top2.slugAsParams] ?? 0}
-                  />
+                  <Article project={top2} />
                 </Card>
               )}
               {showTop3 && (
                 <Card>
-                  <Article
-                    project={top3}
-                    views={views[top3.slugAsParams] ?? 0}
-                  />
+                  <Article project={top3} />
                 </Card>
               )}
             </div>
-          )}
+          ) : null}
         </div>
-      )}
+      ) : null}
 
       {hasHighlighted && filteredSorted.length > 0 && (
         <div className="hidden w-full items-center gap-4 md:flex">
@@ -183,10 +171,7 @@ export const ProjectsContent: React.FC<Props> = ({
               .filter((_, i) => i % 3 === 0)
               .map((project) => (
                 <Card key={project.slug}>
-                  <Article
-                    project={project}
-                    views={views[project.slugAsParams] ?? 0}
-                  />
+                  <Article project={project} />
                 </Card>
               ))}
           </div>
@@ -195,10 +180,7 @@ export const ProjectsContent: React.FC<Props> = ({
               .filter((_, i) => i % 3 === 1)
               .map((project) => (
                 <Card key={project.slug}>
-                  <Article
-                    project={project}
-                    views={views[project.slugAsParams] ?? 0}
-                  />
+                  <Article project={project} />
                 </Card>
               ))}
           </div>
@@ -207,10 +189,7 @@ export const ProjectsContent: React.FC<Props> = ({
               .filter((_, i) => i % 3 === 2)
               .map((project) => (
                 <Card key={project.slug}>
-                  <Article
-                    project={project}
-                    views={views[project.slugAsParams] ?? 0}
-                  />
+                  <Article project={project} />
                 </Card>
               ))}
           </div>

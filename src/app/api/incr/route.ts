@@ -1,6 +1,5 @@
 import { Redis } from "@upstash/redis";
 import { ipAddress } from "@vercel/functions";
-import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { shouldUseRedis } from "@/lib/redis-guard";
 
@@ -8,17 +7,6 @@ type ViewType = "projects" | "experiments";
 
 function isViewType(type: unknown): type is ViewType {
   return type === "projects" || type === "experiments";
-}
-
-function revalidateViewTags(type: ViewType, slug: string) {
-  if (type === "projects") {
-    revalidateTag(`project-views-${slug}`, "max");
-    revalidateTag("projects-views", "max");
-    return;
-  }
-
-  revalidateTag(`experiment-views-${slug}`, "max");
-  revalidateTag("experiments-views", "max");
 }
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
@@ -44,7 +32,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     // Locally we noop so dev pages don't try to reach Upstash.
     if (!shouldUseRedis()) {
-      return NextResponse.json({ views: 0, skipped: true }, { status: 202 });
+      return NextResponse.json({ skipped: true, views: 0 }, { status: 202 });
     }
 
     const redis = Redis.fromEnv();
@@ -66,8 +54,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         ["deduplicate", type, hash, slug].join(":"),
         true,
         {
-          nx: true,
           ex: 24 * 60 * 60,
+          nx: true,
         }
       );
 
@@ -78,7 +66,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     const views = await redis.incr(pageviewsKey);
-    revalidateViewTags(type, slug);
 
     return NextResponse.json({ views }, { status: 202 });
   } catch (error) {

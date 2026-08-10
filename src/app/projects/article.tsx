@@ -2,14 +2,14 @@ import { Eye } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
 import type { projects } from "#site/content";
+import { ViewCount } from "../components/view-count";
 import IconMapper from "../icons/icon-mapper";
 
 interface Props {
   project: (typeof projects)[number];
-  views: number;
 }
 
-export const Article: React.FC<Props> = ({ project, views }) => {
+export const Article: React.FC<Props> = ({ project }) => {
   // Memoize the date formatter
   const dateFormatter = useMemo(
     () =>
@@ -18,14 +18,6 @@ export const Article: React.FC<Props> = ({ project, views }) => {
       }),
     []
   );
-  const numberFormatter = useMemo(
-    () =>
-      new Intl.NumberFormat("en-US", {
-        notation: "compact",
-      }),
-    []
-  );
-
   // Avoid redundant new Date instantiation
   const projectDate = project.date ? new Date(project.date) : null;
 
@@ -44,16 +36,16 @@ export const Article: React.FC<Props> = ({ project, views }) => {
           </span>
           <span className="flex items-center gap-1 text-xs text-zinc-500">
             <Eye className="h-4 w-4" />
-            {numberFormatter.format(views)}
+            <ViewCount slug={project.slugAsParams} type="projects" />
           </span>
         </div>
         <div className="flex items-center gap-2">
-          {project.icon && (
+          {project.icon ? (
             <IconMapper
               className="mt-1 h-4 w-4 text-zinc-200 sm:h-6 sm:w-6"
               name={project.icon}
             />
-          )}
+          ) : null}
           <h2 className="z-20 font-display font-medium text-xl text-zinc-200 duration-1000 group-hover:text-white lg:text-3xl">
             {project.title}
           </h2>
