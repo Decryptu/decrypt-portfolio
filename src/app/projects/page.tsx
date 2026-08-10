@@ -1,65 +1,7 @@
-import { unstable_cache } from "next/cache";
 import { projects } from "#site/content";
-import { shouldUseRedis } from "@/lib/redis-guard";
 import { ProjectsContent } from "./projects-content";
 
-// Enable ISR: pages are statically generated but revalidate every 60 seconds
-export const revalidate = 60;
-
-// Define a type for the views object
-interface ViewsType {
-  [key: string]: number;
-}
-
-async function getViewsData(): Promise<ViewsType> {
-  // Only fetch views from real Vercel deployments with Redis configured.
-  if (shouldUseRedis()) {
-    try {
-      // Wrap Redis call with unstable_cache to allow SSG
-      const getCachedViewsData = unstable_cache(
-        async () => {
-          const { Redis } = await import("@upstash/redis");
-          const redis = Redis.fromEnv();
-
-          const viewsData = await redis.mget<number[]>(
-            ...projects.map((p) =>
-              ["pageviews", "projects", p.slugAsParams].join(":")
-            )
-          );
-
-          return viewsData.reduce((acc: ViewsType, v, i) => {
-            acc[projects[i].slugAsParams] = v ?? 0;
-            return acc;
-          }, {});
-        },
-        ["projects-views-all"],
-        {
-          revalidate: 60,
-          tags: ["projects-views"],
-        }
-      );
-
-      return await getCachedViewsData();
-    } catch (error) {
-      console.error("Failed to fetch views from Redis:", error);
-      // Fallback to zero views
-      return projects.reduce((acc: ViewsType, project) => {
-        acc[project.slugAsParams] = 0;
-        return acc;
-      }, {});
-    }
-  }
-
-  // Development fallback - return zero views for all projects
-  return projects.reduce((acc: ViewsType, project) => {
-    acc[project.slugAsParams] = 0;
-    return acc;
-  }, {});
-}
-
 export default async function ProjectsPage() {
-  const views = await getViewsData();
-
   // Find featured projects with fallbacks - using slugAsParams
   const featured = projects.find(
     (project) => project.slugAsParams === "defillama"
@@ -100,7 +42,6 @@ export default async function ProjectsPage() {
           sorted={sorted}
           top2={top2}
           top3={top3}
-          views={views}
         />
       </div>
     </div>

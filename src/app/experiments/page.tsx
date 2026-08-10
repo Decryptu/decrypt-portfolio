@@ -1,66 +1,8 @@
-import { unstable_cache } from "next/cache";
 import { experiments } from "#site/content";
-import { shouldUseRedis } from "@/lib/redis-guard";
 import { Card } from "../components/card";
 import { Article } from "./article";
 
-// Enable ISR: pages are statically generated but revalidate every 60 seconds
-export const revalidate = 60;
-
-// Define a type for the views object
-interface ViewsType {
-  [key: string]: number;
-}
-
-async function getViewsData(): Promise<ViewsType> {
-  // Only fetch views from real Vercel deployments with Redis configured.
-  if (shouldUseRedis()) {
-    try {
-      // Wrap Redis call with unstable_cache to allow SSG
-      const getCachedViewsData = unstable_cache(
-        async () => {
-          const { Redis } = await import("@upstash/redis");
-          const redis = Redis.fromEnv();
-
-          const viewsData = await redis.mget<number[]>(
-            ...experiments.map((p) =>
-              ["pageviews", "experiments", p.slugAsParams].join(":")
-            )
-          );
-
-          return viewsData.reduce((acc: ViewsType, v, i) => {
-            acc[experiments[i].slugAsParams] = v ?? 0;
-            return acc;
-          }, {});
-        },
-        ["experiments-views-all"],
-        {
-          revalidate: 60,
-          tags: ["experiments-views"],
-        }
-      );
-
-      return await getCachedViewsData();
-    } catch (error) {
-      console.error("Failed to fetch views from Redis:", error);
-      // Fallback to zero views
-      return experiments.reduce((acc: ViewsType, experiment) => {
-        acc[experiment.slugAsParams] = 0;
-        return acc;
-      }, {});
-    }
-  }
-
-  // Development fallback - return zero views for all experiments
-  return experiments.reduce((acc: ViewsType, experiment) => {
-    acc[experiment.slugAsParams] = 0;
-    return acc;
-  }, {});
-}
-
 export default async function ExperimentsPage() {
-  const views = await getViewsData();
-
   // Sort all experiments by published date
   const sortedExperiments = experiments
     .filter((p) => p.published)
@@ -90,10 +32,7 @@ export default async function ExperimentsPage() {
                 .filter((_, i) => i % 3 === column)
                 .map((experiment) => (
                   <Card key={experiment.slug}>
-                    <Article
-                      experiment={experiment}
-                      views={views[experiment.slugAsParams] ?? 0}
-                    />
+                    <Article experiment={experiment} />
                   </Card>
                 ))}
             </div>
