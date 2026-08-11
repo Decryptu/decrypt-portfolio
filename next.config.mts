@@ -20,6 +20,13 @@ const createConfig = async (): Promise<NextConfig> => {
 
   return {
     pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+    redirects: async () => [
+      {
+        source: "/projects/gen2recomp",
+        destination: "/projects/pokerecomp",
+        permanent: true,
+      },
+    ],
     experimental: {
       mdxRs: true,
     },
