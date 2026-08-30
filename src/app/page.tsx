@@ -40,8 +40,8 @@ export default function Home() {
             href="https://decrypt.im/projects/cryptoast"
           >
             Cryptoast
-          </Link>{" "}
-          &{" "}
+          </Link>
+          {" and "}
           <Link
             className={linkClassName}
             href="https://decrypt.im/projects/adan"
@@ -72,30 +72,23 @@ export default function Home() {
           ,{" "}
           <Link
             className={linkClassName}
-            href="https://decrypt.im/projects/movrank"
-          >
-            Movrank
-          </Link>
-          ,{" "}
-          <Link
-            className={linkClassName}
             href="https://decrypt.im/projects/lutincognito"
           >
             Lutincognito
           </Link>
-          , and{" "}
-          <Link
-            className={linkClassName}
-            href="https://decrypt.im/projects/noticemeai"
-          >
-            NoticeMeAI
-          </Link>
-          , and{" "}
+          ,{" "}
           <Link
             className={linkClassName}
             href="https://decrypt.im/projects/pokerestore"
           >
             PokéRestore
+          </Link>
+          {" and "}
+          <Link
+            className={linkClassName}
+            href="https://decrypt.im/projects/pokerecomp"
+          >
+            PokeRecomp
           </Link>
           .
         </h2>

@@ -1,6 +1,6 @@
 ---
-title: pokerecomp
-description: A work-in-progress native reimplementation of the Generation 2 Game Boy Color games, built in Godot 4.
+title: PokeRecomp
+description: A playable native reimplementation of the Generation 2 Game Boy Color games, built from scratch in Godot 4 and GDScript.
 date: "2026-08-02"
 url: https://pokerecomp.com/
 tags: ["Dev", "Open Source", "Game"]
@@ -8,26 +8,35 @@ published: true
 icon: "Gamepad2"
 ---
 
-# pokerecomp
+# PokeRecomp
 
-![Temporary pokerecomp project visual](/images/pokerecomp-home.webp)
+PokeRecomp is a native reimplementation of Pokémon Gold, Silver and Crystal,
+built from scratch in Godot 4 and GDScript. It is not an emulator: bring your
+own verified cartridge dump and the game decodes it locally.
 
-pokerecomp is a work-in-progress native reimplementation of the Generation 2
-Game Boy Color games, built from scratch in Godot 4 and GDScript.
+<video
+  aria-label="PokeRecomp gameplay"
+  autoPlay
+  className="not-prose my-8 block w-full overflow-hidden rounded-md border border-zinc-200 bg-zinc-950 dark:border-zinc-800"
+  controls
+  loop
+  muted
+  playsInline
+  preload="metadata"
+>
+  <source src="/videos/pokerecomp-gameplay.mp4" type="video/mp4" />
+</video>
 
-The actual recomp project is still in development and does not have a finished
-in-game UI yet. These visuals are temporary illustrations included while the
-first real screenshots are being prepared.
+The playable alpha supports Gold, Silver and Crystal across Windows, macOS,
+Linux, Android, iPhone and iPad, Nintendo Switch homebrew and ARM devices. It
+also supports keyboards, gamepads and touch controls.
 
-![Temporary pokerecomp cartridge visual](/images/pokerecomp-cartridges.webp)
+![PokeRecomp homepage and download options](/images/pokerecomp-home.webp)
 
-## Focus
+![PokeRecomp mod library](/images/pokerecomp-mods.webp)
 
-- **Game development:** Building a native experience in Godot 4 and GDScript.
-- **Engine development:** Creating the technical foundation for the
-  reimplementation from scratch.
-- **Data systems:** Verifying, importing and decoding cartridge data into a
-  local asset pipeline.
+## Highlights
 
-The project is coming soon, with the Godot recomp taking priority over the
-temporary visual material shown here.
+- Open-source Godot 4 engine under the MIT licence
+- Native builds for eight platforms
+- Built-in mod support for content, art and renderer replacements
