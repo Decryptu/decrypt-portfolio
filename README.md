@@ -18,7 +18,7 @@ bun dev
 ## Structure
 
 - `src/app/automations`: automation service page
-- `src/app/ai-chat`: AI chat service page
+- `src/app/_ai-chat`: AI chat service page, kept out of routing as a private folder
 - `src/app/projects`: portfolio projects
 - `src/app/experiments`: visual experiments
 - `src/lib/contact-actions.ts`: shared contact form action

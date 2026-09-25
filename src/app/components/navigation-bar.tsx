@@ -7,7 +7,6 @@ import {
   Contact,
   Ellipsis,
   Home,
-  MessageSquareQuote,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -80,11 +79,6 @@ const NavigationBar = () => {
       path: "/automations",
       Icon: Bot,
       label: "Automations",
-    },
-    {
-      path: "/ai-chat",
-      Icon: MessageSquareQuote,
-      label: "AI Chat",
     },
     { path: "/contact", Icon: Contact, label: "Contact" },
   ] as const;

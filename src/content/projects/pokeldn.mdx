@@ -1,0 +1,44 @@
+---
+title: PokeLDN
+description: Hosting and joining Nintendo Switch local wireless sessions with retail Pokémon games from a computer, through an ESP32 board acting as the radio.
+date: "2026-09-25"
+repository: https://github.com/Decryptu/pokeldn
+url: https://decryptu.github.io/pokeldn/
+tags: ["Dev", "Open Source", "Game"]
+published: true
+icon: "RadioTower"
+---
+
+# PokeLDN
+
+PokeLDN talks directly to retail Pokémon games over the Switch's local
+wireless (LDN) protocol. An ESP32 board on USB serial is the radio, and any
+computer running Python becomes a player the console can trade with. Nothing
+is installed on the Switch or Switch 2.
+
+<video
+  aria-label="PokeLDN trading with Pokémon Scarlet"
+  autoPlay
+  className="not-prose my-8 block w-full overflow-hidden rounded-md border border-zinc-200 bg-zinc-950 dark:border-zinc-800"
+  controls
+  loop
+  muted
+  playsInline
+  preload="metadata"
+>
+  <source src="/videos/pokeldn-trade.mp4" type="video/mp4" />
+</video>
+
+Trading works with seven games, from FireRed and LeafGreen through Scarlet,
+Violet and Legends Z-A, along with Mystery Gift, Union Room and link battles
+where the games support them.
+
+## Skills
+
+- Protocol reverse engineering: LDN, Nintendo's Pia networking layer, the GBA
+  link protocol and each game's own trade and gift formats
+- Embedded C firmware for the ESP32 radio on ESP-IDF
+- Static analysis of Switch executables and ARM64 disassembly
+- ARM assembly payloads running native code on the console
+- Python networking, cryptography and binary formats
+- Public protocol documentation with citations for every finding
