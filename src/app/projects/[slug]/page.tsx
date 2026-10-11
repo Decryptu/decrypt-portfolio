@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects } from "#site/content";
 import { Mdx } from "@/app/components/mdx";
+import { pageMetadata } from "@/lib/seo";
 import { Header } from "./header";
 import { Toc } from "./toc";
 import "./mdx.css";
@@ -17,6 +19,40 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
     .map((p) => ({
       slug: p.slugAsParams,
     }));
+}
+
+const tagLabels: Record<string, string> = {
+  App: "App Design",
+  Dev: "Development",
+  Game: "Game Development",
+  Logo: "Logo Design",
+  NFT: "NFT Art",
+  Print: "Print Design",
+  UI: "UI/UX",
+  UX: "UI/UX",
+};
+
+const describeTags = (title: string, tags: string[]) => {
+  const labels = [...new Set(tags.map((tag) => tagLabels[tag] ?? tag))].filter(
+    (label) => !title.toLowerCase().includes(label.split(" ")[0].toLowerCase())
+  );
+
+  return labels.slice(0, 2).join(" & ") || "Design";
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((entry) => entry.slugAsParams === slug);
+
+  if (!project) {
+    return {};
+  }
+
+  return pageMetadata({
+    description: project.description,
+    path: `/projects/${project.slugAsParams}`,
+    title: `${project.title}: ${describeTags(project.title, project.tags ?? [])} Project`,
+  });
 }
 
 export default async function PostPage({ params }: Props) {

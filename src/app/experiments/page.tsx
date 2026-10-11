@@ -1,6 +1,15 @@
+import type { Metadata } from "next";
 import { experiments } from "#site/content";
+import { pageMetadata } from "@/lib/seo";
 import { Card } from "../components/card";
 import { Article } from "./article";
+
+export const metadata: Metadata = pageMetadata({
+  description:
+    "Copy-paste UI experiments for React, Next.js and Tailwind CSS: animated cards, spotlight and tilt effects, meteors, orbits, dot patterns and more.",
+  path: "/experiments",
+  title: "Laboratory: React & Tailwind CSS UI Experiments",
+});
 
 export default async function ExperimentsPage() {
   // Sort all experiments by published date

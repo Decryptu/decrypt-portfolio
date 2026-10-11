@@ -6,14 +6,15 @@ import NavigationBar from "./components/navigation-bar";
 import "./global.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://decrypt.im"),
   title: {
-    default: "Decrypt Portfolio",
-    template: "%s | Decrypt",
+    default: "Decrypt Portfolio | Independent Designer & Full-Stack Developer",
+    template: "%s | Decrypt Portfolio",
   },
   description:
     "Independent designer and full-stack developer specializing in graphic design, web design, UI/UX, and web/mobile app development.",
   openGraph: {
-    title: "Decrypt Portfolio",
+    title: "Decrypt Portfolio | Independent Designer & Full-Stack Developer",
     description:
       "Independent designer and full-stack developer specializing in graphic design, web design, UI/UX, and web/mobile app development.",
     url: "https://decrypt.im/",

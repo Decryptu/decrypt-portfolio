@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { experiments } from "#site/content";
+import { pageMetadata } from "@/lib/seo";
 import ExperimentMdx from "../experiment-mdx";
 import { Header } from "./header";
 import "./mdx.css";
@@ -12,6 +14,21 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   return experiments
     .filter((p) => p.published)
     .map((p) => ({ slug: p.slugAsParams }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const experiment = experiments.find((e) => e.slugAsParams === slug);
+
+  if (!experiment) {
+    return {};
+  }
+
+  return pageMetadata({
+    description: experiment.description,
+    path: `/experiments/${experiment.slugAsParams}`,
+    title: `${experiment.title}: React & Tailwind CSS Component`,
+  });
 }
 
 export default async function PostPage({ params }: Props) {

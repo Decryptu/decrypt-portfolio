@@ -3,7 +3,13 @@ import { experiments, projects } from "#site/content";
 
 const baseUrl = "https://decrypt.im";
 
-const staticPages = ["", "/contact", "/projects", "/experiments"] as const;
+const staticPages = [
+  "",
+  "/contact",
+  "/projects",
+  "/experiments",
+  "/automations",
+] as const;
 
 const withLastModified = (date?: string) =>
   date ? { lastModified: new Date(date) } : {};

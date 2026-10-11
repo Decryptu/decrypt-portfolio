@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import { projects } from "#site/content";
+import { pageMetadata } from "@/lib/seo";
 import { ProjectsContent } from "./projects-content";
+
+export const metadata: Metadata = pageMetadata({
+  description:
+    "Selected client and personal work: brand identities, logos, UI/UX for crypto and AI products, web apps, Chrome extensions, and native tools.",
+  path: "/projects",
+  title: "Projects: Branding, UI/UX Design & Web Development",
+});
 
 export default async function ProjectsPage() {
   // Find featured projects with fallbacks - using slugAsParams

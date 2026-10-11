@@ -5,11 +5,13 @@ import { Hero } from "./hero";
 import { SavingsCalculator } from "./savings-calculator";
 
 export const metadata: Metadata = {
-  title: "Automations",
+  title: "Automations: Custom Bots That Replace Costly SaaS",
+  alternates: { canonical: "/automations" },
   description:
     "Custom bots that replace expensive SaaS subscriptions with API-based automations, at roughly 10× lower cost, with artistic direction baked in.",
   openGraph: {
-    title: "Automations | Decrypt",
+    title:
+      "Automations: Custom Bots That Replace Costly SaaS | Decrypt Portfolio",
     description:
       "Custom bots that replace expensive SaaS subscriptions with API-based automations, at roughly 10× lower cost, with artistic direction baked in.",
     url: "https://decrypt.im/automations",
@@ -24,7 +26,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Automations | Decrypt",
+    title:
+      "Automations: Custom Bots That Replace Costly SaaS | Decrypt Portfolio",
     description:
       "Custom bots that replace expensive SaaS subscriptions with API-based automations, at roughly 10× lower cost, with artistic direction baked in.",
     images: ["https://decrypt.im/og-automations.png"],

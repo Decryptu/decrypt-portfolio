@@ -1,9 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { lazy, Suspense } from "react";
 import { Meteors } from "./components/meteors";
 
 const Particles = lazy(() => import("./components/particles"));
 const linkClassName = "underline duration-500 hover:text-zinc-300";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
