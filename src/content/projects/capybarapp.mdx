@@ -1,17 +1,21 @@
 ---
 title: CapybarApp
-description: Designed and developed Capybarapp's crypto dashboard entirely on my own, focusing on UI/UX and the overall design, using React.
+description: A cryptocurrency dashboard I designed and built with React, from the interface to the data visualizations.
 date: "2024-04-10"
 tags: ["UI", "Dev"]
 published: true
 icon: "Wand"
 ---
 
-CapybarApp outlines the transition from CapybarIA, an ambitious AI dashboard designed to visualize the dynamics of the AI ecosystem, to CapybarApp, a specialized crypto dashboard catering to the needs of cryptocurrency enthusiasts and traders. This shift was primarily driven by the high costs associated with managing the APIs required for AI data aggregation, prompting a strategic pivot to a more sustainable focus on cryptocurrency.
+CapybarApp started as a completely different project called CapybarIA, a dashboard for tracking AI-related data. I eventually dropped the original concept because of the cost of maintaining its data sources and turned it into a cryptocurrency dashboard instead.
 
-## CapybarIA: The Original AI Dashboard
+I handled the design and development of both projects myself, using React for the frontend.
 
-CapybarIA was initially developed as a data visualization platform aimed at analyzing the artificial intelligence ecosystem. It featured metrics such as the aggregated market cap of AI companies, rankings of open-source natural language processing engines, trends in developer activity on GitHub, and much more. The platform was developed in React and utilized ECharts for dynamic visualizations.
+## CapybarIA
+
+The original idea was to bring different AI-related metrics into a single dashboard. It included the combined market capitalization of AI companies, rankings of open-source language models, GitHub developer activity, and other statistics.
+
+I built the interface with React and used ECharts to display the data.
 
 ### UI/UX Design
 
@@ -21,11 +25,19 @@ CapybarIA was initially developed as a data visualization platform aimed at anal
 
 ![](/images/capybaria-app.webp)
 
-Despite its innovative approach and detailed analytics, CapybarIA faced challenges related to the sustainability of its data sources and the ongoing costs of API management, leading to its reevaluation.
+The main problem was the data. Most of the metrics relied on external APIs, and keeping everything updated was getting expensive. Rather than continue paying for those services, I decided to reuse the project for something else.
 
-## CapybarApp: A New Direction in Crypto Dashboard Design
+## CapybarApp
 
-Leveraging the core ideas and design principles from CapybarIA, CapybarApp was created as a comprehensive dashboard focusing entirely on the cryptocurrency market. This platform provides insights through a real-time top 100 cryptocurrency list, a crypto heat map, and countdowns to halving events across various coins. I crafted this platform from scratch, focusing on UI/UX and the overall design using React and advanced charting tools.
+CapybarApp kept the dashboard concept but switched its focus to cryptocurrencies.
+
+I redesigned the interface around crypto market data and built several features, including:
+
+- A live ranking of the top 100 cryptocurrencies
+- A heatmap showing cryptocurrency market performance
+- Halving countdowns for different cryptocurrencies
+
+The frontend was built with React, with charting libraries used for the data visualizations. I worked on everything from the layout and components to the overall visual design.
 
 ### UI/UX Design
 
@@ -33,8 +45,6 @@ Leveraging the core ideas and design principles from CapybarIA, CapybarApp was c
 
 ![](/images/capybarapp-1.webp)
 
-This redesign represents a strategic pivot to align the functionality with the needs and interests of crypto enthusiasts and traders. The interface was meticulously designed to ensure a seamless user experience while delivering deep, actionable insights into the crypto market.
+The goal was to keep the interface simple and make market information easy to read without cramming too much data onto the screen.
 
-## Conclusion
-
-The evolution from CapybarIA to CapybarApp exemplifies how adaptive design and strategic business decisions can lead to the development of more focused and sustainable digital products.
+CapybarApp ended up being a more focused version of the original project, with a different set of features and fewer dependencies on expensive data sources.
