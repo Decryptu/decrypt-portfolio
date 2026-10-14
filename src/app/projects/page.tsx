@@ -15,8 +15,8 @@ export default async function ProjectsPage() {
   const featured = projects.find(
     (project) => project.slugAsParams === "defillama"
   );
-  const top2 = projects.find((project) => project.slugAsParams === "cryptoast");
-  const top3 = projects.find((project) => project.slugAsParams === "oak");
+  const top2 = projects.find((project) => project.slugAsParams === "oak");
+  const top3 = projects.find((project) => project.slugAsParams === "cryptoast");
 
   // Check if featured projects exist
   if (!(featured && top2 && top3)) {
